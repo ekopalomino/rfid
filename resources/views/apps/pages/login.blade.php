@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Fiber Teknologi Inovasi | User Login</title>
+        <title>Learning Development | User Login</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -35,7 +35,7 @@
         <!-- BEGIN LOGO -->
         <div class="logo">
             <a href="">
-                <img src="{{ asset('assets/fibertekno.jpg') }}" alt="" /> </a>
+                <img src="{{ asset('assets/agrinesia.png') }}" alt="" /> </a>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
