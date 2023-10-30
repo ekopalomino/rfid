@@ -14,7 +14,7 @@
                 </a>
             </li>
             @can('Can Access Settings')
-            <li class="nav-item {{ set_active(['warehouse.index','location.index','uom-cat.index','uom-val.index','pay-method.index','pay-term.index','delivery-service.index']) }}">
+            <li class="nav-item {{ set_active(['warehouse.index','location.index','uom-cat.index','uom-val.index','uker.index']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Konfigurasi Umum</span>
@@ -26,8 +26,8 @@
                             <span class="title">Data Lokasi</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active(['warehouse.index']) }}">
-                        <a href="{{ route('warehouse.index') }}" class="nav-link">
+                    <li class="nav-item {{ set_active(['uker.index']) }}">
+                        <a href="{{ route('uker.index') }}" class="nav-link">
                             <span class="title">Data Departemen</span>
                         </a>
                     </li>
@@ -58,7 +58,7 @@
             </li>
             @endcan
             @can('Can Access Users')
-            <li class="nav-item {{ set_active(['user.index','user.profile','role.index','uker.index','user.log','role.create','role.edit']) }}">
+            <li class="nav-item {{ set_active(['user.index','user.profile','role.index','user.log','role.create','role.edit']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-users"></i>
                     <span class="title">Manajemen User</span>
@@ -73,11 +73,6 @@
                     <li class="nav-item {{ set_active(['role.index','role.create','role.edit']) }}">
                         <a href="{{ route('role.index') }}" class="nav-link ">
                             <span class="title">Hak Akses</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ set_active(['uker.index']) }}">
-                        <a href="{{ route('uker.index') }}" class="nav-link ">
-                            <span class="title">Unit Kerja</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['user.log']) }}">
