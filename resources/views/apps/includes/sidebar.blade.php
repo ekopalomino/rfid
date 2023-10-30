@@ -14,20 +14,28 @@
                 </a>
             </li>
             @can('Can Access Settings')
-            <li class="nav-item {{ set_active(['warehouse.index','uom-cat.index','uom-val.index','pay-method.index','pay-term.index','delivery-service.index']) }}">
+            <li class="nav-item {{ set_active(['warehouse.index','location.index','uom-cat.index','uom-val.index','pay-method.index','pay-term.index','delivery-service.index']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Konfigurasi Umum</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    @can('Disable')
-                    <li class="nav-item {{ set_active(['warehouse.index']) }}">
-                        <a href="{{ route('warehouse.index') }}" class="nav-link">
-                            <span class="title">Data Gudang</span>
+                    <li class="nav-item {{ set_active(['location.index']) }}">
+                        <a href="{{ route('location.index') }}" class="nav-link">
+                            <span class="title">Data Lokasi</span>
                         </a>
                     </li>
-                    @endcan
+                    <li class="nav-item {{ set_active(['warehouse.index']) }}">
+                        <a href="{{ route('warehouse.index') }}" class="nav-link">
+                            <span class="title">Data Departemen</span>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ set_active(['warehouse.index']) }}">
+                        <a href="{{ route('warehouse.index') }}" class="nav-link">
+                            <span class="title">Data Cabang</span>
+                        </a>
+                    </li>
                     <li class="nav-item {{ set_active(['delivery-service.index']) }}">
                         <a href="{{ route('delivery-service.index') }}" class="nav-link">
                             <span class="title">Jasa Pengiriman</span>
@@ -107,23 +115,18 @@
             <li class="nav-item {{ set_active(['product-cat.index','product.index','product.create','product.edit','product-bom.index','product-bom.create','product.show','product.barcode']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-social-dropbox"></i>
-            		<span class="title">Produk</span>
+            		<span class="title">Master Item</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                 	<li class="nav-item {{ set_active(['product.index','product.create','product.edit','product-bom.index','product-bom.create','product.show']) }}">
                 		<a href="{{ route('product.index') }}" class="nav-link ">
-                            <span class="title">Data Produk</span>
+                            <span class="title">Data Item</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['product-cat.index']) }}">
                 		<a href="{{ route('product-cat.index') }}" class="nav-link ">
-                            <span class="title">Kategori Produk</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ set_active(['product.barcode']) }}">
-                        <a href="{{ route('product.barcode') }}" class="nav-link ">
-                            <span class="title">Produk Barcode</span>
+                            <span class="title">Kategori Item</span>
                         </a>
                     </li>
                 </ul>

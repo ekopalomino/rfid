@@ -56,6 +56,10 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('settings/warehouse/edit/{id}','Apps\ConfigurationController@warehouseEdit')->name('warehouse.edit');
     Route::post('settings/warehouse/update/{id}','Apps\ConfigurationController@warehouseUpdate')->name('warehouse.update');
     Route::post('settings/warehouse/delete/{id}','Apps\ConfigurationController@warehouseDestroy')->name('warehouse.destroy');
+    Route::get('settings/location','Apps\ConfigurationController@locationIndex')->name('location.index');
+    Route::post('settings/location/create','Apps\ConfigurationController@locationStore')->name('location.store');
+    Route::get('settings/location/edit/{id}','Apps\ConfigurationController@locationEdit')->name('location.edit');
+    Route::post('settings/location/update/{id}','Apps\ConfigurationController@locationUpdate')->name('location.update');
     Route::get('settings/payment-methods','Apps\ConfigurationController@methodIndex')->name('pay-method.index');
     Route::post('settings/payment-methods/create','Apps\ConfigurationController@methodStore')->name('pay-method.store');
     Route::get('settings/payment-methods/edit/{id}','Apps\ConfigurationController@methodEdit')->name('pay-method.edit');

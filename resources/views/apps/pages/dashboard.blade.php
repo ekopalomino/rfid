@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Dashboard
+Agrinesia | Asset Management Dashboard
 @endsection
 @section('header.plugins')
 <link href="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') }}" rel="stylesheet" type="text/css" />
@@ -45,6 +45,7 @@ FiberTekno | Dashboard
         chart.draw(data, options);
     }
 </script>
+@endsection
 @section('content')
 <div class="page-content">
 	<div class="row">

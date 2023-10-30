@@ -5,6 +5,7 @@ namespace iteos\Http\Controllers\Apps;
 use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\Warehouse;
+use iteos\Models\Location;
 use iteos\Models\PaymentMethod;
 use iteos\Models\PaymentTerm;
 use iteos\Models\UomCategory;
@@ -93,6 +94,71 @@ class ConfigurationController extends Controller
 
         return redirect()->route('warehouse.index')->with($notification);
     }
+
+    public function locationIndex()
+    {
+        $data = Location::orderBy('location_name','asc')->get();
+        $warehouses = Warehouse::orderBy('name','asc')->pluck('name','id')->toArray();
+
+        return view('apps.pages.location',compact('data','warehouses'));
+    }
+
+    public function locationStore(Request $request)
+    {
+        $this->validate($request, [
+            'location_name' => 'required|unique:locations,location_name',
+            'location_detail' => 'required',
+            'warehouse_id' => 'required'
+        ]);
+
+        $input = [
+            'location_name' => $request->input('location_name'),
+            'warehouse_id' => $request->input('warehouse_id'),
+            'location_detail' => $request->input('location_detail'),
+            'created_by' => auth()->user()->name,
+        ];
+        $data = Location::create($input);
+        $log = 'Lokasi '.($data->location_name).' Berhasil Disimpan';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'Lokasi '.($data->location_name).' Berhasil Disimpan',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('location.index')->with($notification);
+    }
+
+    public function locationEdit($id)
+    {
+        $data = Location::find($id);
+        $warehouses = Warehouse::orderBy('name','asc')->pluck('name','id')->toArray();
+
+        return view('apps.edit.location',compact('data','warehouses'))->renderSections()['content'];
+    }
+    public function locationUpdate(Request $request,$id)
+    {
+        $this->validate($request, [
+            'location_name' => 'required',
+            'location_detail' => 'required',
+            'warehouse_id' => 'required'
+        ]);
+
+        $input = [
+            'location_name' => $request->input('location_name'),
+            'warehouse_id' => $request->input('warehouse_id'),
+            'location_detail' => $request->input('location_detail'),
+            'updated_by' => auth()->user()->name,
+        ];
+        $data = Location::find($id)->update($input);
+        $log = 'Lokasi '.($data->location_name).' Berhasil Diubah';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'Lokasi '.($data->location_name).' Berhasil Diubah',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('location.index')->with($notification);
+    } 
 
     public function methodIndex()
     {
