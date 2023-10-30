@@ -85,6 +85,8 @@ Agrinesia | Data Lokasi
                 				<th>Nama Cabang</th>
                                 <th>Nama Lokasi</th>
                                 <th>Detail Lokasi</th>
+                                <th>Dibuat</th>
+                                <th>Diubah</th>
                                 <th>Tgl Dibuat</th>
                 				<th></th>
                 			</tr>
@@ -96,6 +98,8 @@ Agrinesia | Data Lokasi
                 				<td>{{ $val->Warehouses->name }}</td>
                                 <td>{{ $val->location_name }}</td>
                                 <td>{{ $val->location_detail }}</td>
+                                <td>{{ $val->created_by }}</td>
+                                <td>{{ $val->updated_by }}</td>
                                 <td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@locationEdit',['id'=>$val->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>

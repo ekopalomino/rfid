@@ -36,11 +36,6 @@
                             <span class="title">Data Cabang</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active(['delivery-service.index']) }}">
-                        <a href="{{ route('delivery-service.index') }}" class="nav-link">
-                            <span class="title">Jasa Pengiriman</span>
-                        </a>
-                    </li>
                     <li class="nav-item {{ set_active(['uom-cat.index','uom-val.index']) }}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <span class="title">Satuan Ukur</span>
@@ -58,25 +53,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item {{ set_active(['pay-method.index','pay-term.index']) }}">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <span class="title">Kategori Pembayaran</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item {{ set_active(['pay-method.index']) }}">
-                                <a href="{{ route('pay-method.index') }}" class="nav-link ">
-                                    <span class="title">Metode</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ set_active(['pay-term.index']) }}">
-                                <a href="{{ route('pay-term.index') }}" class="nav-link ">
-                                    <span class="title">Jangka Waktu</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>                                    
+                    </li>                                  
                 </ul>
             </li>
             @endcan

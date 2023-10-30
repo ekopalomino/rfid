@@ -9,7 +9,9 @@ class Location extends Model
     protected $fillable = [
         'warehouse_id',
         'location_name',
-        'location_detail'
+        'location_detail',
+        'created_by',
+        'updated_by'
     ];
 
     public function Warehouses()

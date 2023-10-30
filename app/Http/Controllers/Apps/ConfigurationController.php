@@ -6,11 +6,8 @@ use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\Warehouse;
 use iteos\Models\Location;
-use iteos\Models\PaymentMethod;
-use iteos\Models\PaymentTerm;
 use iteos\Models\UomCategory;
 use iteos\Models\UomValue;
-use iteos\Models\DeliveryService;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
@@ -158,146 +155,20 @@ class ConfigurationController extends Controller
         );
 
         return redirect()->route('location.index')->with($notification);
-    } 
-
-    public function methodIndex()
-    {
-        $data = PaymentMethod::orderBy('name','asc')->get();
-
-        return view('apps.pages.paymentMethod',compact('data'));
     }
 
-    public function methodStore(Request $request)
+    public function locationDestroy($id)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:payment_methods,name',
-        ]);
-
-        $input = [
-            'name' => $request->input('name'),
-            'created_by' => auth()->user()->name,
-        ];
-        $data = PaymentMethod::create($input);
-        $log = 'Metode Pembayaran '.($data->name).' Berhasil Disimpan';
+        $data = Location::find($id);
+        $log = 'Lokasi '.($data->location_name).' Berhasil Dihapus';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Metode Pembayaran '.($data->name).' Berhasil Disimpan',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('pay-method.index')->with($notification);
-    }
-
-    public function methodEdit($id)
-    {
-        $data = PaymentMethod::find($id);
-
-        return view('apps.edit.paymentMethod',compact('data'))->renderSections()['content'];
-    }
-
-    public function methodUpdate(Request $request,$id)
-    {
-        $this->validate($request, [
-            'name' => 'required|unique:payment_methods,name',
-        ]);
-
-        $input = [
-            'name' => $request->input('name'),
-            'updated_by' => auth()->user()->name,
-        ];
-        $data = PaymentMethod::find($id)->update($input);
-        $log = 'Metode Pembayaran '.($data->name).' Berhasil Diubah';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Metode Pembayaran '.($data->name).' Berhasil Diubah',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('pay-method.index')->with($notification);
-    }
-
-    public function methodDestroy($id)
-    {
-        $data = PaymentMethod::find($id);
-        $log = 'Metode Pembayaran '.($data->name).' Berhasil Dihapus';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Metode Pembayaran '.($data->name).' Berhasil Dihapus',
+            'message' => 'Lokasi '.($data->location_name).' Berhasil Dihapus',
             'alert-type' => 'success'
         );
         $data->delete();
 
-        return redirect()->route('pay-method.index')->with($notification);
-    }
-
-    public function termIndex()
-    {
-        $data = PaymentTerm::orderBy('name','asc')->get();
-
-        return view('apps.pages.paymentTerm',compact('data'));
-    }
-
-    public function termStore(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|unique:payment_terms,name',
-        ]);
-
-        $input = [
-            'name' => $request->input('name'),
-            'created_by' => auth()->user()->name,
-        ];
-        $data = PaymentTerm::create($input);
-        $log = 'Termin Pembayaran '.($data->name).' Berhasil Disimpan';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Termin Pembayaran '.($data->name).' Berhasil Disimpan',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('pay-term.index')->with($notification);
-    }
-
-    public function termEdit($id)
-    {
-        $data = PaymentTerm::find($id);
-
-        return view('apps.edit.paymentTerm',compact('data'))->renderSections()['content'];
-    }
-
-    public function termUpdate(Request $request,$id)
-    {
-        $this->validate($request, [
-            'name' => 'required|unique:payment_terms,name',
-        ]);
-
-        $input = [
-            'name' => $request->input('name'),
-            'updated_by' => auth()->user()->name,
-        ];
-        $data = PaymentTerm::find($id)->update($input);
-        $log = 'Termin Pembayaran '.($data->name).' Berhasil Diubah';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Termin Pembayaran '.($data->name).' Berhasil Diubah',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('pay-term.index')->with($notification);
-    }
-
-    public function termDestroy($id)
-    {
-        $data = PaymentTerm::find($id);
-        $log = 'Termin Pembayaran '.($data->name).' Berhasil Dihapus';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Termin Pembayaran '.($data->name).' Berhasil Dihapus',
-            'alert-type' => 'success'
-        );
-        $data->delete();
-
-        return redirect()->route('pay-term.index')->with($notification);
+        return redirect()->route('warehouse.index')->with($notification);
     }
 
     public function uomcatIndex()
@@ -452,78 +323,5 @@ class ConfigurationController extends Controller
         $data->delete();
 
         return redirect()->route('uom-val.index')->with($notification);
-    }
-
-    public function deliveryServiceIndex()
-    {
-        $data = DeliveryService::orderBy('created_at','ASC')->get();
-        
-        return view('apps.pages.deliveryService',compact('data'));
-    }
-
-    public function deliveryServiceStore(Request $request)
-    {
-        $this->validate($request, [
-            'delivery_name' => 'required|unique:delivery_services,delivery_name',
-        ]);
-
-        $input = [
-            'delivery_name' => $request->input('delivery_name'),
-            'created_by' => auth()->user()->name,
-        ];
-
-        $data = DeliveryService::create($input);
-        $log = 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Disimpan';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Disimpan',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('delivery-service.index')->with($notification);
-    }
-
-    public function deliveryServiceEdit($id)
-    {
-        $data = DeliveryService::find($id);
-        
-        return view('apps.edit.deliveryService',compact('data'))->renderSections()['content'];
-    }
-
-    public function deliveryServiceUpdate(Request $request,$id)
-    {
-        $this->validate($request, [
-            'delivery_name' => 'required',
-        ]);
-
-        $data = DeliveryService::find($id);
-        $data->update([
-            'delivery_name' => $request->input('delivery_name'),
-            'updated_by' => auth()->user()->name,
-        ]);
-
-        $log = 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Diubah';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Diubah',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->route('delivery-service.index')->with($notification);
-    }
-
-    public function deliveryServiceDelete($id)
-    {
-        $data = DeliveryService::find($id);
-        
-        $log = 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Dihapus';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Jasa Pengiriman '.($data->delivery_name).' Berhasil Dihapus',
-            'alert-type' => 'success'
-        );
-        $data->delete();
-
-        return redirect()->route('delivery-service.index')->with($notification);
     }
 }
