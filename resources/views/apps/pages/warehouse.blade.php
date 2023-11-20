@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Gudang
+Agrinesia | Branches
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ FiberTekno | Gudang
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Data Gudang 
+                        <i class="fa fa-database"></i>Branches 
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -33,7 +33,7 @@ FiberTekno | Gudang
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Tambah Baru </a>
+                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New </a>
                                 </td>
                             </tr>
                         </div>
@@ -47,21 +47,21 @@ FiberTekno | Gudang
                                     @csrf
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h4 class="modal-title">Data Gudang Baru</h4>
+                                        <h4 class="modal-title">New Branch</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama Gudang</label>
-                                                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                                    <label class="control-label">Branch Name</label>
+                                                    {!! Form::text('name', null, array('placeholder' => 'Branch Name','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save changes</button>
+                                        <button id="register" type="submit" class="btn green">Save</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>

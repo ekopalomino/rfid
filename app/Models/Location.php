@@ -11,11 +11,22 @@ class Location extends Model
         'location_name',
         'location_detail',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'deleted_at'
     ];
 
     public function Warehouses()
     {
         return $this->belongsTo(Warehouse::class,'warehouse_id');
+    }
+
+    public function Author()
+    {
+        return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function Editor()
+    {
+        return $this->belongsTo(User::class,'updated_by');
     }
 }

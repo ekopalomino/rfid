@@ -58,7 +58,7 @@ Agrinesia | Data Lokasi
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Nama Lokasi</label>
-                                                    {!! Form::text('location_name', null, array('placeholder' => 'Namne Location','class' => 'form-control')) !!}
+                                                    {!! Form::text('location_name', null, array('placeholder' => 'Name Location','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -98,7 +98,7 @@ Agrinesia | Data Lokasi
                 				<td>{{ $val->Warehouses->name }}</td>
                                 <td>{{ $val->location_name }}</td>
                                 <td>{{ $val->location_detail }}</td>
-                                <td>{{ $val->created_by }}</td>
+                                <td>{{ $val->Author->name }}</td>
                                 <td>{{ $val->updated_by }}</td>
                                 <td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>

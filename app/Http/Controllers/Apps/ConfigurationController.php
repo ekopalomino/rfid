@@ -32,18 +32,18 @@ class ConfigurationController extends Controller
     public function warehouseStore(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:warehouses,name',
+            'name' => 'required|unique:warehouses,name', 
         ]);
 
         $input = [
             'name' => $request->input('name'),
-            'created_by' => auth()->user()->name,
+            'created_by' => auth()->user()->id,
         ];
         $data = Warehouse::create($input);
-        $log = 'Gudang '.($data->name).' Berhasil Disimpan';
+        $log = 'Branch '.($data->name).' Successfully Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Gudang '.($data->name).' Berhasil Disimpan',
+            'message' => 'Branch '.($data->name).' Successfully Created',
             'alert-type' => 'success'
         );
 
@@ -65,13 +65,14 @@ class ConfigurationController extends Controller
 
         $input = [
             'name' => $request->input('name'),
-            'updated_by' => auth()->user()->name,
+            'updated_by' => auth()->user()->id,
         ];
-        $data = Warehouse::find($id)->update($input);
-        $log = 'Gudang '.($data->name).' Berhasil Diubah';
+        $data = Warehouse::find($id);
+        $data->update($input);
+        $log = 'Branch '.($data->name).' Successfully Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Gudang '.($data->name).' Berhasil Diubah',
+            'message' => 'Branch '.($data->name).' Successfully Updated',
             'alert-type' => 'success'
         );
 
@@ -81,13 +82,17 @@ class ConfigurationController extends Controller
     public function warehouseDestroy($id)
     {
         $data = Warehouse::find($id);
-        $log = 'Gudang '.($data->name).' Berhasil Dihapus';
+        $destroy = [
+            'deleted_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => auth()->user()->id,
+        ];
+        $log = 'Branch '.($data->name).' Successfully Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Gudang '.($data->name).' Berhasil Dihapus',
+            'message' => 'Branch '.($data->name).' Successfully Deleted',
             'alert-type' => 'success'
         );
-        $data->delete();
+        $data->update($destroy);
 
         return redirect()->route('warehouse.index')->with($notification);
     }
@@ -97,7 +102,7 @@ class ConfigurationController extends Controller
         $data = Location::orderBy('location_name','asc')->get();
         $warehouses = Warehouse::orderBy('name','asc')->pluck('name','id')->toArray();
 
-        return view('apps.pages.location',compact('data','warehouses'));
+        return view('apps.pages.location',compact('data','warehouses')); 
     }
 
     public function locationStore(Request $request)
@@ -112,7 +117,7 @@ class ConfigurationController extends Controller
             'location_name' => $request->input('location_name'),
             'warehouse_id' => $request->input('warehouse_id'),
             'location_detail' => $request->input('location_detail'),
-            'created_by' => auth()->user()->name,
+            'created_by' => auth()->user()->id,
         ];
         $data = Location::create($input);
         $log = 'Lokasi '.($data->location_name).' Berhasil Disimpan';
@@ -160,13 +165,17 @@ class ConfigurationController extends Controller
     public function locationDestroy($id)
     {
         $data = Location::find($id);
+        $destroy = [
+            'deleted_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => auth()->user()->id,
+        ];
         $log = 'Lokasi '.($data->location_name).' Berhasil Dihapus';
          \LogActivity::addToLog($log);
         $notification = array (
             'message' => 'Lokasi '.($data->location_name).' Berhasil Dihapus',
             'alert-type' => 'success'
         );
-        $data->delete();
+        $data->update($destroy);
 
         return redirect()->route('warehouse.index')->with($notification);
     }

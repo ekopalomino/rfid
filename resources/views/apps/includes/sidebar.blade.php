@@ -35,25 +35,7 @@
                         <a href="{{ route('warehouse.index') }}" class="nav-link">
                             <span class="title">Data Cabang</span>
                         </a>
-                    </li>
-                    <li class="nav-item {{ set_active(['uom-cat.index','uom-val.index']) }}">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <span class="title">Satuan Ukur</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item {{ set_active(['uom-cat.index']) }}">
-                                <a href="{{ route('uom-cat.index') }}" class="nav-link ">
-                                    <span class="title">Kategori</span>
-                                </a>
-                            </li>
-                            <li class="nav-item {{ set_active(['uom-val.index']) }}">
-                                <a href="{{ route('uom-val.index') }}" class="nav-link ">
-                                    <span class="title">Nilai Konversi</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>                                  
+                    </li>                                
                 </ul>
             </li>
             @endcan

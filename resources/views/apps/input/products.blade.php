@@ -1,13 +1,13 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Tambah Item
+Agrinesia | New Asset
 @endsection
 @section('content')
 <div class="page-content">
     <div class="portlet box red ">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-database"></i> Form Item Baru
+                <i class="fa fa-database"></i> New Asset Form
             </div>
         </div>
         <div class="portlet-body form">
@@ -27,49 +27,56 @@ Agrinesia | Tambah Item
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Kode SAP</label>
+                                <label class="col-md-3 control-label">RFID Code</label>
                                 <div class="col-md-6">
                                     {!! Form::text('barcode', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Nama Item</label>
+                                <label class="col-md-3 control-label">SAP Code</label>
+                                <div class="col-md-6">
+                                    {!! Form::text('barcode', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Item Name</label>
                                 <div class="col-md-9">
                                     {!! Form::text('name', null, array('placeholder' => 'Item Name','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Kategori</label>
+                                <label class="col-md-3 control-label">Category</label>
                                 <div class="col-md-6">
                                     {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Satuan</label>
-                                <div class="col-md-6">
-                                    {!! Form::select('uom_id', [null=>'Please Select'] + $uoms,[], array('class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Harga Beli</label>
+                                <label class="col-md-3 control-label">Purchase Price</label>
                                 <div class="col-md-6">
                                     {!! Form::text('base_price', null, array('placeholder' => 'Item Cost','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Tanggal Pembelian</label>
+                                <label class="col-md-3 control-label">Purchase Date</label>
                                 <div class="col-md-6">
                                     {!! Form::date('base_price', null, array('placeholder' => 'Product Cost Price','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Spesifikasi Item</label>
+                                <label class="col-md-3 control-label">Warranty Period</label>
+                                <div class="col-md-6">
+                                    {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Asset Specification</label>
                                 <div class="col-md-9">
                                     {!! Form::textarea('base_price', null, array('placeholder' => 'Item Specification','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Gambar Produk</label>
+                                <label class="col-md-3 control-label">Asset Picture</label>
                                 <div class="col-md-6">
                                     {!! Form::file('image', null, array('placeholder' => 'Product Image','class' => 'form-control')) !!}
                                 </div>
@@ -79,25 +86,25 @@ Agrinesia | Tambah Item
                             <div class="portlet box blue ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-branch"></i> Lokasi Item
+                                        <i class="fa fa-branch"></i> Asset Location
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Cabang</label>
+                                            <label class="col-md-2 control-label">Branch</label>
                                             <div class="col-md-6">
                                                 {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Departemen</label>
+                                            <label class="col-md-2 control-label">Department</label>
                                             <div class="col-md-6">
                                                 {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Lokasi</label>
+                                            <label class="col-md-2 control-label">Location</label>
                                             <div class="col-md-6">
                                                 {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
                                             </div>

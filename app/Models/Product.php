@@ -10,28 +10,25 @@ class Product extends Model
     use Uuid;
 
     protected $fillable = [
-        'product_barcode',
+        'rfid_code',
+        'sap_code',
         'name',
         'category_id',
-        'uom_id',
+        'branch_id',
+        'location_id',
+        'department_id',
         'image',
-        'supplier_id',
-        'min_stock',
-        'base_price',
-        'sale_price',
+        'price',
+        'specification',
+        'purchase_date',
+        'warranty_period',
         'active',
-        'is_manufacture',
-        'is_sale',
+        'deleted_at',
         'created_by',
         'updated_by',
     ];
 
     public $incrementing = false;
-
-    public function Suppliers()
-    {
-        return $this->belongsTo(Contact::class,'supplier_id');
-    }
 
     public function Author()
     {
@@ -51,11 +48,6 @@ class Product extends Model
     public function Categories()
     {
         return $this->belongsTo(ProductCategory::class,'category_id');
-    }
-
-    public function Uoms()
-    {
-        return $this->belongsTo(UomValue::class,'uom_id');
     }
 
     public function Invent()
