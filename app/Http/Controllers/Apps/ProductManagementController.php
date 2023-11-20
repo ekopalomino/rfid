@@ -15,6 +15,7 @@ use iteos\Models\Contact;
 use iteos\Models\Inventory;
 use iteos\Models\InventoryMovement;
 use iteos\Models\ProductMovement;
+use iteos\Models\Warranty;
 use Auth;
 use PDF;
 use File;
@@ -118,8 +119,9 @@ class ProductManagementController extends Controller
         $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
         $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
         $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $warranties = Warranty::pluck('warranty_name','id')->toArray();
         
-        return view('apps.input.products',compact('categories','locations','divisions','branches'));
+        return view('apps.input.products',compact('categories','locations','divisions','branches','warranties'));
     }
 
     public function productStore(Request $request)
@@ -215,8 +217,9 @@ class ProductManagementController extends Controller
         $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
         $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
         $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $warranties = Warranty::pluck('warranty_name','id')->toArray();
         
-        return view('apps.edit.products',compact('data','categories','locations','divisions','branches'));
+        return view('apps.edit.products',compact('data','categories','locations','divisions','branches','warranties'));
     }
 
     public function productUpdate(Request $request,$id)
@@ -228,6 +231,7 @@ class ProductManagementController extends Controller
             'category_id' => 'required',
             'specification' => 'required',
             'image' => 'nullable|file|image',
+            'new_location_id' => 'unique:products,location_id'
         ]);
 
         if ($request->hasFile('image')) {
@@ -307,9 +311,11 @@ class ProductManagementController extends Controller
     public function movementIndex()
     {
         $data = ProductMovement::get();
-
+        
         return view('apps.pages.productMovement',compact('data'));
     }
+
+
 
     public function indexBom()
     {

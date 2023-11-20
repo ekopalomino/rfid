@@ -65,15 +65,7 @@ Agrinesia | New Asset
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Warranty Period</label>
                                 <div class="col-md-6">
-                                    <select class="form-control" name="warranty_period">
-                                        <option value="0">Select Option</option>
-                                        <option value="0">No Warranty</option>
-                                        <option value="1">1 Month</option>
-                                        <option value="3">3 Month</option>
-                                        <option value="6">6 Month</option>
-                                        <option value="12">12 Month</option>
-                                        <option value="24">24 Month</option>
-                                    </select> 
+                                    {!! Form::select('warranty_period', [null=>'Please Select'] + $warranties,[], array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             

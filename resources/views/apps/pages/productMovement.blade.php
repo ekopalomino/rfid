@@ -14,7 +14,7 @@ Agrinesia | Asset Movement
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Asset Movement 
+                        <i class="fa fa-database"></i>Asset Movement  
                     </div>
                     <div class="tools"> </div>
                 </div>

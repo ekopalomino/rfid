@@ -65,15 +65,7 @@ Agrinesia | Edit Asset
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Warranty Period</label>
                                 <div class="col-md-6">
-                                    <select class="form-control" name="warranty_period">
-                                        <option {{ old('warranty_period') == 0 ? "selected" : ""}} value="0">Select Option</option>
-                                        <option {{ old('warranty_period') == 0 ? "selected" : ""}} value="0">No Warranty</option>
-                                        <option {{ old('warranty_period') == 1 ? "selected" : ""}} value="1">1 Month</option>
-                                        <option {{ old('warranty_period') == 3 ? "selected" : ""}} value="3">3 Month</option>
-                                        <option {{ old('warranty_period') == 6 ? "selected" : ""}} value="6">6 Month</option>
-                                        <option {{ old('warranty_period') == 12 ? "selected" : ""}} value="12">12 Month</option> 
-                                        <option {{ old('warranty_period') == 24 ? "selected" : ""}} value="24">24 Month</option>
-                                    </select> 
+                                    {!! Form::select('warranty_period', $warranties,old('warranty_period'), array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -101,19 +93,50 @@ Agrinesia | Edit Asset
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Branch *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','readonly')) !!}
+                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','disabled')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Department *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','readonly')) !!}
+                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','disabled')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Location *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','readonly')) !!}
+                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','disabled')) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portlet box green ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-branch"></i> New Asset Location
+                                    </div>
+                                </div>
+                                <div class="portlet-body form">
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Branch</label>
+                                            <div class="col-md-6">
+                                                {!! Form::select('new_branch_id', [null=>'Please Select'] + $branches,[], array('class' => 'form-control')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Department</label>
+                                            <div class="col-md-6">
+                                                {!! Form::select('new_department_id', [null=>'Please Select'] + $divisions,[], array('class' => 'form-control')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Location</label>
+                                            <div class="col-md-6">
+                                                {!! Form::select('new_location_id', [null=>'Please Select'] + $locations,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                     </div>

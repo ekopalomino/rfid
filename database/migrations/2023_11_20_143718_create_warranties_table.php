@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDivisionsTable extends Migration
+class CreateWarrantiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateDivisionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('warranties', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->uuid('created_by');
-            $table->uuid('updated_by')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('warranty_name');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateDivisionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('warranties');
     }
 }

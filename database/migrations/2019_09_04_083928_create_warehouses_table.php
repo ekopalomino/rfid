@@ -14,11 +14,11 @@ class CreateWarehousesTable extends Migration
     public function up()
     {
         Schema::create('warehouses', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->uuid('created_by');
             $table->uuid('updated_by')->nullable();
-            $table->primary('id');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
