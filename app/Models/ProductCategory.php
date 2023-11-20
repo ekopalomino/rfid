@@ -10,6 +10,7 @@ class ProductCategory extends Model
         'name',
         'created_by',
         'updated_by',
+        'deleted_at'
     ];
 
     public function Author()

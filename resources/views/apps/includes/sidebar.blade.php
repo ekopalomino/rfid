@@ -83,6 +83,11 @@
                             <span class="title">Asset Category</span>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                		<a href="" class="nav-link ">
+                            <span class="title">Asset Movement</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             @endcan

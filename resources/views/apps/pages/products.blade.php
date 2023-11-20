@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Produk
+Agrinesia | Asset Management
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ FiberTekno | Produk
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Data Produk 
+                        <i class="fa fa-database"></i>Asset Data 
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -31,7 +31,7 @@ FiberTekno | Produk
                     @can('Can Create Product')
                     <div class="col-md-6">
                         <div class="form-group">
-                            <a href="{{ route('product.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Tambah Produk
+                            <a href="{{ route('product.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Add New
                             </button></a>
                         </div>
                     </div>
@@ -40,10 +40,10 @@ FiberTekno | Produk
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Satuan</th>
-                                <th>Gambar</th>
+                				<th>Name</th>
+                                <th>Category</th>
+                                <th>Branch</th>
+                                <th>Location</th>
                                 <th>Dibuat</th>
                                 <th>Status</th>
                 				<th>Tgl Input</th>

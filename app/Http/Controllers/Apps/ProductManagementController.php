@@ -41,13 +41,13 @@ class ProductManagementController extends Controller
 
         $input = [
             'name' => $request->input('name'),
-            'created_by' => auth()->user()->name,
+            'created_by' => auth()->user()->id,
         ];
         $data = ProductCategory::create($input);
-        $log = 'Kategori Produk '.($data->name).' Berhasil disimpan';
+        $log = 'Asset Category '.($data->name).' Successfully Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Kategori Produk '.($data->name).' Berhasil disimpan',
+            'message' => 'Asset Category '.($data->name).' Successfully Created',
             'alert-type' => 'success'
         );
 
@@ -69,13 +69,14 @@ class ProductManagementController extends Controller
 
         $input = [
             'name' => $request->input('name'),
-            'updated_by' => auth()->user()->name,
+            'updated_by' => auth()->user()->id,
         ];
-        $data = ProductCategory::find($id)->update($input);
-        $log = 'Kategori Produk '.($input->name).' Berhasil Diubah';
+        $data = ProductCategory::find($id);
+        $data->update($input);
+        $log = 'Asset Category '.($input->name).' Successfully Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Kategori Produk '.($input->name).' Berhasil Diubah',
+            'message' => 'Asset Category '.($input->name).' Successfully Updated',
             'alert-type' => 'success'
         );
 
@@ -85,13 +86,17 @@ class ProductManagementController extends Controller
     public function categoryDestroy($id)
     {
         $data = ProductCategory::find($id);
-        $log = 'Kategori Produk '.($data->name).' Berhasil Dihapus';
+        $destroy = [
+            'deleted_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => auth()->user()->id,
+        ];
+        $log = 'Asset Category '.($data->name).' Successfully Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Kategori Produk '.($data->name).' Berhasil Dihapus',
+            'message' => 'Asset Category '.($data->name).' Successfully Deleted',
             'alert-type' => 'success'
         );
-        $data->delete();
+        $data->update($destroy);
 
         return redirect()->route('product-cat.index')->with($notification);
     }

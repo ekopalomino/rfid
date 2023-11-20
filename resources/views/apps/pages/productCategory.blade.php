@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Kategori Produk
+Agrinesia | Asset Category
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ FiberTekno | Kategori Produk
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Kategori Produk 
+                        <i class="fa fa-database"></i>Asset Category
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -43,15 +43,15 @@ FiberTekno | Kategori Produk
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama Kategori</label>
-                                                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                                    <label class="control-label">Category Name</label>
+                                                    {!! Form::text('name', null, array('placeholder' => 'Category Name','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save changes</button>
+                                        <button id="register" type="submit" class="btn green">Save</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -72,8 +72,9 @@ FiberTekno | Kategori Produk
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Name</th>
+                				<th>Category Name</th>
                                 <th>Created By</th>
+                                <th>Status</thh>
                 				<th>Created At</th>
                 				<th>Action</th>
                 			</tr>
@@ -83,7 +84,7 @@ FiberTekno | Kategori Produk
                 			<tr>
                 				<td>{{ $key+1 }}</td>
                 				<td>{{ $val->name }}</td>
-                                <td>{{ $val->created_by }}</td>
+                                <td>{{ $val->Author->name }}</td>
                 				<td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ProductManagementController@categoryEdit',['id'=>$val->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
