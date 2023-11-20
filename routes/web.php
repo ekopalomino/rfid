@@ -46,11 +46,11 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     /*-----------------------End User Management-----------------------------*/
 
     /*-----------------------Config Management-----------------------------*/
-    Route::get('settings/warehouse','Apps\ConfigurationController@warehouseIndex')->name('warehouse.index');
-    Route::post('settings/warehouse/create','Apps\ConfigurationController@warehouseStore')->name('warehouse.store');
-    Route::get('settings/warehouse/edit/{id}','Apps\ConfigurationController@warehouseEdit')->name('warehouse.edit');
-    Route::post('settings/warehouse/update/{id}','Apps\ConfigurationController@warehouseUpdate')->name('warehouse.update');
-    Route::post('settings/warehouse/delete/{id}','Apps\ConfigurationController@warehouseDestroy')->name('warehouse.destroy');
+    Route::get('settings/branch','Apps\ConfigurationController@warehouseIndex')->name('warehouse.index');
+    Route::post('settings/branch/create','Apps\ConfigurationController@warehouseStore')->name('warehouse.store');
+    Route::get('settings/branch/edit/{id}','Apps\ConfigurationController@warehouseEdit')->name('warehouse.edit');
+    Route::post('settings/branch/update/{id}','Apps\ConfigurationController@warehouseUpdate')->name('warehouse.update');
+    Route::post('settings/branch/delete/{id}','Apps\ConfigurationController@warehouseDestroy')->name('warehouse.destroy');
     Route::get('settings/location','Apps\ConfigurationController@locationIndex')->name('location.index');
     Route::post('settings/location/create','Apps\ConfigurationController@locationStore')->name('location.store');
     Route::get('settings/location/edit/{id}','Apps\ConfigurationController@locationEdit')->name('location.edit');
@@ -65,12 +65,12 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('settings/uom-value/edit/{id}','Apps\ConfigurationController@uomvalEdit')->name('uom-val.edit');
     Route::post('settings/uom-value/update/{id}','Apps\ConfigurationController@uomvalUpdate')->name('uom-val.update');
     Route::post('settings/uom-value/delete/{id}','Apps\ConfigurationController@uomvalDestroy')->name('uom-val.destroy');
-    Route::get('settings/unit-kerja','Apps\ConfigurationController@ukerIndex')->name('uker.index');
-    Route::post('settings/unit-kerja/create','Apps\ConfigurationController@ukerStore')->name('uker.store');
-    Route::get('settings/unit-kerja/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('uker.edit');
-    Route::get('settings/unit-kerja/show/{id}','Apps\ConfigurationController@ukerShow')->name('uker.show');
-    Route::post('settings/unit-kerja/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('uker.update');
-    Route::post('settings/unit-kerja/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('uker.destroy');
+    Route::get('settings/department','Apps\ConfigurationController@ukerIndex')->name('uker.index');
+    Route::post('settings/department/create','Apps\ConfigurationController@ukerStore')->name('uker.store');
+    Route::get('settings/department/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('uker.edit');
+    Route::get('settings/department/show/{id}','Apps\ConfigurationController@ukerShow')->name('uker.show');
+    Route::post('settings/department/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('uker.update');
+    Route::post('settings/department/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('uker.destroy');
 
     /*-----------------------End Config Management-----------------------------*/
 

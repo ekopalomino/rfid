@@ -70,9 +70,10 @@ Agrinesia | Branches
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Nama Gudang</th>
-                                <th>Dibuat</th>
-                				<th>Tgl Dibuat</th>
+                				<th>Branch Name</th>
+                                <th>Created By</th>
+                                <th>Status</th>
+                				<th>Change of Date</th>
                 				<th></th>
                 			</tr>
                 		</thead>
@@ -81,7 +82,15 @@ Agrinesia | Branches
                 			<tr>
                 				<td>{{ $key+1 }}</td>
                 				<td>{{ $val->name }}</td>
-                                <td>{{ $val->created_by }}</td>
+                                <td>{{ $val->Author->name }}</td>
+                                <td>
+                                    @if(!empty($wc->deleted_at))
+                                    <label class="label label-sm label-danger">Inactive</label>
+                                    @else
+                                    <label class="label label-sm label-success">Active</label>
+                                    @endif
+                                </td>
+                				
                 				<td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@warehouseEdit',['id'=>$val->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>

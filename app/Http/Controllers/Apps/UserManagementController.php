@@ -313,6 +313,4 @@ class UserManagementController extends Controller
         return redirect()->route('role.index')
                         ->with($notification);
     }
-
-    
 }

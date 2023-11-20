@@ -43,7 +43,7 @@
             <li class="nav-item {{ set_active(['user.index','user.profile','role.index','user.log','role.create','role.edit']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-users"></i>
-                    <span class="title">Manajemen User</span>
+                    <span class="title">Users</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
@@ -69,18 +69,18 @@
             <li class="nav-item {{ set_active(['product-cat.index','product.index','product.create','product.edit','product-bom.index','product-bom.create','product.show','product.barcode']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-social-dropbox"></i>
-            		<span class="title">Master Item</span>
+            		<span class="title">Assets</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                 	<li class="nav-item {{ set_active(['product.index','product.create','product.edit','product-bom.index','product-bom.create','product.show']) }}">
                 		<a href="{{ route('product.index') }}" class="nav-link ">
-                            <span class="title">Data Item</span>
+                            <span class="title">Asset Data</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['product-cat.index']) }}">
                 		<a href="{{ route('product-cat.index') }}" class="nav-link ">
-                            <span class="title">Kategori Item</span>
+                            <span class="title">Asset Category</span>
                         </a>
                     </li>
                 </ul>
