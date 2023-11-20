@@ -22,7 +22,6 @@ class Product extends Model
         'specification',
         'purchase_date',
         'warranty_period',
-        'active',
         'deleted_at',
         'created_by',
         'updated_by',

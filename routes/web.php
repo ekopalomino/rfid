@@ -90,6 +90,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('products/edit/{id}','Apps\ProductManagementController@productEdit')->name('product.edit');
     Route::post('products/update/{id}','Apps\ProductManagementController@productUpdate')->name('product.update');
     Route::post('products/delete/{id}','Apps\ProductManagementController@productDestroy')->name('product.destroy');
+    Route::get('asset-movement','Apps\ProductManagementController@movementIndex')->name('movement.index');
     Route::get('products/bom','Apps\ProductManagementController@indexBom')->name('product-bom.index');
     Route::get('products/bom/create/{id}','Apps\ProductManagementController@createBom')->name('product-bom.create');
     Route::post('products/bom/store','Apps\ProductManagementController@storeBom')->name('product-bom.store');

@@ -14,6 +14,7 @@ use iteos\Models\Warehouse;
 use iteos\Models\Contact;
 use iteos\Models\Inventory;
 use iteos\Models\InventoryMovement;
+use iteos\Models\ProductMovement;
 use Auth;
 use PDF;
 use File;
@@ -224,25 +225,23 @@ class ProductManagementController extends Controller
     public function productEdit($id)
     {
         $data = Product::find($id);
-        $categories = ProductCategory::pluck('name','id')->toArray();
-        $uoms = UomValue::pluck('name','id')->toArray();
-        $vendors = Contact::where('type_id','2')->pluck('name','id')->toArray();
-        $locations = Warehouse::pluck('name','id')->toArray();
-
-        return view('apps.edit.products',compact('data','categories','uoms','vendors','locations'));
+        $categories = ProductCategory::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
+        $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        
+        return view('apps.edit.products',compact('data','categories','locations','divisions','branches'));
     }
 
     public function productUpdate(Request $request,$id)
     {
         $this->validate($request, [
-            'product_barcode' => 'required',
-            'name' => 'required',
+            'rfid_code' => 'required|unique:products,rfid_code',
+            'sap_code' => 'required|unique:products,sap_code',
+            'name' => 'required|unique:products,name',
             'category_id' => 'required',
-            'uom_id' => 'required',
+            'specification' => 'required',
             'image' => 'nullable|file|image',
-            'min_stock' => 'required|numeric',
-            'base_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
         ]);
 
         if ($request->hasFile('image')) {
@@ -255,42 +254,46 @@ class ProductManagementController extends Controller
             $filename=$file_name.'product.'.$extension;
             $uploadSuccess = $request->file('image')
             ->move($destinationPath, $filename);
-
+            
+            
             $input = [ 
-                'product_barcode' => $request->input('product_barcode'),
+                'rfid_code' => $request->input('rfid_code'),
+                'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
-                'uom_id' => $request->input('uom_id'),
-                'supplier_id' => $request->input('supplier_id'),
+                'price' => $request->input('price'),
+                'purchase_date' => $request->input('purchase_date'),
                 'image' => $filename,
-                'min_stock' => $request->input('min_stock'),
-                'base_price' => $request->input('base_price'),
-                'sale_price' => $request->input('sale_price'),
-                'is_manufacture' => $request->input('is_manufacture'),
-                'is_sale' => $request->input('is_sale'),
-                'updated_by' => auth()->user()->name,
+                'warranty_period' => $request->input('warranty_period'),
+                'specification' => $request->input('specification'),
+                'branch_id' => $request->input('branch_id'),
+                'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('department_id'),
+                'created_by' => auth()->user()->id,
             ];
         } else {
             $input = [
-                'product_barcode' => $request->input('product_barcode'),
+                'rfid_code' => $request->input('rfid_code'),
+                'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
-                'uom_id' => $request->input('uom_id'),
-                'supplier_id' => $request->input('supplier_id'),
-                'min_stock' => $request->input('min_stock'),
-                'base_price' => $request->input('base_price'),
-                'sale_price' => $request->input('sale_price'),
-                'is_manufacture' => $request->input('is_manufacture'),
-                'is_sale' => $request->input('is_sale'),
-                'updated_by' => auth()->user()->name,
+                'price' => $request->input('price'),
+                'purchase_date' => $request->input('purchase_date'),
+                'warranty_period' => $request->input('warranty_period'),
+                'specification' => $request->input('specification'),
+                'branch_id' => $request->input('branch_id'),
+                'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('department_id'),
+                'created_by' => auth()->user()->id,
             ];
         }
         
-        $data = Product::find($id)->update($input);
-        $log = 'Produk '.($request->input('name')).' Berhasil Diubah';
+        $data = Product::find($id);
+        $data->update($input);
+        $log = 'Produk '.($data->input('name')).' Berhasil Diubah';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Produk '.($request->input('name')).' Berhasil Diubah',
+            'message' => 'Produk '.($data->input('name')).' Berhasil Diubah',
             'alert-type' => 'success'
         );
 
@@ -300,17 +303,26 @@ class ProductManagementController extends Controller
     public function productDestroy($id)
     {
         $data = Product::find($id);
-        $invent = Product::where('id',$id)->update([
-            'active' => '82e9ec8c-5a82-4009-ba2f-ab620eeaa71a'
-        ]);
+        $destroy = [
+            'deleted_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => auth()->user()->id,
+        ];
         $log = 'Produk '.($data->name).' Berhasil Dinonaktifkan';
          \LogActivity::addToLog($log);
         $notification = array (
             'message' => 'Produk '.($data->name).' Berhasil Dinonaktifkan',
             'alert-type' => 'success'
         );
+        $data->update($destroy);
         
         return redirect()->route('product.index')->with($notification);
+    }
+
+    public function movementIndex()
+    {
+        $data = ProductMovement::get();
+
+        return view('apps.pages.productMovement',compact('data'));
     }
 
     public function indexBom()

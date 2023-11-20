@@ -66,7 +66,7 @@
             </li>
             @endcan
             @can('Can Access Products')
-            <li class="nav-item {{ set_active(['product-cat.index','product.index','product.create','product.edit','product-bom.index','product-bom.create','product.show','product.barcode']) }}">
+            <li class="nav-item {{ set_active(['product-cat.index','product.index','product.create','product.edit','movement.index','product-bom.create','product.show','product.barcode']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-social-dropbox"></i>
             		<span class="title">Assets</span>
@@ -83,8 +83,8 @@
                             <span class="title">Asset Category</span>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                		<a href="" class="nav-link ">
+                    <li class="nav-item {{ set_active(['movement.index']) }}">
+                		<a href="{{ route('movement.index') }}" class="nav-link ">
                             <span class="title">Asset Movement</span>
                         </a>
                     </li>
