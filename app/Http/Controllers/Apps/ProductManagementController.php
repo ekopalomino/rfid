@@ -73,10 +73,10 @@ class ProductManagementController extends Controller
         ];
         $data = ProductCategory::find($id);
         $data->update($input);
-        $log = 'Asset Category '.($input->name).' Successfully Updated';
+        $log = 'Asset Category '.($data->name).' Successfully Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Asset Category '.($input->name).' Successfully Updated',
+            'message' => 'Asset Category '.($data->name).' Successfully Updated',
             'alert-type' => 'success'
         );
 
@@ -110,9 +110,8 @@ class ProductManagementController extends Controller
 
     public function productCreate()
     {
-        $categories = ProductCategory::pluck('name','id')->toArray();
-        $uoms = UomValue::pluck('name','id')->toArray();
-        $vendors = Contact::where('type_id','2')->pluck('name','id')->toArray();
+        $categories = ProductCategory::where('deleted_at',)->pluck('name','id')->toArray();
+        
          
         return view('apps.input.products',compact('categories','uoms','vendors'));
     }
