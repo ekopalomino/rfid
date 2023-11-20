@@ -245,37 +245,87 @@ class ProductManagementController extends Controller
             $uploadSuccess = $request->file('image')
             ->move($destinationPath, $filename);
             
-            
-            $input = [ 
-                'rfid_code' => $request->input('rfid_code'),
-                'sap_code' => $request->input('sap_code'),
-                'name' => $request->input('name'),
-                'category_id' => $request->input('category_id'),
-                'price' => $request->input('price'),
-                'purchase_date' => $request->input('purchase_date'),
-                'image' => $filename,
-                'warranty_period' => $request->input('warranty_period'),
-                'specification' => $request->input('specification'),
-                'branch_id' => $request->input('branch_id'),
-                'location_id' => $request->input('location_id'),
-                'department_id' => $request->input('department_id'),
-                'created_by' => auth()->user()->id,
-            ];
+            if ($request->filled('new_location_id')) {
+                $input = [ 
+                    'rfid_code' => $request->input('rfid_code'),
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'image' => $filename,
+                    'warranty_period' => $request->input('warranty_period'),
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('new_branch_id'),
+                    'location_id' => $request->input('new_location_id'),
+                    'department_id' => $request->input('new_department_id'),
+                    'created_by' => auth()->user()->id,
+                ];
+
+                $movements = ProductMovement::create([
+                    'product_id' => $input->id,
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
+                    'destination_location' => $request->input('new_location_id'),
+                    'destination_branch' => $request->input('new_branch_id'),
+                ]);
+            } else {
+                $input = [ 
+                    'rfid_code' => $request->input('rfid_code'),
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'image' => $filename,
+                    'warranty_period' => $request->input('warranty_period'),
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
+                    'department_id' => $request->input('department_id'),
+                    'created_by' => auth()->user()->id,
+                ];
+            }
         } else {
-            $input = [
-                'rfid_code' => $request->input('rfid_code'),
-                'sap_code' => $request->input('sap_code'),
-                'name' => $request->input('name'),
-                'category_id' => $request->input('category_id'),
-                'price' => $request->input('price'),
-                'purchase_date' => $request->input('purchase_date'),
-                'warranty_period' => $request->input('warranty_period'),
-                'specification' => $request->input('specification'),
-                'branch_id' => $request->input('branch_id'),
-                'location_id' => $request->input('location_id'),
-                'department_id' => $request->input('department_id'),
-                'created_by' => auth()->user()->id,
-            ];
+            if ($request->filled('new_location_id')) {
+                $input = [
+                    'rfid_code' => $request->input('rfid_code'),
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'warranty_period' => $request->input('warranty_period'),
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('new_branch_id'),
+                    'location_id' => $request->input('new_location_id'),
+                    'department_id' => $request->input('new_department_id'),
+                    'created_by' => auth()->user()->id,
+                ];
+
+                $movements = ProductMovement::create([
+                    'product_id' => $id,
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
+                    'destination_location' => $request->input('new_location_id'),
+                    'destination_branch' => $request->input('new_branch_id'),
+                ]);
+            } else {
+                $input = [
+                    'rfid_code' => $request->input('rfid_code'),
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'warranty_period' => $request->input('warranty_period'),
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
+                    'department_id' => $request->input('department_id'),
+                    'created_by' => auth()->user()->id,
+                ];
+            }
         }
         
         $data = Product::find($id);
