@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Data Lokasi
+Agrinesia | Location
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ Agrinesia | Data Lokasi
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Data Lokasi 
+                        <i class="fa fa-database"></i>Location Data
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -32,7 +32,7 @@ Agrinesia | Data Lokasi
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Tambah Baru </a>
+                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New </a>
                                 </td>
                             </tr>
                         </div>
@@ -45,33 +45,33 @@ Agrinesia | Data Lokasi
                                     @csrf
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h4 class="modal-title">Data Lokasi Baru</h4>
+                                        <h4 class="modal-title">New Location</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama Cabang</label>
+                                                    <label class="control-label">Branch Name</label>
                                                     {!! Form::select('warehouse_id', [null=>'Please Select'] + $warehouses,[], array('class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama Lokasi</label>
+                                                    <label class="control-label">Location Name</label>
                                                     {!! Form::text('location_name', null, array('placeholder' => 'Name Location','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Detail Lokasi</label>
+                                                    <label class="control-label">Location Detail</label>
                                                     {!! Form::textarea('location_detail', null, array('placeholder' => 'Details','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="close" class="btn dark btn-outline" data-dismiss="modal">Tutup</button>
-                                        <button id="register" type="submit" class="btn green">Simpan</button>
+                                        <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                                        <button id="register" type="submit" class="btn green">Save</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -82,12 +82,12 @@ Agrinesia | Data Lokasi
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Nama Cabang</th>
-                                <th>Nama Lokasi</th>
-                                <th>Detail Lokasi</th>
-                                <th>Dibuat</th>
-                                <th>Diubah</th>
-                                <th>Tgl Dibuat</th>
+                				<th>Branch</th>
+                                <th>Location</th>
+                                <th>Details</th>
+                                <th>Created By</th>
+                                <th>Status</th>
+                                <th>Date of Change</th>
                 				<th></th>
                 			</tr>
                 		</thead>
@@ -99,7 +99,13 @@ Agrinesia | Data Lokasi
                                 <td>{{ $val->location_name }}</td>
                                 <td>{{ $val->location_detail }}</td>
                                 <td>{{ $val->Author->name }}</td>
-                                <td>{{ $val->updated_by }}</td>
+                                <td>
+                                    @if(!empty($val->deleted_at))
+                                    <label class="label label-sm label-danger">Inactive</label>
+                                    @else
+                                    <label class="label label-sm label-success">Active</label>
+                                    @endif
+                                </td>
                                 <td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@locationEdit',['id'=>$val->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
@@ -128,7 +134,7 @@ Agrinesia | Data Lokasi
 <script>
     function ConfirmDelete()
     {
-    var x = confirm("Yakin Data Akan Dihapus?");
+    var x = confirm("Data Will Be Deleted?");
     if (x)
         return true;
     else

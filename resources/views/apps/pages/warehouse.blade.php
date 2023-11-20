@@ -28,7 +28,6 @@ Agrinesia | Branches
                                 </ul>
                         </div>
                     @endif
-                    @can('Disable')
                     <div class="col-md-6">
                         <div class="form-group">
                             <tr>
@@ -38,7 +37,6 @@ Agrinesia | Branches
                             </tr>
                         </div>
                     </div>
-                    @endcan
                     <div class="col-md-6">
                         <div class="modal fade" id="basic" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">

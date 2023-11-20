@@ -18,22 +18,22 @@
             <div class="row">
             	<div class="col-md-12">
                 	<div class="form-group">
-                		<label class="control-label">Nama Cabang</label>
+                		<label class="control-label">Branch Name</label>
                 		{!! Form::select('warehouse_id', $warehouses,old('warehouse_id'), array('class' => 'form-control')) !!}
                 	</div>
                     <div class="form-group">
-                		<label class="control-label">Nama Lokasi</label>
+                		<label class="control-label">Location Name</label>
                 		{!! Form::text('location_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                 	</div>
                     <div class="form-group">
-                		<label class="control-label">Detail Lokasi</label>
+                		<label class="control-label">Location Detail</label>
                 		{!! Form::textarea('location_detail', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                 	</div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="close" class="btn dark btn-outline" data-dismiss="modal">Tutup</button>
-                <button id="register" type="submit" class="btn green">Simpan</button>
+                <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button id="register" type="submit" class="btn green">Update</button>
             </div>
             {!! Form::close() !!}
 		</div>

@@ -9,7 +9,7 @@
             <li class="nav-item {{ set_active('dashboard.index') }}">
                 <a href="{{ route('dashboard.index') }}" class="nav-link">
                     <i class="icon-home"></i>
-                    <span class="title">Beranda</span>
+                    <span class="title">Dashboard</span>
                     <span class="selected"></span>
                 </a>
             </li>
@@ -17,23 +17,23 @@
             <li class="nav-item {{ set_active(['warehouse.index','location.index','uom-cat.index','uom-val.index','uker.index']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
-                    <span class="title">Konfigurasi Umum</span>
+                    <span class="title">Configuration</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item {{ set_active(['location.index']) }}">
                         <a href="{{ route('location.index') }}" class="nav-link">
-                            <span class="title">Data Lokasi</span>
+                            <span class="title">Location</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['uker.index']) }}">
                         <a href="{{ route('uker.index') }}" class="nav-link">
-                            <span class="title">Data Departemen</span>
+                            <span class="title">Department</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['warehouse.index']) }}">
                         <a href="{{ route('warehouse.index') }}" class="nav-link">
-                            <span class="title">Data Cabang</span>
+                            <span class="title">Branch</span>
                         </a>
                     </li>                                
                 </ul>
