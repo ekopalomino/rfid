@@ -66,17 +66,16 @@ Agrinesia | Edit Asset
                                 <label class="col-md-3 control-label">Warranty Period</label>
                                 <div class="col-md-6">
                                     <select class="form-control" name="warranty_period">
-                                        <option value="0">Select Option</option>
-                                        <option value="0">No Warranty</option>
-                                        <option value="1">1 Month</option>
-                                        <option value="3">3 Month</option>
-                                        <option value="6">6 Month</option>
-                                        <option value="12">12 Month</option>
-                                        <option value="24">24 Month</option>
+                                        <option {{ old('warranty_period') == 0 ? "selected" : ""}} value="0">Select Option</option>
+                                        <option {{ old('warranty_period') == 0 ? "selected" : ""}} value="0">No Warranty</option>
+                                        <option {{ old('warranty_period') == 1 ? "selected" : ""}} value="1">1 Month</option>
+                                        <option {{ old('warranty_period') == 3 ? "selected" : ""}} value="3">3 Month</option>
+                                        <option {{ old('warranty_period') == 6 ? "selected" : ""}} value="6">6 Month</option>
+                                        <option {{ old('warranty_period') == 12 ? "selected" : ""}} value="12">12 Month</option> 
+                                        <option {{ old('warranty_period') == 24 ? "selected" : ""}} value="24">24 Month</option>
                                     </select> 
                                 </div>
                             </div>
-                            
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Asset Specification *</label>
                                 <div class="col-md-9">
@@ -102,19 +101,19 @@ Agrinesia | Edit Asset
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Branch *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control')) !!}
+                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Department *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control')) !!}
+                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Location *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control')) !!}
+                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                     </div>

@@ -67,10 +67,10 @@ Agrinesia | Asset Management
                                 <td>{{ $product->Departments->name }}</td>
                                 <td>{{ $product->Locations->location_name }}</td>
                                 <td>
-                                    @if($product->active == '2b643e21-a94c-4713-93f1-f1cbde6ad633')
-                                    <label class="label label-sm label-info">{{ $product->Statuses->name }}</label>
+                                    @if(!empty($product->deleted_at))
+                                    <label class="label label-sm label-danger">Inactive</label>
                                     @else
-                                    <label class="label label-sm label-danger">{{ $product->Statuses->name }}</label>
+                                    <label class="label label-sm label-success">Active</label>
                                     @endif
                                 </td>
                 				<td>{{ $product->Author->name }}</td>

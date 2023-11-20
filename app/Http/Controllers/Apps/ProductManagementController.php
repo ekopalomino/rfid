@@ -18,6 +18,7 @@ use iteos\Models\ProductMovement;
 use Auth;
 use PDF;
 use File;
+use Carbon\Carbon;
 
 class ProductManagementController extends Controller
 {
@@ -206,21 +207,6 @@ class ProductManagementController extends Controller
         $pdf = PDF::loadview('apps.show.products',compact('product','boms'));
         return $pdf->download('product-detail.pdf');
     }
- 
-    public function productBarcode() 
-    {
-        $data = Product::where('active','2b643e21-a94c-4713-93f1-f1cbde6ad633')->get();
-        
-        return view('apps.pages.productBarcode',compact('data'));
-    }
- 
-    public function barcodePdf()
-    {
-        $data = Product::where('active','2b643e21-a94c-4713-93f1-f1cbde6ad633')->orderBy('name','ASC')->get();
-
-        $pdf = PDF::loadview('apps.print.barcode',compact('data'));
-        return $pdf->download('barcode.pdf');
-    }
 
     public function productEdit($id)
     {
@@ -236,9 +222,9 @@ class ProductManagementController extends Controller
     public function productUpdate(Request $request,$id)
     {
         $this->validate($request, [
-            'rfid_code' => 'required|unique:products,rfid_code',
-            'sap_code' => 'required|unique:products,sap_code',
-            'name' => 'required|unique:products,name',
+            'rfid_code' => 'required',
+            'sap_code' => 'required',
+            'name' => 'required',
             'category_id' => 'required',
             'specification' => 'required',
             'image' => 'nullable|file|image',
@@ -290,10 +276,10 @@ class ProductManagementController extends Controller
         
         $data = Product::find($id);
         $data->update($input);
-        $log = 'Produk '.($data->input('name')).' Berhasil Diubah';
+        $log = 'Produk '.($data->name).' Berhasil Diubah';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Produk '.($data->input('name')).' Berhasil Diubah',
+            'message' => 'Produk '.($data->name).' Berhasil Diubah',
             'alert-type' => 'success'
         );
 
