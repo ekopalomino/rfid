@@ -50,18 +50,18 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class,'category_id');
     }
 
-    public function Invent()
+    public function Branches()
     {
-        return $this->hasMany(Inventory::class,'product_id');
+        return $this->belongsTo(Warehouse::class,'branch_id');
     }
 
-    public function Details()
+    public function Departments()
     {
-        return $this->hasMany(ProductBom::class,'product_id');
+        return $this->belongsTo(Division::class,'department_id');
     }
 
-    public function Manufactures()
+    public function Locations()
     {
-        return $this->hasOne(ManufactureItem::class,'item_id');
+        return $this->belongsTo(Location::class,'location_id');
     }
 }

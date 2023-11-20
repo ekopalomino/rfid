@@ -40,14 +40,15 @@ Agrinesia | Asset Management
                 		<thead>
                 			<tr>
                                 <th>No</th>
+                                <th>Image</th>
                 				<th>Name</th>
                                 <th>Category</th>
                                 <th>Branch</th>
+                                <th>Department</th>
                                 <th>Location</th>
-                                <th>Dibuat</th>
                                 <th>Status</th>
-                				<th>Tgl Input</th>
-                				<th>Tgl Update</th>
+                				<th>Doc User</th>
+                				<th>Doc Date</th>
                 				<th></th>
                 			</tr>
                 		</thead>
@@ -55,14 +56,12 @@ Agrinesia | Asset Management
                             @foreach($data as $key => $product)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $product->name }}</td>
-                                <td>@if(!empty($product->category_id))
-                                    {{ $product->Categories->name }}
-                                    @endif 
-                                </td>
-                                <td>{{ $product->Uoms->name }}</td>
                                 <td><img src="http://fibertekno.iteos.tech/public/products/{{$product->image}}" width="75" height="100" ></td>
-                                <td>{{ $product->created_by }}</td>
+                				<td>{{ $product->name }}</td>
+                                <td>{{ $product->Categories->name }}</td>
+                                <td>{{ $product->Branches->name }}</td>
+                                <td>{{ $product->Departments->name }}</td>
+                                <td>{{ $product->Locations->location_name }}</td>
                                 <td>
                                     @if($product->active == '2b643e21-a94c-4713-93f1-f1cbde6ad633')
                                     <label class="label label-sm label-info">{{ $product->Statuses->name }}</label>
@@ -70,7 +69,7 @@ Agrinesia | Asset Management
                                     <label class="label label-sm label-danger">{{ $product->Statuses->name }}</label>
                                     @endif
                                 </td>
-                				<td>{{date("d F Y H:i",strtotime($product->created_at)) }}</td>
+                				<td>{{ $product->Author->name }}</td>
                                 <td>{{date("d F Y H:i",strtotime($product->updated_at)) }}</td>
                 				<td>
                                     @if($product->is_manufacture == 1)

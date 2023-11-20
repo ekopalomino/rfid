@@ -27,25 +27,25 @@ Agrinesia | New Asset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-md-3 control-label">RFID Code</label>
+                                <label class="col-md-3 control-label">RFID Code *</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('barcode', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
+                                    {!! Form::text('rfid_code', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">SAP Code</label>
+                                <label class="col-md-3 control-label">SAP Code *</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('barcode', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
+                                    {!! Form::text('sap_code', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Item Name</label>
+                                <label class="col-md-3 control-label">Item Name *</label>
                                 <div class="col-md-9">
                                     {!! Form::text('name', null, array('placeholder' => 'Item Name','class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Category</label>
+                                <label class="col-md-3 control-label">Category *</label>
                                 <div class="col-md-6">
                                     {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
                                 </div>
@@ -53,26 +53,34 @@ Agrinesia | New Asset
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Purchase Price</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('base_price', null, array('placeholder' => 'Item Cost','class' => 'form-control')) !!} 
+                                    {!! Form::number('price', null, array('placeholder' => 'Item Cost','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Purchase Date</label>
                                 <div class="col-md-6">
-                                    {!! Form::date('base_price', null, array('placeholder' => 'Product Cost Price','class' => 'form-control')) !!} 
+                                    {!! Form::date('purchase_date', null, array('placeholder' => 'Product Cost Price','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Warranty Period</label>
                                 <div class="col-md-6">
-                                    {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
+                                    <select class="form-control" name="warranty_period">
+                                        <option value="0">Select Option</option>
+                                        <option value="0">No Warranty</option>
+                                        <option value="1">1 Month</option>
+                                        <option value="3">3 Month</option>
+                                        <option value="6">6 Month</option>
+                                        <option value="12">12 Month</option>
+                                        <option value="24">24 Month</option>
+                                    </select> 
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Asset Specification</label>
+                                <label class="col-md-3 control-label">Asset Specification *</label>
                                 <div class="col-md-9">
-                                    {!! Form::textarea('base_price', null, array('placeholder' => 'Item Specification','class' => 'form-control')) !!} 
+                                    {!! Form::textarea('specification', null, array('placeholder' => 'Item Specification','class' => 'form-control')) !!} 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -92,21 +100,21 @@ Agrinesia | New Asset
                                 <div class="portlet-body form">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Branch</label>
+                                            <label class="col-md-2 control-label">Branch *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
+                                                {!! Form::select('branch_id', [null=>'Please Select'] + $branches,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Department</label>
+                                            <label class="col-md-2 control-label">Department *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
+                                                {!! Form::select('department_id', [null=>'Please Select'] + $divisions,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Location</label>
+                                            <label class="col-md-2 control-label">Location *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('category_id', [null=>'Please Select'] + $categories,[], array('class' => 'form-control')) !!}
+                                                {!! Form::select('location_id', [null=>'Please Select'] + $locations,[], array('class' => 'form-control')) !!}
                                             </div>
                                         </div>
                                     </div>

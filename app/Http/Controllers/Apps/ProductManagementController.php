@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\Product;
 use iteos\Models\ProductCategory;
+use iteos\Models\Location;
+use iteos\Models\Division;
 use iteos\Models\ProductBom;
 use iteos\Models\UomValue;
 use iteos\Models\Warehouse;
@@ -110,23 +112,26 @@ class ProductManagementController extends Controller
 
     public function productCreate()
     {
-        $categories = ProductCategory::where('deleted_at',)->pluck('name','id')->toArray();
+        $categories = ProductCategory::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
+        $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
+        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
         
-         
-        return view('apps.input.products',compact('categories','uoms','vendors'));
+        return view('apps.input.products',compact('categories','locations','divisions','branches'));
     }
 
     public function productStore(Request $request)
     {
         $this->validate($request, [
-            'barcode' => 'required',
+            'rfid_code' => 'required|unique:products,rfid_code',
+            'sap_code' => 'required|unique:products,sap_code',
             'name' => 'required|unique:products,name',
             'category_id' => 'required',
-            'uom_id' => 'required',
+            'specification' => 'required',
             'image' => 'nullable|file|image',
-            'min_stock' => 'required|numeric',
-            'base_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
+            'branch_id' => 'required',
+            'location_id' => 'required',
+            'department_id' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -141,48 +146,43 @@ class ProductManagementController extends Controller
             ->move($destinationPath, $filename);
 
             $input = [ 
-                'product_barcode' => $request->input('barcode'),
+                'rfid_code' => $request->input('rfid_code'),
+                'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
-                'uom_id' => $request->input('uom_id'),
-                'supplier_id' => $request->input('supplier_id'),
+                'price' => $request->input('price'),
+                'purchase_date' => $request->input('purchase_date'),
                 'image' => $filename,
-                'min_stock' => $request->input('min_stock'),
-                'base_price' => $request->input('base_price'),
-                'sale_price' => $request->input('sale_price'),
-                'is_manufacture' => $request->input('is_manufacture'),
-                'is_sale' => $request->input('is_sale'),
-                'created_by' => auth()->user()->name,
+                'warranty_period' => $request->input('warranty_period'),
+                'specification' => $request->input('specification'),
+                'branch_id' => $request->input('branch_id'),
+                'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('department_id'),
+                'created_by' => auth()->user()->id,
             ];
         } else {
             $input = [
-                'product_barcode' => $request->input('barcode'),
+                'rfid_code' => $request->input('rfid_code'),
+                'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
-                'uom_id' => $request->input('uom_id'),
-                'supplier_id' => $request->input('supplier_id'),
-                'min_stock' => $request->input('min_stock'),
-                'base_price' => $request->input('base_price'),
-                'sale_price' => $request->input('sale_price'),
-                'is_manufacture' => $request->input('is_manufacture'),
-                'is_sale' => $request->input('is_sale'),
-                'created_by' => auth()->user()->name,
+                'price' => $request->input('price'),
+                'purchase_date' => $request->input('purchase_date'),
+                'warranty_period' => $request->input('warranty_period'),
+                'specification' => $request->input('specification'),
+                'branch_id' => $request->input('branch_id'),
+                'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('department_id'),
+                'created_by' => auth()->user()->id,
             ];
         }
         
         $data = Product::create($input);
-        $stocks = Inventory::create([
-            'product_id' => $data->id,
-            'product_name' => $data->name,
-            'warehouse_name' => 'Gudang Utama',
-            'min_stock' => $data->min_stock,
-            'opening_amount' => '0',
-            'closing_amount' => '0', 
-        ]);
-        $log = 'Produk '.($data->name).' berhasil disimpan';
+        
+        $log = 'Asset '.($data->name).' Successfully Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Produk '.($data->name).' berhasil disimpan',
+            'message' => 'Asset '.($data->name).' Successfully Created',
             'alert-type' => 'success'
         );
 
