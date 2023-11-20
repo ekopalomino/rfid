@@ -35,34 +35,18 @@ Agrinesia | Asset Movement
                 			</tr>
                 		</thead>
                 		<tbody>
-                            @foreach($data as $key => $product)
+                            @foreach($data as $key => $move)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $product->product_name }}</td>
-                                <td>
-                                    @if(!empty($product->warehouse_name))
-                                    {{ $product->warehouse_name }}
-                                    @endif
-                                </td>
-                                <td>{{ number_format($product->opening_amount,2,',','.')}}</td>
-                                <td>{{ number_format($product->closing_amount,2,',','.')}}</td>
-                                <td>{{ $product->Products->Uoms->name }}</td>
-                                <td>
-                                    @if( ($product->closing_amount) == '0')
-                                        <label class="label label-sm label-danger">No Stock</label>
-                                    @elseif(($product->closing_amount) <= ($product->min_stock))
-                                        <label class="label label-sm label-warning">Low On Stock</label>
-                                    @elseif(($product->closing_amount) >= ($product->min_stock))
-                                        <label class="label label-sm label-success">Stock Normal</label>
-                                    @endif
-                                </td>
-                				<td>{{date("d F Y H:i",strtotime($product->updated_at)) }}</td>
-                                <td>
-                                    <a class="btn btn-xs btn-success" title="Print Stock Card" href="{{ route('stock.pdf',$product->id) }}"><i class="fa fa-print"></i></a>
-                                    <a class="btn btn-xs btn-info modalLg" href="#" value="{{ action('Apps\InventoryManagementController@stockCard',['id'=>$product->id]) }}" 
-                                        title="Stock Card Produk {{$product->Products->name }}" data-toggle="modal" data-target="#modalLg"><i class="fa fa-search"></i>
-                                    </a>
-                                </td>
+                				<td>{{ $move->Products->rfid_code }}</td>
+                                <td>{{ $move->Products->sap_code }}</td>
+                                <td>{{ $move->Products->name }}</td>
+                                <td>{{ $move->OriginBranch->name }}</td>
+                                <td>{{ $move->OriginLocations->location_name }}</td>
+                                <td>{{ $move->DestBranch->name }}</td>
+                                <td>{{ $move->DestLocations->location_name }}</td>
+                                <td>{{date("d F Y H:i",strtotime($move->updated_at)) }}</td>
+                                <td></td>
                 			</tr>
                             @endforeach 
                 		</tbody>

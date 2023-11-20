@@ -263,7 +263,7 @@ class ProductManagementController extends Controller
                 ];
 
                 $movements = ProductMovement::create([
-                    'product_id' => $input->id,
+                    'product_id' => $id,
                     'origin_location' => $request->input('location_id'),
                     'origin_branch' => $request->input('branch_id'),
                     'destination_location' => $request->input('new_location_id'),
@@ -280,9 +280,6 @@ class ProductManagementController extends Controller
                     'image' => $filename,
                     'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'branch_id' => $request->input('branch_id'),
-                    'location_id' => $request->input('location_id'),
-                    'department_id' => $request->input('department_id'),
                     'created_by' => auth()->user()->id,
                 ];
             }
@@ -320,9 +317,6 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'branch_id' => $request->input('branch_id'),
-                    'location_id' => $request->input('location_id'),
-                    'department_id' => $request->input('department_id'),
                     'created_by' => auth()->user()->id,
                 ];
             }

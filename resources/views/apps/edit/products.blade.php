@@ -93,19 +93,19 @@ Agrinesia | Edit Asset
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Branch *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','disabled')) !!}
+                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Department *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','disabled')) !!}
+                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Location *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','disabled')) !!}
+                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','readonly')) !!}
                                             </div>
                                         </div>
                                     </div>
