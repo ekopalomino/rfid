@@ -49,17 +49,17 @@
                 <ul class="sub-menu">
                     <li class="nav-item {{ set_active(['user.index','user.profile']) }}">
                         <a href="{{ route('user.index') }}" class="nav-link ">
-                            <span class="title">Daftar User</span>
+                            <span class="title">User Manager</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['role.index','role.create','role.edit']) }}">
                         <a href="{{ route('role.index') }}" class="nav-link ">
-                            <span class="title">Hak Akses</span>
+                            <span class="title">Access Roles</span>
                         </a>
                     </li>
                     <li class="nav-item {{ set_active(['user.log']) }}">
                         <a href="{{ route('user.log') }}" class="nav-link ">
-                            <span class="title">Log Aktivitas</span>
+                            <span class="title">Activity Log</span>
                         </a>
                     </li>                                    
                 </ul>
