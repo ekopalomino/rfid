@@ -8,12 +8,7 @@ use iteos\Models\Product;
 use iteos\Models\ProductCategory;
 use iteos\Models\Location;
 use iteos\Models\Division;
-use iteos\Models\ProductBom;
-use iteos\Models\UomValue;
 use iteos\Models\Warehouse;
-use iteos\Models\Contact;
-use iteos\Models\Inventory;
-use iteos\Models\InventoryMovement;
 use iteos\Models\ProductMovement;
 use iteos\Models\Warranty;
 use Auth;
@@ -196,18 +191,8 @@ class ProductManagementController extends Controller
     public function productShow($id)
     {
         $product = Product::find($id);
-        $boms = ProductBom::where('product_id',$id)->get();
-
-        return view('apps.show.products',compact('product','boms'));
-    }
-
-    public function productPdf($id)
-    {
-        $product = Product::find($id);
-        $boms = ProductBom::where('product_id',$id)->get();
-
-        $pdf = PDF::loadview('apps.show.products',compact('product','boms'));
-        return $pdf->download('product-detail.pdf');
+        
+        return view('apps.show.products',compact('product'));
     }
 
     public function productEdit($id)
@@ -357,83 +342,5 @@ class ProductManagementController extends Controller
         $data = ProductMovement::get();
         
         return view('apps.pages.productMovement',compact('data'));
-    }
-
-
-
-    public function indexBom()
-    {
-        $data = Product::get();
-        
-        return view('apps.pages.productBom',compact('data'));
-    }
-
-    public function createBom(Request $request,$id)
-    {
-        $materials = Product::pluck('name','name')->toArray();
-        $uoms = UomValue::pluck('name','id')->toArray();
-        $boms = ProductBom::where('product_id',$id)->get();
-        $id = Product::where('id',$id)->first();
-        
-        return view('apps.input.productBom',compact('materials','uoms','boms','id'));
-    }
-
-    public function storeBom(Request $request)
-    {
-        $this->validate($request, [
-            'material_name' => 'required',
-            'quantity' => 'required|numeric',
-            'uom_id' => 'required',
-        ]);
-
-        $input = $request->all();
-        
-        $data = ProductBom::create($input);
-        $log = 'Bill of Material'.($data->name).' Berhasil Disimpan';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Bill of Material'.($data->name).' Berhasil Disimpan',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
-    }
-
-    public function editBom($id)
-    {
-        $data = ProductBom::find($id);
-        $materials = Product::pluck('name','id')->toArray();
-        $uoms = UomValue::pluck('name','id')->toArray();
-
-        return view('apps.edit.productBom',compact('data','materials','uoms'))->renderSections()['content'];
-    }
-
-    public function updateBom(Request $request,$id)
-    {
-        $input = $request->all();
-
-        $data = ProductBom::find($id)->update($input);
-        $log = 'Bill of Material Berhasil Diubah';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Bill of Material Berhasil Diubah',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($notification);
-    }
-
-    public function destroyBom($id)
-    {
-        $data = ProductBom::find($id);
-        $log = 'Bill of Material Berhasil Dihapus';
-         \LogActivity::addToLog($log);
-        $notification = array (
-            'message' => 'Bill of Material Berhasil Dihapus',
-            'alert-type' => 'success'
-        );
-        $data->delete();
-
-        return redirect()->back()->with($notification);
     }
 }

@@ -14,7 +14,7 @@
                 </a>
             </li>
             @can('Can Access Settings')
-            <li class="nav-item {{ set_active(['warehouse.index','location.index','uom-cat.index','uom-val.index','uker.index']) }}">
+            <li class="nav-item {{ set_active(['warehouse.index','location.index','uker.index']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
                     <span class="title">Configuration</span>
