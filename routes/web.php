@@ -65,12 +65,12 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('settings/uom-value/edit/{id}','Apps\ConfigurationController@uomvalEdit')->name('uom-val.edit');
     Route::post('settings/uom-value/update/{id}','Apps\ConfigurationController@uomvalUpdate')->name('uom-val.update');
     Route::post('settings/uom-value/delete/{id}','Apps\ConfigurationController@uomvalDestroy')->name('uom-val.destroy');
-    Route::get('settings/unit-kerja','Apps\UserManagementController@ukerIndex')->name('uker.index');
-    Route::post('settings/unit-kerja/create','Apps\UserManagementController@ukerStore')->name('uker.store');
-    Route::get('settings/unit-kerja/edit/{id}','Apps\UserManagementController@ukerEdit')->name('uker.edit');
-    Route::get('settings/unit-kerja/show/{id}','Apps\UserManagementController@ukerShow')->name('uker.show');
-    Route::post('settings/unit-kerja/update/{id}','Apps\UserManagementController@ukerUpdate')->name('uker.update');
-    Route::post('settings/unit-kerja/delete/{id}','Apps\UserManagementController@ukerDestroy')->name('uker.destroy');
+    Route::get('settings/unit-kerja','Apps\ConfigurationController@ukerIndex')->name('uker.index');
+    Route::post('settings/unit-kerja/create','Apps\ConfigurationController@ukerStore')->name('uker.store');
+    Route::get('settings/unit-kerja/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('uker.edit');
+    Route::get('settings/unit-kerja/show/{id}','Apps\ConfigurationController@ukerShow')->name('uker.show');
+    Route::post('settings/unit-kerja/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('uker.update');
+    Route::post('settings/unit-kerja/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('uker.destroy');
 
     /*-----------------------End Config Management-----------------------------*/
 

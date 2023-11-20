@@ -8,6 +8,7 @@ use iteos\Models\Warehouse;
 use iteos\Models\Location;
 use iteos\Models\UomCategory;
 use iteos\Models\UomValue;
+use iteos\Models\Division;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
@@ -332,5 +333,73 @@ class ConfigurationController extends Controller
         $data->delete();
 
         return redirect()->route('uom-val.index')->with($notification);
+    }
+
+    public function ukerIndex()
+    {
+        $units = Division::orderBy('name','ASC')->get();
+        return view('apps.pages.units',compact('units'));
+    }
+
+    public function ukerStore(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|unique:divisions,name',
+        ]);
+
+        $input = [
+            'name' => $request->input('name'),
+            'created_by' => auth()->user()->id,
+        ];
+
+        $data = Division::create($input);
+        $log = 'Unit Kerja '.($data->name).' Berhasil Disimpan';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'Unit Kerja '.($data->name).' Berhasil Disimpan',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('uker.index')->with($notification);  
+    }
+
+    public function ukerEdit($id)
+    {
+        $data = Division::find($id);
+        return view('apps.edit.units',compact('data'))->renderSections()['content'];
+    }
+    public function ukerUpdate(Request $request,$id)
+    {
+        $this->validate($request, [
+            'name' => 'required|unique:divisions,name',
+        ]);
+
+        $input = [
+            'name' => $request->input('name'),
+            'updated_by' => auth()->user()->id,
+        ];
+        $data = Division::find($id);
+        $log = 'Unit Kerja '.($data->name).' Berhasil Diubah';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'Unit Kerja '.($data->name).' Berhasil Diubah',
+            'alert-type' => 'success'
+        );
+        $data->update($input);
+
+        return redirect()->route('uker.index')->with($notification);
+    }
+
+    public function ukerDestroy($id)
+    {
+        $data = Division::find($id);
+        $log = 'Unit Kerja '.($data->name).' Berhasil Dihapus';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'Unit Kerja '.($data->name).' Berhasil Dihapus',
+            'alert-type' => 'success'
+        );
+        $data->delete();
+        return redirect()->route('uker.index')->with($notification);
     }
 }

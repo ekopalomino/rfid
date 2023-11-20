@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Unit Kerja
+Agrinesia | Department
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ FiberTekno | Unit Kerja
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Data Unit Kerja
+                        <i class="fa fa-database"></i>Department Data
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -33,7 +33,7 @@ FiberTekno | Unit Kerja
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Tambah Baru </a>
+                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New </a>
                                 </td>
                             </tr>
                         </div>
@@ -47,13 +47,13 @@ FiberTekno | Unit Kerja
                                     @csrf
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h4 class="modal-title">Unit Kerja Baru</h4>
+                                        <h4 class="modal-title">New Department</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama</label>
+                                                    <label class="control-label">Department Name</label>
                                                     {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
@@ -61,20 +61,21 @@ FiberTekno | Unit Kerja
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save changes</button>
+                                        <button id="register" type="submit" class="btn green">Save</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
                     </div>
-                	<table class="table table-striped table-bordered table-hover" id="sample_1">
+                	<table class="table table-striped table-bordered table-hover" id="sample_2">
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Nama Unit Kerja</th>
-                                <th>Dibuat</th>
-                				<th>Tgl Dibuat</th>
+                				<th>Department</th>
+                                <th>Created By</th>
+                                <th>Status</th>
+                				<th>Date of Change</th>
                 				<th></th>
                 			</tr>
                 		</thead>
@@ -83,10 +84,17 @@ FiberTekno | Unit Kerja
                 			<tr>
                 				<td>{{ $key+1 }}</td>
                 				<td>{{ $wc->name }}</td>
-                                <td>{{ $wc->created_by}}</td>
+                                <td>{{ $wc->Author->name}}</td>
+                                <td>
+                                    @if(!empty($wc->deleted_at))
+                                    <label class="label label-sm label-danger">Inactive</label>
+                                    @else
+                                    <label class="label label-sm label-success">Active</label>
+                                    @endif
+                                </td>
                 				<td>{{date("d F Y H:i",strtotime($wc->created_at)) }}</td>
                 				<td>
-                                    <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\UserManagementController@ukerEdit',['id'=>$wc->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@ukerEdit',['id'=>$wc->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
                                     {!! Form::open(['method' => 'POST','route' => ['uker.destroy', $wc->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Delete Data']) !!}
                                     {!! Form::close() !!}

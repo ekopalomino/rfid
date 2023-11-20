@@ -13,6 +13,7 @@ class Division extends Model
         'name',
         'created_by',
         'updated_by',
+        'deleted_at'
     ];
 
     public $incrementing = false;
