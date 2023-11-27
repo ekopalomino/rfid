@@ -174,13 +174,6 @@ class ProductManagementController extends Controller
         }
         
         $data = Product::create($input);
-        $tracking = ProductMovement::create([
-            'product_id' => $data->id,
-            'origin_location' => $data->location_id,
-            'origin_branch' => $data->branch_id,
-            'destination_location' => $data->location_id,
-            'destination_branch' => $data->branch_id,
-        ]);
         
         $log = 'Asset '.($data->name).' Successfully Created';
          \LogActivity::addToLog($log);
