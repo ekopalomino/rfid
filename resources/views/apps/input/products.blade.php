@@ -27,12 +27,6 @@ Agrinesia | New Asset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-md-3 control-label">RFID Code *</label>
-                                <div class="col-md-6">
-                                    {!! Form::text('rfid_code', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-3 control-label">SAP Code *</label>
                                 <div class="col-md-6">
                                     {!! Form::text('sap_code', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}

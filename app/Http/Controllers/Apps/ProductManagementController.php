@@ -122,7 +122,6 @@ class ProductManagementController extends Controller
     public function productStore(Request $request)
     {
         $this->validate($request, [
-            'rfid_code' => 'required|unique:products,rfid_code',
             'sap_code' => 'required|unique:products,sap_code',
             'name' => 'required|unique:products,name',
             'category_id' => 'required',
@@ -145,7 +144,6 @@ class ProductManagementController extends Controller
             ->move($destinationPath, $filename);
 
             $input = [ 
-                'rfid_code' => $request->input('rfid_code'),
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
@@ -161,7 +159,6 @@ class ProductManagementController extends Controller
             ];
         } else {
             $input = [
-                'rfid_code' => $request->input('rfid_code'),
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
@@ -177,6 +174,13 @@ class ProductManagementController extends Controller
         }
         
         $data = Product::create($input);
+        $tracking = ProductMovement::create([
+            'product_id' => $data->id,
+            'origin_location' => $data->location_id,
+            'origin_branch' => $data->branch_id,
+            'destination_location' => $data->location_id,
+            'destination_branch' => $data->branch_id,
+        ]);
         
         $log = 'Asset '.($data->name).' Successfully Created';
          \LogActivity::addToLog($log);
@@ -210,7 +214,6 @@ class ProductManagementController extends Controller
     public function productUpdate(Request $request,$id)
     {
         $this->validate($request, [
-            'rfid_code' => 'required',
             'sap_code' => 'required',
             'name' => 'required',
             'category_id' => 'required',
@@ -232,7 +235,6 @@ class ProductManagementController extends Controller
             
             if ($request->filled('new_location_id')) {
                 $input = [ 
-                    'rfid_code' => $request->input('rfid_code'),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -256,7 +258,6 @@ class ProductManagementController extends Controller
                 ]);
             } else {
                 $input = [ 
-                    'rfid_code' => $request->input('rfid_code'),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -271,7 +272,6 @@ class ProductManagementController extends Controller
         } else {
             if ($request->filled('new_location_id')) {
                 $input = [
-                    'rfid_code' => $request->input('rfid_code'),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -294,7 +294,6 @@ class ProductManagementController extends Controller
                 ]);
             } else {
                 $input = [
-                    'rfid_code' => $request->input('rfid_code'),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -335,6 +334,13 @@ class ProductManagementController extends Controller
         $data->update($destroy);
         
         return redirect()->route('product.index')->with($notification);
+    }
+
+    public function productList()
+    {
+        $assets = Product::where('deleted_at',NULL)->get();
+
+        return response()->json($assets);
     }
 
     public function movementIndex()

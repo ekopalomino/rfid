@@ -27,9 +27,9 @@ Agrinesia | Edit Asset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-md-3 control-label">RFID Code *</label>
+                                <label class="col-md-3 control-label">RFID Code</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('rfid_code', null, array('placeholder' => 'SAP Code','class' => 'form-control')) !!}
+                                    {!! Form::text('rfid_code', null, array('placeholder' => 'SAP Code','class' => 'form-control','disabled')) !!}
                                 </div>
                             </div>
                             <div class="form-group">

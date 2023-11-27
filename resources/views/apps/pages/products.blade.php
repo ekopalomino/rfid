@@ -76,12 +76,9 @@ Agrinesia | Asset Management
                 				<td>{{ $product->Author->name }}</td>
                                 <td>{{date("d F Y H:i",strtotime($product->updated_at)) }}</td>
                 				<td>
-                                    @if($product->is_manufacture == 1)
-                                    {!! Form::open(['method' => 'GET','route' => ['product-bom.create', $product ->id],'style'=>'display:inline']) !!}
-                                    {!! Form::button('<i class="fa fa-sitemap"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Add BoM']) !!}
-                                    {!! Form::close() !!}
-                                    @endif
+                                    @can('disable')
                                     <a class="btn btn-xs btn-success" href="{{ route('product.show',$product->id) }}" title="Show Product" ><i class="fa fa-search"></i></a>
+                                    @endcan
                                     @can('Can Edit Product')
                                     <a class="btn btn-xs btn-success" href="{{ route('product.edit',$product->id) }}" title="Edit Product" ><i class="fa fa-edit"></i></a>
                                     @endcan
