@@ -5,6 +5,7 @@ namespace iteos\Http\Controllers\API;
 use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\Product;
+use iteos\Models\TagDeviceAudit;
 use Validator;
 use iteos\Http\Controllers\API\BaseController as BaseController;
 use iteos\Http\Resources\Product as ProductResource;

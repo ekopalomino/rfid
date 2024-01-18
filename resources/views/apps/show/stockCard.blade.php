@@ -1,4 +1,12 @@
 @extends('apps.layouts.main')
+@section('header.title')
+Asset Management | Audit Report
+@endsection
+@section('header.styles')
+<link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
 <div class="page-content">
 	<div class="row">
@@ -7,61 +15,28 @@
 				<thead>
                 	<tr>
                         <th>No</th>
-                		<th>Tgl Transaksi</th>
-                        <th>Tipe</th>
-                        <th>No Ref</th>
-                        <th>Gudang</th>
-                		<th>Brg Masuk</th>
-                		<th>Brg Keluar</th>
-                		<th>Sisa Brg</th>
-                        <th>Keterangan</th>
+                		<th>Tag ID</th>
+                        <th>Nama</th>
+                        <th>DB Branch</th>
+                		<th>DB Location</th>
+                		<th>Audit Branch</th>
+                        <th>Audit Location</th>
                 	</tr>
                 </thead>
                 <tbody>
-                	@foreach($data as $key=>$val)
+                    @foreach($data as $key => $val)
                 	<tr>
-	                	<td>{{ $key+1 }}</td>
-	                	<td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
-                        <td>
-                            @if($val->type == 1)
-                            Adjustment
-                            @elseif($val->type == 2)
-                            Penjualan
-                            @elseif($val->type == 3)
-                            Pembelian
-                            @elseif($val->type == 4)
-                            Internal Transfer
-                            @elseif($val->type == 5)
-                            Pengiriman
-                            @elseif($val->type == 6)
-                            Penerimaan Brg
-                            @elseif($val->type == 7)
-                            Manufaktur
-                            @elseif($val->type == 8)
-                            Cancel Pengiriman
-                            @elseif($val->type == 9)
-                            Rekap Stok Awal Bulan
-                            @elseif($val->type == 10)
-                            Retur Barang
-                            @endif
-                        </td>
-                        <td>{{ $val->reference_id}}</td>
-                        <td>{{ $val->warehouse_name}}</td>
-	                	<td>{{ number_format($val->incoming,2,',','.')}}</td>
-	                	<td>{{ number_format($val->outgoing,2,',','.')}}</td>
-	                	<td>{{ number_format($val->remaining,2,',','.')}}</td>
-                        <td>{{ $val->notes }}</td>
-	                </tr>
-                	@endforeach
+                        <td>{{ $key+1 }}</td>
+                        <td>{{ $val->TagID }}</td>
+                        <td>Macbook Air</td>
+                        <td>Bogor</td>
+                        <td>Lantai 2</td>
+                        <td>Bogor</td>
+                        <td>Lantai 2</td>
+                    </tr>
+                    @endforeach
                 </tbody>
-            </table>
-            <div class="row">
-				<div class="col-md-12 text-center">
-					<nav aria-label="Page navigation">				
-						{{ $data->links() }}
-					</nav>
-				</div>
-			</div>          
+            </table>        
 		</div>
 	</div>
 </div>       
