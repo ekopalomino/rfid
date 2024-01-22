@@ -27,31 +27,31 @@ Asset Management | Asset Audit
 				<div class="row">
 					<div class="col-md-3">
 						<div class="form-group">
-							<label class="control-label">Tanggal Awal</label>
-							{!! Form::date('from_date', '', array('id' => 'datepicker','class' => 'form-control')) !!}
+							<label class="control-label">Audit Start Date</label>
+							{!! Form::date('start_date', '', array('id' => 'datepicker','class' => 'form-control')) !!}
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
-							<label class="control-label">Tanggal Akhir</label>
-							{!! Form::date('to_date', '', array('id' => 'datepicker','class' => 'form-control')) !!}
+							<label class="control-label">Audit End Date</label>
+							{!! Form::date('end_date', '', array('id' => 'datepicker','class' => 'form-control')) !!}
 						</div>
 					</div>
                     <div class="col-md-3">
                         <div class="form-group">
-						    <label class="control-label">Branch</label>
+						    <label class="control-label">Audit Branch</label>
 							{!! Form::select('branch', [null=>'Please Select'] + $branches,[], array('class' => 'form-control')) !!}
 						</div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-						    <label class="control-label">Location</label>
+						    <label class="control-label">Audit Location</label>
 							{!! Form::select('location', [null=>'Please Select'] + $locations,[], array('class' => 'form-control')) !!}
 						</div>
                     </div>
 				</div>
 				<div class="form-actions left"> 
-					<a button type="button" class="btn default" href="{{ route('audit.index') }}">Cancel</a>
+					<a button type="button" class="btn default" href="{{ route('audit.index') }}">Reset</a>
 					<button type="submit" class="btn blue">
 						<i class="fa fa-check"></i> Run
 					</button>

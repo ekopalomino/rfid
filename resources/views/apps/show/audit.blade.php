@@ -23,13 +23,13 @@ Asset Management | Audit Report
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Asset ID</th>
+                				<th>Tag ID</th>
                 				<th>Name</th>
                 				<th>DB Branch</th>
                                 <th>DB Location</th>
                                 <th>Audit Branch</th>
                                 <th>Audit Location</th>
-                				<th></th>
+                				<th>Result</th>
                 			</tr>
                 		</thead>
                 		<tbody>
@@ -43,14 +43,26 @@ Asset Management | Audit Report
                                 <td>{{ $val->AuditBranch}}</td>
                                 <td>{{ $val->AuditLoc}}</td>
                                 <td>
-                                    @if($val->DataBranch == $val->AuditBranch || $val->DataLoc == $val->AuditLoc)
-                                    Asset Sesuai
+                                    @if($val->DataBranch == $val->AuditBranch && $val->DataLoc == $val->AuditLoc)
+                                    Asset Match
+                                    @elseif($val->DataBranch == $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
+                                    Asset Move Location
+                                    @elseif($val->DataBranch != $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
+                                    Asset Move Branch
                                     @endif
                                 </td>
                 			</tr>
                             @endforeach
                 		</tbody>
                 	</table>
+                    <div class="form-group">
+                        <tr>
+                            <td>
+                                <a button type="close" class="btn green btn-outline sbold" href="{{ route('audit.index') }}">Close</a>
+                                <a button type="close" class="btn red btn-outline sbold" href="{{ url()->previous() }}">Excel</a>
+                            </td>
+                        </tr>
+                    </div>
                 </div>
             </div>
         </div>

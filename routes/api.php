@@ -23,7 +23,7 @@ Route::post('login', 'API\RegisterController@login');
 Route::middleware('auth:api')->group( function () {
     Route::get('asset','API\AssetController@index');
     Route::get('asset/{id}','API\AssetController@show');
-    Route::post('asset/store','API\AssetController@store');
+    Route::post('asset/update/{id}','API\AssetController@store');
     Route::post('audit/store','API\AuditController@store');
     
 });

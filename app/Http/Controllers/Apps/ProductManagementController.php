@@ -354,8 +354,8 @@ class ProductManagementController extends Controller
     public function auditGenerate(Request $request)
     {
         $this->validate($request, [
-            'from_date' => 'required',
-            'to_date' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
 
         $branch = $request->input('branch');
@@ -364,8 +364,8 @@ class ProductManagementController extends Controller
         if($branch == null && $location == null) {
             $data = DB::table('products')
                         ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
-                        ->where('tag_device_audits.created_at','>=',$request->input('from_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('to_date'))
+                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
+                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
                         ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
@@ -376,8 +376,8 @@ class ProductManagementController extends Controller
             $data = DB::table('products')
                         ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
                         ->where('tag_device_audits.location_id',$location)
-                        ->where('tag_device_audits.created_at','>=',$request->input('from_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('to_date'))
+                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
+                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
                         ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
@@ -388,8 +388,8 @@ class ProductManagementController extends Controller
             $data = DB::table('products')
                         ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
                         ->where('tag_device_audits.branch_id',$branch)
-                        ->where('tag_device_audits.created_at','>=',$request->input('from_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('to_date'))
+                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
+                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
                         ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
@@ -401,8 +401,8 @@ class ProductManagementController extends Controller
                         ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
                         ->where('tag_device_audits.branch_id',$branch)
                         ->where('tag_device_audits.location_id',$location)
-                        ->where('tag_device_audits.created_at','>=',$request->input('from_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('to_date'))
+                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
+                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
                         ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')

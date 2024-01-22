@@ -29,8 +29,11 @@ class AuditController extends BaseController
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-   
+        $tags = $request->tag_id;
+        $branch = $request->branch_id;
+        $location = $request->location_id;
+
+        /* $input = $request->all();
         $validator = Validator::make($input, [
             'tag_id' => 'required',
             'branch_id' => 'required',
@@ -40,9 +43,20 @@ class AuditController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
+ */
+       foreach($tags as $index=>$tag) {
+            $audit = TagDeviceAudit::create([
+                'tag_id' => $tag,
+                'branch_id' => $branch[$index],
+                'location_id' => $location[$index]
+            ]);
+        }
+        /* $count = count($request->input('tag_id'));
+        for ($i=0; $i<$count; $i++){
+            $data[] = array('tag_id' => $request->input('tag_id')[$i], 'branch_id' => $request->input('branch_id')[$i]);
+        }
+        return $data; */
    
-        $audit = TagDeviceAudit::create($input);
-        
         return $this->sendResponse(new AuditResource($audit), 'Audit Data Created Successfully');
     }
 
