@@ -8,6 +8,7 @@ class TagDeviceAudit extends Model
 {
     protected $fillable = [
         'tag_id',
+        'product_id',
         'branch_id',
         'location_id'
     ];

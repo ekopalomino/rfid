@@ -30,6 +30,7 @@ class AuditController extends BaseController
     public function store(Request $request)
     {
         $tags = $request->tag_id;
+        $ids = $request->product_id;
         $branch = $request->branch_id;
         $location = $request->location_id;
 
@@ -47,6 +48,7 @@ class AuditController extends BaseController
        foreach($tags as $index=>$tag) {
             $audit = TagDeviceAudit::create([
                 'tag_id' => $tag,
+                'product_id' => $ids[$index],
                 'branch_id' => $branch[$index],
                 'location_id' => $location[$index]
             ]);
