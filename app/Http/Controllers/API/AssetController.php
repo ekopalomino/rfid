@@ -92,13 +92,13 @@ class AssetController extends BaseController
     {
         $input = $request->all();
    
-        /* $validator = Validator::make($input, [
+        $validator = Validator::make($input, [
             'rfid_code' => 'required',
         ]);
    
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
-        } */
+        }
         $product = Product::find($id);   
         $product->update($input);
    

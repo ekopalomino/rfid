@@ -77,8 +77,7 @@ class UserManagementController extends Controller
     public function userShow($id)
     {
         $user = User::find($id);
-        $locations = User::find($id)->warehouses;
-        return view('apps.show.users',compact('user','locations'))->renderSections()['content'];
+        return view('apps.show.users',compact('user'))->renderSections()['content'];
     }
 
     public function userEdit($id)
@@ -87,9 +86,8 @@ class UserManagementController extends Controller
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
         $ukers = Division::pluck('name','id')->toArray();
-        $userLocations = UserWarehouse::where('user_id',$id)->get();
         
-        return view('apps.edit.users',compact('user','roles','userRole','ukers','userLocations'))->renderSections()['content'];
+        return view('apps.edit.users',compact('user','roles','userRole','ukers'))->renderSections()['content'];
     }
 
     public function userUpdate(Request $request, $id)
@@ -100,21 +98,10 @@ class UserManagementController extends Controller
             'password' => 'same:confirm-password',
             'roles' => 'required',
             'division_id' => 'required',
-            'warehouse_name' => 'required',
         ]);
 
         $input = $request->all(); 
-        $locations = $request->warehouse_name;
-        foreach($locations as $index=>$location)
-        {
-            $userLoc = UserWarehouse::updateOrCreate([
-                'user_id' => $id,
-                'warehouse_name' => $location,
-            ],[
-                'warehouse_name' => $location,
-            ]);
-            
-        }
+        
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
