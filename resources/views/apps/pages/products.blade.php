@@ -40,7 +40,7 @@ Agrinesia | Asset Management
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                                <th>RFID Tag</th>
+                                <th>Product EPC</th>
                                 <th>SAP Code</th>
                                 <th>Image</th>
                 				<th>Name</th>
@@ -58,7 +58,7 @@ Agrinesia | Asset Management
                             @foreach($data as $key => $product)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                                <td>{{ $product->rfid_code }}</td>
+                                <td>{{ $product->id }}</td>
                                 <td>{{ $product->sap_code }}</td>
                                 <td><img src="http://fibertekno.iteos.tech/public/products/{{$product->image}}" width="75" height="100" ></td>
                 				<td>{{ $product->name }}</td>

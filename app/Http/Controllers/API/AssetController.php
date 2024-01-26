@@ -5,6 +5,8 @@ namespace iteos\Http\Controllers\API;
 use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\Product;
+use iteos\Models\Warehouse;
+use iteos\Models\Location;
 use iteos\Models\TagDeviceAudit;
 use Validator;
 use iteos\Http\Controllers\API\BaseController as BaseController;
@@ -116,5 +118,19 @@ class AssetController extends BaseController
         $product->delete();
    
         return $this->sendResponse([], 'Product Deleted Successfully.');
+    }
+
+    public function getBranch()
+    {
+        $data = Warehouse::where('deleted_at',NULL)->select('id','name')->get();
+
+        return $data;
+    }
+
+    public function getLocation()
+    {
+        $data = Location::where('deleted_at',NULL)->select('id','location_name')->get();
+
+        return $data;
     }
 }

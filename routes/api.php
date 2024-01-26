@@ -22,6 +22,8 @@ Route::post('login', 'API\RegisterController@login');
 
 Route::middleware('auth:api')->group( function () {
     Route::get('asset','API\AssetController@index');
+    Route::get('asset/branch','API\AssetController@getBranch');
+    Route::get('asset/location','API\AssetController@getLocation');
     Route::get('asset/{id}','API\AssetController@show');
     Route::post('asset/update/{id}','API\AssetController@update');
     Route::post('audit/store','API\AuditController@store');

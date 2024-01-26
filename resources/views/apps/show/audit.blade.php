@@ -46,9 +46,9 @@ Asset Management | Audit Report
                                     @if($val->DataBranch == $val->AuditBranch && $val->DataLoc == $val->AuditLoc)
                                     Asset Match
                                     @elseif($val->DataBranch == $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
-                                    Asset Move Location
+                                    Asset Move Location In Same Branch
                                     @elseif($val->DataBranch != $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
-                                    Asset Move Branch
+                                    Asset Move Branch & Location
                                     @endif
                                 </td>
                 			</tr>

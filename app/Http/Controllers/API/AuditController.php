@@ -29,7 +29,6 @@ class AuditController extends BaseController
      */
     public function store(Request $request)
     {
-        $tags = $request->tag_id;
         $ids = $request->product_id;
         $branch = $request->branch_id;
         $location = $request->location_id;
@@ -45,10 +44,9 @@ class AuditController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
  */
-       foreach($tags as $index=>$tag) {
+       foreach($ids as $index=>$id) {
             $audit = TagDeviceAudit::create([
-                'tag_id' => $tag,
-                'product_id' => $ids[$index],
+                'product_id' => $id,
                 'branch_id' => $branch[$index],
                 'location_id' => $location[$index]
             ]);

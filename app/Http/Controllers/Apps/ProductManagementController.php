@@ -363,49 +363,49 @@ class ProductManagementController extends Controller
 
         if($branch == null && $location == null) {
             $data = DB::table('products')
-                        ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
+                        ->join('tag_device_audits','tag_device_audits.product_id','products.id')
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
+                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
                         ->get();
             
             return view('apps.show.audit',compact('data'));
         } elseif ($branch == null) {
             $data = DB::table('products')
-                        ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
+                        ->join('tag_device_audits','tag_device_audits.product_id','products.id')
                         ->where('tag_device_audits.location_id',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
+                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
                         ->get();
             
                         return view('apps.show.audit',compact('data'));
         } elseif ($location == null) {
             $data = DB::table('products')
-                        ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
+                        ->join('tag_device_audits','tag_device_audits.product_id','products.id')
                         ->where('tag_device_audits.branch_id',$branch)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
+                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
                         ->get();
             
             return view('apps.show.audit',compact('data'));
         } else {
             $data = DB::table('products')
-                        ->join('tag_device_audits','tag_device_audits.tag_id','products.rfid_code')
+                        ->join('tag_device_audits','tag_device_audits.product_id','products.id')
                         ->where('tag_device_audits.branch_id',$branch)
                         ->where('tag_device_audits.location_id',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.rfid_code as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
+                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
                         AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.rfid_code','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
                         ->get();
             
             return view('apps.show.audit',compact('data'));

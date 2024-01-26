@@ -15,8 +15,7 @@ class AuditResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'tag_id' => $this->tag_id,
+            'product_id' => $this->product_id,
             'branch_id' => $this->branch_id,
             'location_id' => $this->location_id,
             'created_at' => $this->created_at->format('d/m/Y'),
