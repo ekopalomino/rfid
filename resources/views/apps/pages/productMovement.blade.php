@@ -23,14 +23,13 @@ Agrinesia | Asset Movement
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>RFID Tag</th>
+                				<th>Tag ID</th>
                                 <th>SAP Code</th>
                                 <th>Asset Name</th>
-                                <th>Origin Branch</th>
-                                <th>Origin Location</th>
-                                <th>Destination Branch</th>
-                                <th>Destination Location</th>
+                                <th>Branch</th>
+                                <th>Location</th>
                                 <th>Doc Date</th>
+                                <th>Created By</th>
                                 <th></th>
                 			</tr>
                 		</thead>
@@ -38,15 +37,19 @@ Agrinesia | Asset Movement
                             @foreach($data as $key => $move)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $move->Products->rfid_code }}</td>
-                                <td>{{ $move->Products->sap_code }}</td>
-                                <td>{{ $move->Products->name }}</td>
-                                <td>{{ $move->OriginBranch->name }}</td>
-                                <td>{{ $move->OriginLocations->location_name }}</td>
-                                <td>{{ $move->DestBranch->name }}</td>
-                                <td>{{ $move->DestLocations->location_name }}</td>
+                				<td>{{ $move->id }}</td>
+                                <td>{{ $move->sap_code }}</td>
+                                <td>{{ $move->name }}</td>
+                                <td>{{ $move->Branches->name }}</td>
+                                <td>{{ $move->Locations->location_name }}</td>
                                 <td>{{date("d F Y H:i",strtotime($move->updated_at)) }}</td>
-                                <td></td>
+                                <td>{{ $move->Editor->name }}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-success" title="Print Movement Card" href="{{ route('movement.print',$move->id) }}"><i class="fa fa-print"></i></a>
+                                    <a class="btn btn-xs btn-info modalLg" href="#" value="{{ action('Apps\ProductManagementController@movementCard',['id'=>$move->id]) }}" 
+                                        title="Movement Card Asset {{$move->name }}" data-toggle="modal" data-target="#modalLg"><i class="fa fa-search"></i>
+                                    </a>
+                                </td>
                 			</tr>
                             @endforeach 
                 		</tbody>

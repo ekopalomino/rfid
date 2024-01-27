@@ -1,11 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Asset Management | Audit Report
-@endsection
-@section('header.styles')
-<link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" type="text/css" />
+Asset Management | Movement Card
 @endsection
 @section('content')
 <div class="page-content">
@@ -15,24 +10,26 @@ Asset Management | Audit Report
 				<thead>
                 	<tr>
                         <th>No</th>
+                        <th>Date</th>
                 		<th>Tag ID</th>
-                        <th>Nama</th>
-                        <th>DB Branch</th>
-                		<th>DB Location</th>
-                		<th>Audit Branch</th>
-                        <th>Audit Location</th>
-                	</tr>
+                        <th>Name</th>
+                        <th>From Branch</th>
+                		<th>From Location</th>
+                		<th>To Branch</th>
+                        <th>To Location</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach($data as $key => $val)
                 	<tr>
                         <td>{{ $key+1 }}</td>
-                        <td>{{ $val->TagID }}</td>
-                        <td>Macbook Air</td>
-                        <td>Bogor</td>
-                        <td>Lantai 2</td>
-                        <td>Bogor</td>
-                        <td>Lantai 2</td>
+                        <td>{{date("d F Y H:i",strtotime($val->updated_at)) }}</td>
+                        <td>{{ $val->product_id }}</td>
+                        <td>{{ $val->Products->name }}</td>
+                        <td>{{ $val->OriginBranch->name }}</td>
+                        <td>{{ $val->OriginLocations->location_name }}</td>
+                        <td>{{ $val->DestBranch->name }}</td>
+                        <td>{{ $val->DestLocations->location_name }}</td>
                     </tr>
                     @endforeach
                 </tbody>

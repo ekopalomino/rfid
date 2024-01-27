@@ -14,7 +14,7 @@ Asset Management | Audit Report
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Audit Report 
+                        <i class="fa fa-database"></i>Audit Report
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -36,19 +36,19 @@ Asset Management | Audit Report
                             @foreach($data as $key => $val)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $val->TagID }}</td>
-                				<td>{{ $val->AssetName }}</td>
-                                <td>{{ $val->DataBranch }}</td>
-                                <td>{{ $val->DataLoc}}</td>
-                                <td>{{ $val->AuditBranch}}</td>
-                                <td>{{ $val->AuditLoc}}</td>
+                				<td>{{ $val->id }}</td>
+                				<td>{{ $val->name }}</td>
+                                <td>{{ $val->Branches->name }}</td>
+                                <td>{{ $val->Locations->location_name}}</td>
+                                <td>{{ $val->audit_branch}}</td>
+                                <td>{{ $val->audit_location}}</td>
                                 <td>
-                                    @if($val->DataBranch == $val->AuditBranch && $val->DataLoc == $val->AuditLoc)
-                                    Asset Match
-                                    @elseif($val->DataBranch == $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
-                                    Asset Move Location In Same Branch
-                                    @elseif($val->DataBranch != $val->AuditBranch && $val->DataLoc != $val->AuditLoc)
-                                    Asset Move Branch & Location
+                                    @if($val->Branches->name == $val->audit_branch && $val->Locations->location_name == $val->audit_location)
+                                    <label class="label label-sm label-success">Asset Match</label>
+                                    @elseif($val->Branches->name == $val->audit_branch && $val->Locations->location_name != $val->audit_location)
+                                    <label class="label label-sm label-danger">Asset Move Location In Same Branch</label>
+                                    @elseif($val->Branches->name != $val->audit_branch && $val->Locations->location_name != $val->audit_location)
+                                    <label class="label label-sm label-danger">Asset Move Branch & Location</label>
                                     @endif
                                 </td>
                 			</tr>

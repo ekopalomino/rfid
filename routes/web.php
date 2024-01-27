@@ -79,6 +79,8 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::post('products/update/{id}','Apps\ProductManagementController@productUpdate')->name('product.update');
     Route::post('products/delete/{id}','Apps\ProductManagementController@productDestroy')->name('product.destroy');
     Route::get('asset-movement','Apps\ProductManagementController@movementIndex')->name('movement.index');
+    Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
+    Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');
     Route::get('asset/audit/','Apps\ProductManagementController@auditIndex')->name('audit.index');
     Route::post('asset/audit/generate','Apps\ProductManagementController@auditGenerate')->name('audit.process');
     /*-----------------------End Product Management--------------------------------*/

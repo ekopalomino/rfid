@@ -122,14 +122,14 @@ class AssetController extends BaseController
 
     public function getBranch()
     {
-        $data = Warehouse::where('deleted_at',NULL)->select('id','name')->get();
+        $data = Warehouse::where('deleted_at',NULL)->select('name')->get();
 
         return $data;
     }
 
     public function getLocation()
     {
-        $data = Location::where('deleted_at',NULL)->select('id','location_name')->get();
+        $data = Location::where('deleted_at',NULL)->select('location_name')->get();
 
         return $data;
     }

@@ -213,7 +213,7 @@ class ProductManagementController extends Controller
             'category_id' => 'required',
             'specification' => 'required',
             'image' => 'nullable|file|image',
-            'new_location_id' => 'unique:products,location_id'
+            'new_location_id' => 'required'
         ]);
 
         if ($request->hasFile('image')) {
@@ -240,7 +240,7 @@ class ProductManagementController extends Controller
                     'branch_id' => $request->input('new_branch_id'),
                     'location_id' => $request->input('new_location_id'),
                     'department_id' => $request->input('new_department_id'),
-                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
                 ];
 
                 $movements = ProductMovement::create([
@@ -260,7 +260,7 @@ class ProductManagementController extends Controller
                     'image' => $filename,
                     'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
                 ];
             }
         } else {
@@ -276,7 +276,7 @@ class ProductManagementController extends Controller
                     'branch_id' => $request->input('new_branch_id'),
                     'location_id' => $request->input('new_location_id'),
                     'department_id' => $request->input('new_department_id'),
-                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
                 ];
 
                 $movements = ProductMovement::create([
@@ -295,7 +295,7 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
                 ];
             }
         }
@@ -339,15 +339,36 @@ class ProductManagementController extends Controller
 
     public function movementIndex()
     {
-        $data = ProductMovement::get();
+        $data = Product::where('deleted_at'.NULL)->get();
         
         return view('apps.pages.productMovement',compact('data'));
     }
 
+    public function movementCard(Request $request,$id)
+    {
+        $source = Product::where('id',$id)->first();
+        
+        $data = ProductMovement::where('product_id',$source->id)
+                                   ->paginate(10);
+        
+        return view('apps.show.stockCard',compact('data'))->renderSections()['content'];
+    }
+
+    public function movementPrint(Request $request,$id)
+    {
+        $source = Product::where('id',$id)->first();
+        $data = ProductMovement::where('product_id',$source->id)
+                                ->get();
+        $filename = Product::where('id',$source->id)->first();
+        
+        $pdf = PDF::loadview('apps.show.stockCardPrint',compact('data','source'));
+        return $pdf->download('Movement Card '.$filename->name.'.pdf');
+    }
+
     public function auditIndex()
     {
-        $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
-        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray(); 
+        $locations = Location::where('deleted_at',NULL)->pluck('location_name','location_name')->toArray();
+        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','name')->toArray(); 
         return view('apps.pages.auditIndex',compact('locations','branches'));
     }
 
@@ -362,50 +383,47 @@ class ProductManagementController extends Controller
         $location = $request->input('location');
 
         if($branch == null && $location == null) {
-            $data = DB::table('products')
+            
+            $data = Product::with('branches','locations')
+                            ->join('tag_device_audits','tag_device_audits.product_id','products.id')
+                            ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
+                            ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
+                            ->select('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
+                            ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
+                            ->get();
+                    
+            return view('apps.show.audit',compact('data'));
+        } elseif ($branch == null) {
+            $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.product_id','products.id')
+                        ->where('tag_device_audits.location',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
-                        AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->select('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
                         ->get();
             
             return view('apps.show.audit',compact('data'));
-        } elseif ($branch == null) {
-            $data = DB::table('products')
-                        ->join('tag_device_audits','tag_device_audits.product_id','products.id')
-                        ->where('tag_device_audits.location_id',$location)
-                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
-                        AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
-                        ->get();
-            
-                        return view('apps.show.audit',compact('data'));
         } elseif ($location == null) {
-            $data = DB::table('products')
+            $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.product_id','products.id')
-                        ->where('tag_device_audits.branch_id',$branch)
+                        ->where('tag_device_audits.branch',$branch)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
-                        AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->select('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
                         ->get();
             
             return view('apps.show.audit',compact('data'));
         } else {
-            $data = DB::table('products')
+            $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.product_id','products.id')
-                        ->where('tag_device_audits.branch_id',$branch)
-                        ->where('tag_device_audits.location_id',$location)
+                        ->where('tag_device_audits.branch',$branch)
+                        ->where('tag_device_audits.location',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select(DB::raw('products.id as TagID'),DB::raw('products.name as AssetName'),DB::raw('products.branch_id as DataBranch'),DB::raw('products.location_id as DataLoc'),DB::raw('tag_device_audits.branch_id as 
-                        AuditBranch'),DB::raw('tag_device_audits.location_id as AuditLoc'))
-                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.branch_id','tag_device_audits.location_id')
+                        ->select('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
+                        ->groupBy('products.id','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
                         ->get();
             
             return view('apps.show.audit',compact('data'));

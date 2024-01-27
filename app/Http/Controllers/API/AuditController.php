@@ -47,8 +47,8 @@ class AuditController extends BaseController
             
             $audit = TagDeviceAudit::create([
                 'product_id' => $data['product_id'],
-                'branch_id' => $data['branch_id'],
-                'location_id' => $data['location_id']
+                'audit_branch' => $data['branch'],
+                'audit_location' => $data['location']
             ]);
         }
        /* foreach($ids as $index=>$id) {

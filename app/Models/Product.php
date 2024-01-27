@@ -10,7 +10,6 @@ class Product extends Model
     use Uuid;
 
     protected $fillable = [
-        'rfid_code',
         'sap_code',
         'name',
         'category_id',
