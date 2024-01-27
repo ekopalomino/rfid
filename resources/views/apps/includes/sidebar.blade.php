@@ -40,14 +40,14 @@
             </li>
             @endcan
             @can('Can Access Users')
-            <li class="nav-item {{ set_active(['user.index','user.profile','role.index','user.log','role.create','role.edit']) }}">
+            <li class="nav-item {{ set_active(['user.index','role.index','user.log','role.create','role.edit']) }}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-users"></i>
                     <span class="title">Users</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item {{ set_active(['user.index','user.profile']) }}">
+                    <li class="nav-item {{ set_active(['user.index']) }}">
                         <a href="{{ route('user.index') }}" class="nav-link ">
                             <span class="title">User Manager</span>
                         </a>
