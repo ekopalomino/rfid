@@ -43,7 +43,11 @@ Agrinesia | Asset Movement
                                 <td>{{ $move->Branches->name }}</td>
                                 <td>{{ $move->Locations->location_name }}</td>
                                 <td>{{date("d F Y H:i",strtotime($move->updated_at)) }}</td>
-                                <td>{{ $move->Editor->name }}</td>
+                                <td>
+                                    @if(!empty($move->updated_by))
+                                    {{ $move->Editor->name }}
+                                    @endif
+                                </td>
                                 <td>
                                     <a class="btn btn-xs btn-success" title="Print Movement Card" href="{{ route('movement.print',$move->id) }}"><i class="fa fa-print"></i></a>
                                     <a class="btn btn-xs btn-info modalLg" href="#" value="{{ action('Apps\ProductManagementController@movementCard',['id'=>$move->id]) }}" 

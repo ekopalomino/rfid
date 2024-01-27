@@ -27,12 +27,11 @@ class UserManagementController extends Controller
 
     public function userIndex()
     {
-        $users = User::orderBy('name','asc')
+        $users = User::where('email','!=','api@local.com')->orderBy('name','asc')
                         ->get();
-        $ukers = Division::pluck('name','id')->toArray();
         $roles = Role::pluck('name','name')->all();
         
-        return view('apps.pages.users',compact('users','ukers','roles'));
+        return view('apps.pages.users',compact('users','roles'));
     }
 
     public function userProfile()
@@ -49,25 +48,17 @@ class UserManagementController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required',
-            'division_id' => 'required',
         ]);
 
         $input = $request->all();
-        $locations = $request->warehouse_name;
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        foreach($locations as $index=>$location)
-        {
-            $warehouses = UserWarehouse::create([
-                'user_id' => $user->id,
-                'warehouse_name' => $location,
-            ]);
-        }
-        $log = 'User '.($user->name).' Berhasil disimpan';
+        
+        $log = 'User '.($user->name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'User '.($user->name).' Berhasil disimpan',
+            'message' => 'User '.($user->name).' Created',
             'alert-type' => 'success'
         );
 
@@ -85,9 +76,8 @@ class UserManagementController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-        $ukers = Division::pluck('name','id')->toArray();
         
-        return view('apps.edit.users',compact('user','roles','userRole','ukers'))->renderSections()['content'];
+        return view('apps.edit.users',compact('user','roles','userRole'))->renderSections()['content'];
     }
 
     public function userUpdate(Request $request, $id)
@@ -97,7 +87,6 @@ class UserManagementController extends Controller
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required',
-            'division_id' => 'required',
         ]);
 
         $input = $request->all(); 
@@ -113,10 +102,10 @@ class UserManagementController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();        
         $user->assignRole($request->input('roles'));
         
-        $log = 'User '.($user->name).' Berhasil diubah';
+        $log = 'User '.($user->name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'User '.($user->name).' Berhasil diubah',
+            'message' => 'User '.($user->name).' Updated',
             'alert-type' => 'success'
         );
 
@@ -138,10 +127,10 @@ class UserManagementController extends Controller
         $user->avatar = $avatarName;
         $user->save(); 
 
-        $log = 'User Picture '.($user->name).' Berhasil disimpan';
+        $log = 'User Picture '.($user->name).' Stored';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'User Picture '.($user->name).' Berhasil disimpan',
+            'message' => 'User Picture '.($user->name).' Stored',
             'alert-type' => 'success'
         );
 
@@ -164,10 +153,10 @@ class UserManagementController extends Controller
         $user = Auth::user();
         $user->update($input);
 
-        $log = 'Password User '.($user->name).' Berhasil diubah';
+        $log = 'Password for User '.($user->name).' Changed';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Password User '.($user->name).' Berhasil diubah',
+            'message' => 'Password for User '.($user->name).' Changed',
             'alert-type' => 'success'
         );
         return back()
@@ -227,10 +216,10 @@ class UserManagementController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
-        $log = 'Hak Akses '.($role->name).' berhasil disimpan';
+        $log = 'Access Role '.($role->name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Hak Akses '.($role->name).' berhasil disimpan',
+            'message' => 'Access Role '.($role->name).' Created',
             'alert-type' => 'success'
         ); 
 
@@ -277,10 +266,10 @@ class UserManagementController extends Controller
 
 
         $role->syncPermissions($request->input('permission'));
-        $log = 'Hak Akses '.($role->name).' berhasil diubah';
+        $log = 'Access Role '.($role->name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Hak Akses '.($role->name).' berhasil diubah',
+            'message' => 'Access Role '.($role->name).' Updated',
             'alert-type' => 'success'
         ); 
 
@@ -291,10 +280,10 @@ class UserManagementController extends Controller
     public function roleDestroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        $log = 'Hak Akses '.($role->name).' berhasil disimpan';
+        $log = 'Access Role '.($role->name).' Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Hak Akses '.($role->name).' berhasil disimpan',
+            'message' => 'Access Role '.($role->name).' Deleted',
             'alert-type' => 'success'
         ); 
         return redirect()->route('role.index')

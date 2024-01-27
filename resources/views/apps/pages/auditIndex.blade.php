@@ -7,7 +7,7 @@ Asset Management | Asset Audit
 	<div class="portlet box red ">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-database"></i> Query Laporan Audit
+				<i class="fa fa-database"></i> Audit Report Query
 			</div>
 		</div>
 		<div class="portlet-body form">

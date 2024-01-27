@@ -26,9 +26,15 @@ Asset Management | New Asset Import
                 <div class="form-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    {!! Form::file('asset', null, array('placeholder' => 'Asset Data','class' => 'form-control')) !!}
+                            <div class="m-heading-1 border-red m-bordered">
+                                <h3>How to Import Data</h3>
+                                    <p>Download templates & data from the right side column. Use id number for each data to fill the id field on asset template.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        {!! Form::file('asset', null, array('placeholder' => 'Asset Data','class' => 'form-control')) !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>

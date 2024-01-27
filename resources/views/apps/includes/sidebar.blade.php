@@ -65,7 +65,7 @@
                 </ul>
             </li>
             @endcan
-            @can('Can Access Products')
+            @can('Can Access Asset')
             <li class="nav-item {{ set_active(['product-cat.index','asset.index','asset.create','asset.edit','movement.index','asset.page','asset.show','audit.index','audit.process']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-social-dropbox"></i>
@@ -88,11 +88,13 @@
                             <span class="title">Asset Movement</span>
                         </a>
                     </li>
+                    @can('Can Run Audit')
                     <li class="nav-item {{ set_active(['audit.index','audit.process']) }}">
                 		<a href="{{ route('audit.index') }}" class="nav-link ">
                             <span class="title">Asset Audit</span>
                         </a>
                     </li>
+                    @endcan
                 </ul>
             </li>
             @endcan

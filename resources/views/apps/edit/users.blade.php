@@ -48,15 +48,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Unit Kerja</label>
-                        {!! Form::select('division_id', $ukers,old('division_id'), array('class' => 'form-control')) !!}
-                    </div>
-                </div>                                                              
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Hak Akses</label>
+                        <label class="control-label">Access Role</label>
                         {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control')) !!}
                     </div>
                 </div>
@@ -71,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button id="register" type="submit" class="btn green">Save changes</button>
+                <button id="register" type="submit" class="btn green">Update</button>
             </div>
             {!! Form::close() !!}
 		</div>

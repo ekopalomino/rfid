@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Department
+Asset Management | Department
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -28,7 +28,7 @@ Agrinesia | Department
                                 </ul>
                         </div>
                     @endif
-                    @can('Can Create User')
+                    @can('Can Create Data')
                     <div class="col-md-6">
                         <div class="form-group">
                             <tr>
@@ -61,7 +61,7 @@ Agrinesia | Department
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save</button>
+                                        <button id="register" type="submit" class="btn green">Submit</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -94,10 +94,14 @@ Agrinesia | Department
                                 </td>
                 				<td>{{date("d F Y H:i",strtotime($wc->created_at)) }}</td>
                 				<td>
+                                    @can('Can Edit Data')
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@ukerEdit',['id'=>$wc->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
+                                    @endcan
+                                    @can('Can Delete Data')
                                     {!! Form::open(['method' => 'POST','route' => ['uker.destroy', $wc->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Delete Data']) !!}
                                     {!! Form::close() !!}
+                                    @endcan
                                 </td>
                 			</tr>
                             @endforeach

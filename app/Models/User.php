@@ -59,9 +59,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Division::class,'division_id');
     }
-
-    public function Warehouses()
-    {
-        return $this->hasMany(UserWarehouse::class);
-    }
 }

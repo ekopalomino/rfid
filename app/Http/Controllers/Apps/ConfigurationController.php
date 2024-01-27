@@ -21,9 +21,9 @@ class ConfigurationController extends Controller
     function __construct()
     {
         $this->middleware('permission:Can Access Settings');
-        $this->middleware('permission:Can Create Setting', ['only' => ['create','store']]);
-        $this->middleware('permission:Can Edit Setting', ['only' => ['edit','update']]);
-        $this->middleware('permission:Can Delete Setting', ['only' => ['destroy']]);
+        $this->middleware('permission:Can Create Data', ['only' => ['create','store']]);
+        $this->middleware('permission:Can Edit Data', ['only' => ['edit','update']]);
+        $this->middleware('permission:Can Delete Data', ['only' => ['destroy']]);
     }
 
     public function warehouseIndex()
@@ -44,10 +44,10 @@ class ConfigurationController extends Controller
             'created_by' => auth()->user()->id,
         ];
         $data = Warehouse::create($input);
-        $log = 'Branch '.($data->name).' Successfully Created';
+        $log = 'Branch '.($data->name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Branch '.($data->name).' Successfully Created',
+            'message' => 'Branch '.($data->name).' Created',
             'alert-type' => 'success'
         );
 
@@ -73,10 +73,10 @@ class ConfigurationController extends Controller
         ];
         $data = Warehouse::find($id);
         $data->update($input);
-        $log = 'Branch '.($data->name).' Successfully Updated';
+        $log = 'Branch '.($data->name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Branch '.($data->name).' Successfully Updated',
+            'message' => 'Branch '.($data->name).' Updated',
             'alert-type' => 'success'
         );
 
@@ -90,10 +90,10 @@ class ConfigurationController extends Controller
             'deleted_at' => Carbon::now()->toDateTimeString(),
             'updated_by' => auth()->user()->id,
         ];
-        $log = 'Branch '.($data->name).' Successfully Deleted';
+        $log = 'Branch '.($data->name).' Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Branch '.($data->name).' Successfully Deleted',
+            'message' => 'Branch '.($data->name).' Deleted',
             'alert-type' => 'success'
         );
         $data->update($destroy);
@@ -129,10 +129,10 @@ class ConfigurationController extends Controller
             'created_by' => auth()->user()->id,
         ];
         $data = Location::create($input);
-        $log = 'Lokasi '.($data->location_name).' Berhasil Disimpan';
+        $log = 'Location '.($data->location_name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Lokasi '.($data->location_name).' Berhasil Disimpan',
+            'message' => 'Location '.($data->location_name).' Created',
             'alert-type' => 'success'
         );
 
@@ -158,13 +158,13 @@ class ConfigurationController extends Controller
             'location_name' => $request->input('location_name'),
             'warehouse_id' => $request->input('warehouse_id'),
             'location_detail' => $request->input('location_detail'),
-            'updated_by' => auth()->user()->name,
+            'updated_by' => auth()->user()->id,
         ];
         $data = Location::find($id)->update($input);
-        $log = 'Lokasi '.($data->location_name).' Berhasil Diubah';
+        $log = 'Location '.($data->location_name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Lokasi '.($data->location_name).' Berhasil Diubah',
+            'message' => 'Location '.($data->location_name).' Updated',
             'alert-type' => 'success'
         );
 
@@ -178,10 +178,10 @@ class ConfigurationController extends Controller
             'deleted_at' => Carbon::now()->toDateTimeString(),
             'updated_by' => auth()->user()->id,
         ];
-        $log = 'Lokasi '.($data->location_name).' Berhasil Dihapus';
+        $log = 'Location '.($data->location_name).' Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Lokasi '.($data->location_name).' Berhasil Dihapus',
+            'message' => 'Location '.($data->location_name).' Deleted',
             'alert-type' => 'success'
         );
         $data->update($destroy);
@@ -212,10 +212,10 @@ class ConfigurationController extends Controller
         ];
 
         $data = Division::create($input);
-        $log = 'Unit Kerja '.($data->name).' Berhasil Disimpan';
+        $log = 'Department '.($data->name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Unit Kerja '.($data->name).' Berhasil Disimpan',
+            'message' => 'Department '.($data->name).' Created',
             'alert-type' => 'success'
         );
 
@@ -238,10 +238,10 @@ class ConfigurationController extends Controller
             'updated_by' => auth()->user()->id,
         ];
         $data = Division::find($id);
-        $log = 'Unit Kerja '.($data->name).' Berhasil Diubah';
+        $log = 'Department '.($data->name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Unit Kerja '.($data->name).' Berhasil Diubah',
+            'message' => 'Department '.($data->name).' Updated',
             'alert-type' => 'success'
         );
         $data->update($input);
@@ -252,13 +252,17 @@ class ConfigurationController extends Controller
     public function ukerDestroy($id)
     {
         $data = Division::find($id);
-        $log = 'Unit Kerja '.($data->name).' Berhasil Dihapus';
+        $destroy = [
+            'deleted_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => auth()->user()->id,
+        ];
+        $log = 'Department '.($data->name).' Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Unit Kerja '.($data->name).' Berhasil Dihapus',
+            'message' => 'Department '.($data->name).' Deleted',
             'alert-type' => 'success'
         );
-        $data->delete();
+        $data->update($destroy);
         return redirect()->route('uker.index')->with($notification);
     }
 

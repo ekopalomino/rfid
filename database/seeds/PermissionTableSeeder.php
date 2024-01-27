@@ -13,8 +13,12 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            'Can View Management Dashboard',
-            'Can View Finance Dashboard',
+            'Can Access Asset',
+            'Can Create Asset',
+            'Can Import Asset',
+            'Can Edit Asset',
+            'Can Delete Asset',
+            'Can Run Audit'
         ];
 
         foreach($permissions as $permission) {

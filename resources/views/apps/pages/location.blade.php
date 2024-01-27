@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Location
+Asset Management | Location
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -28,6 +28,7 @@ Agrinesia | Location
                                 </ul>
                         </div>
                     @endif
+                    @can('Can Create Data')
                     <div class="col-md-6">
                         <div class="form-group">
                             <tr>
@@ -37,6 +38,7 @@ Agrinesia | Location
                             </tr>
                         </div>
                     </div>
+                    @endcan
                     <div class="col-md-6">
                         <div class="modal fade" id="basic" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
@@ -71,7 +73,7 @@ Agrinesia | Location
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save</button>
+                                        <button id="register" type="submit" class="btn green">Submit</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -108,10 +110,14 @@ Agrinesia | Location
                                 </td>
                                 <td>{{date("d F Y H:i",strtotime($val->created_at)) }}</td>
                 				<td>
+                                    @can('Can Edit Data')
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@locationEdit',['id'=>$val->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
+                                    @endcan
+                                    @can('Can Delete Data')
                                     {!! Form::open(['method' => 'POST','route' => ['warehouse.destroy', $val->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Delete Data']) !!}
                                     {!! Form::close() !!}
+                                    @endcan
                                 </td>
                 			</tr>
                             @endforeach

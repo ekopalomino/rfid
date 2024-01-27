@@ -408,7 +408,7 @@ class ProductManagementController extends Controller
     {
         $this->validate($request, [
             'start_date' => 'required',
-            'end_date' => 'required',
+            'end_date' => 'required|after:start_date',
         ]);
 
         $branch = $request->input('branch');

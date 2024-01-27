@@ -9,11 +9,11 @@
 			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>Nama</th>
+						<th>Name</th>
 						<td>{{ $user->name}}</td>
 					</tr>
 					<tr>
-						<th>Hak Akses</th>
+						<th>Access Role</th>
 						<td>
 							@if(!empty($user->getRoleNames()))
 			                @foreach($user->getRoleNames() as $v)
@@ -23,27 +23,15 @@
 			            </td>
 					</tr>
 					<tr>
-						<th>Divisi</th>
-						<td>{{ $user->Divisions->name}}</td>
-					</tr>
-					<tr> 
-						<th>Gudang</th>
+						<th>Created At</th>
 						<td>
-							@foreach($locations as $key=>$val)
-								<li>{{ $val->warehouse_name }}</li>
-							@endforeach
+							{{ date("d F Y",strtotime($user->created_at)) }} at {{date("g:ha",strtotime($user->created_at)) }}
 						</td>
 					</tr>
 					<tr>
-						<th>Tgl Dibuat</th>
-						<td>
-							{{ date("d F Y",strtotime($user->created_at)) }} jam {{date("g:ha",strtotime($user->created_at)) }}
-						</td>
-					</tr>
-					<tr>
-						<th>Login Terakhir</th>
+						<th>Last Login At</th>
 						<td>@if(!empty($user->last_login_at))
-							{{ date("d F Y",strtotime($user->last_login_at)) }} jam {{date("g:ha",strtotime($user->last_login_at)) }}
+							{{ date("d F Y",strtotime($user->last_login_at)) }} at {{date("g:ha",strtotime($user->last_login_at)) }}
 							@endif
 						</td>
 					</tr>

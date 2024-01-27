@@ -14,7 +14,7 @@ Asset Management | User Management
 			<div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Data User 
+                        <i class="fa fa-database"></i>User Data
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -34,7 +34,7 @@ Asset Management | User Management
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Tambah User </a>
+                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New</a>
                                 </td>
                             </tr>
                         </div>
@@ -48,13 +48,13 @@ Asset Management | User Management
                                     @csrf
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h4 class="modal-title">Tambah User Baru</h4>
+                                        <h4 class="modal-title">Add New User</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label class="control-label">Nama</label>
+                                                    <label class="control-label">Name</label>
                                                     {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
@@ -84,52 +84,15 @@ Asset Management | User Management
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label">Hak Akses</label>
+                                                    <label class="control-label">Access Role</label>
                                                     {!! Form::select('roles[]', [null=>'Please Select'] + $roles,[], array('class' => 'form-control')) !!}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Unit Kerja</label>
-                                                    {!! Form::select('division_id', [null=>'Please Select'] + $ukers,[], array('class' => 'form-control')) !!}
-                                                </div>
-                                            </div>                                                              
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Gudang</label>
-                                                    <div class="mt-checkbox-list">
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox" name="warehouse_name[]" value="Gudang Utama"> Gudang Utama
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox" name="warehouse_name[]" value="Gudang Pengiriman"> Gudang Pengiriman
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox" name="warehouse_name[]" value="Gudang Manufaktur"> Gudang Produksi
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox" name="warehouse_name[]" value="Gudang Scrap"> Gudang Scrap
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-checkbox mt-checkbox-outline">
-                                                            <input type="checkbox" name="warehouse_name[]" value="Gudang Retur"> Gudang Retur
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>                                                              
-                                        </div>   
                                     </div>
                                     <div class="modal-footer">
                                         <button type="close" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                        <button id="register" type="submit" class="btn green">Save changes</button>
+                                        <button id="register" type="submit" class="btn green">Submit</button>
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
@@ -140,12 +103,12 @@ Asset Management | User Management
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Nama</th>
+                				<th>Name</th>
                 				<th>Email</th>
-                				<th>Hak Akses</th>
+                				<th>Access Role</th>
                 				<th>Status</th>
-                				<th>Login Terakhir</th>
-                				<th>Tgl Dibuat</th>
+                				<th>Last Login</th>
+                				<th>Created At</th>
                 				<th></th>
                 			</tr>
                 		</thead>
@@ -177,13 +140,14 @@ Asset Management | User Management
                 				<td>{{date("d F Y H:i",strtotime($user->created_at)) }}</td>
                 				<td>
                                     <a class="btn btn-xs btn-info modalMd" href="#" value="{{ action('Apps\UserManagementController@userShow',['id'=>$user->id]) }}" title="Lihat User" data-toggle="modal" data-target="#modalMd"><i class="fa fa-search"></i></a>
+                                    @can('Can Edit User')
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\UserManagementController@userEdit',['id'=>$user->id]) }}" title="Edit User" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
+                                    @endcan
+                                    @can('Can Delete User')
                                     {!! Form::open(['method' => 'POST','route' => ['user.suspend', $user->id],'style'=>'display:inline','onsubmit' => 'return ConfirmSuspend()']) !!}
-                                    {!! Form::button('<i class="fa fa-close"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Suspend User']) !!}
-                                    {!! Form::close() !!}
-                                    {!! Form::open(['method' => 'POST','route' => ['user.destroy', $user->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Suspend User']) !!}
                                     {!! Form::close() !!}
+                                    @endcan
                                 </td>
                 			</tr>
                             @endforeach

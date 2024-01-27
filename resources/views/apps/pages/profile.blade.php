@@ -21,44 +21,38 @@
         </div>
     @endif
 </div>
-<h1 class="page-title"> Profil Saya</h1>       
+<h1 class="page-title"> My Account</h1>       
     <div class="row">
         <div class="col-lg-3">
             <div class="thumbnail" style="min-height: 514px;">
                 <img class="rounded-circle" src="http://fibertekno.iteos.tech/public/storage/avatars/{{ $user->avatar }}" />
                 <div class="caption">
                     <h3>{{$user->name}}</h3>
-                    <p> Hak Akses :
+                    <p> Access Role :
                         @if(!empty($user->getRoleNames()))
                     @foreach($user->getRoleNames() as $v)
                         {{$v}}
                     @endforeach
                     @endif
                     </p>
-                    <p>Divisi : {{$user->Divisions->name}}</p>
-                    <p>Gudang : 
-                        @foreach($locations as $key=>$val)
-                            <li>{{ $val->warehouse_name }}</li>
-						@endforeach
-                    </p>
-                    <p>Created date :  {{ date("d F Y",strtotime($user->created_at)) }} jam {{date("g:ha",strtotime($user->created_at)) }}</p>
-                    <p>Login Terakhir : {{ date("d F Y",strtotime($user->last_login_at)) }} jam {{date("g:ha",strtotime($user->last_login_at)) }}</p> 
+                    <p>Created date :  {{ date("d F Y",strtotime($user->created_at)) }} at {{date("g:ha",strtotime($user->created_at)) }}</p>
+                    <p>Last Login : {{ date("d F Y",strtotime($user->last_login_at)) }} at {{date("g:ha",strtotime($user->last_login_at)) }}</p> 
                 </div>
             </div>
         </div>
         <div class="col-lg-3">
-            <h3>Ubah Avatar</h3>
+            <h3>Change Picture</h3>
             {!! Form::open(array('route' => 'user.avatar','method'=>'POST', 'files' => true)) !!}
                 @csrf
                 <div class="form-group">
                     {!! Form::file('avatar', array('placeholder' => 'Avatar File','class' => 'form-control')) !!}
-                    <small id="fileHelp" class="form-text text-muted"> Ukuran avatar tidak lebih dari 150x150.</small>
+                    <small id="fileHelp" class="form-text text-muted"> Max Size 150x150.</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             {!! Form::close() !!}
         </div>
         <div class="col-lg-3">
-            <h3>Ubah Password</h3>
+            <h3>Change Password</h3>
             {!! Form::open(array('route' => 'user.password','method'=>'POST', 'files' => true)) !!}
                 @csrf
                 <div class="form-group">
