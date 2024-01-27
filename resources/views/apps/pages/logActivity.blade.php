@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Log Activities
+Asset Management | Activity Log
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ Agrinesia | Log Activities
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Log Activities 
+                        <i class="fa fa-database"></i>Activity Log 
                     </div>
                     <div class="tools"> </div>
                 </div>

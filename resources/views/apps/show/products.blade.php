@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-FiberTekno | Lihat Produk 
+Asset Management | View Asset 
 @endsection
 @section('header.plugins')
 <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
@@ -20,6 +20,8 @@ FiberTekno | Lihat Produk
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">{{ $product->name}}</div>
 						<div class="profile-usertitle-job">{{ $product->Categories->name}}</div>
+						<div class="profile-usertitle-job">{{ $product->id}}</div>
+						{{ $product->specification }}
 					</div>
 				</div>
 			</div>
@@ -30,7 +32,7 @@ FiberTekno | Lihat Produk
 							<div class="portlet-title tabbable-line">
 								<div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">Detail Produk</span>
+                                    <span class="caption-subject font-blue-madison bold uppercase">Asset Detail</span>
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
@@ -43,33 +45,37 @@ FiberTekno | Lihat Produk
 									<div class="tab-pane active" id="tab_1_1">
 										<div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label">Barcode :</label>
-                                                <p><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($product->barcode, 'C128')}}" alt="barcode" /></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Kategori :</label>
+                                                <label class="control-label">Category :</label>
                                                 <p>{{ $product->Categories->name }}</p> 
                                             </div>
+											<div class="form-group">
+                                                <label class="control-label">Location :</label>
+                                                <p>{{ $product->Locations->location_name }}</p>
+											</div>
                                             <div class="form-group">
-                                                <label class="control-label">Satuan :</label>
-                                                <p>{{ $product->Uoms->name }}</p> 
+                                                <label class="control-label">Department :</label>
+                                                <p>{{ $product->Departments->name }}</p> 
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label">Branch :</label>
+                                                <p>{{ $product->Branches->name }}</p> 
                                             </div>
                                         </div>
                                         <div class="col-md-6">
 											<div class="form-group">
-                                                <label class="control-label">Supplier :</label>
-                                                <p>{{ $product->Suppliers->name }}</p>
+                                                <label class="control-label">Purchase Price :</label>
+                                                <p>Rp {{ number_format($product->base_priceprice,2,',','.')}}</p>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Harga Modal :</label>
-                                                <p>Rp {{ number_format($product->base_price,2,',','.')}}</p>
+                                                <label class="control-label">Purchase Date :</label>
+                                                <p>{{date("d F Y H:i",strtotime($product->purchase_date)) }}</p>
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label">Warranty Period :</label>
+                                                <p>{{ $product->warranty_period }} Month</p>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Harga Jual :</label>
-                                                <p>Rp {{ number_format($product->sale_price,2,',','.')}}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Update Terakhir :</label>
+                                                <label class="control-label">Last Update :</label>
                                                 <p>{{date("d F Y H:i",strtotime($product->updated_at)) }}</p> 
                                             </div>
                                         </div>
@@ -77,7 +83,7 @@ FiberTekno | Lihat Produk
                                         	<div class="portlet box red">
                                         		<div class="portlet-title">
                                         			<div class="caption">
-                                            			<i class="fa fa-database"></i>Bill of Materials 
+                                            			<i class="fa fa-database"></i>Asset Movements
                                             		</div>
                                             	</div>
                                             	<div class="portlet-body">
@@ -85,20 +91,24 @@ FiberTekno | Lihat Produk
 		                                        		<thead>
 								                			<tr>
 								                                <th>No</th>
-								                				<th>Nama Material</th>
-								                				<th>Jumlah</th>
-								                                <th>Satuan</th>
+								                				<th>Date</th>
+																<th>From Branch</th>
+																<th>From Location</th>
+																<th>To Branch</th>
+																<th>To Location</th>
 								                			</tr>
 								                		</thead>
 								                		<tbody>
-								                			@foreach($boms as $key => $item)
+															@foreach($data as $key => $val)
 								                			<tr>
-								                				<td>{{ $key+1 }}</td>
-								                				<td>{{ $item->material_name }}</td>
-								                				<td>{{ $item->quantity }}</td>
-								                				<td>{{ $item->Uoms->name }}</td>
-								                			</tr>
-								                			@endforeach
+																<td>{{ $key+1 }}</td>
+																<td>{{date("d F Y H:i",strtotime($val->updated_at)) }}</td>
+																<td>{{ $val->OriginBranch->name }}</td>
+																<td>{{ $val->OriginLocations->location_name }}</td>
+																<td>{{ $val->DestBranch->name }}</td>
+																<td>{{ $val->DestLocations->location_name }}</td>
+															</tr>
+															@endforeach
 								                		</tbody>
 								                	</table>
 								                </div>

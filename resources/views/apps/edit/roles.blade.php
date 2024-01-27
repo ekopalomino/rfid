@@ -212,8 +212,8 @@ Asset Management | Edit Role
                             </div>
                             <div class="form-actions right">
                                 <a button type="button" class="btn default" href="{{ route('role.index') }}">Cancel</a>
-                                <button type="submit" class="btn blue">
-                                    <i class="fa fa-check"></i> Save</button>
+                                <button type="submit" class="btn green">
+                                    <i class="fa fa-check"></i> Update</button>
                             </div>
                         {!! Form::close() !!}
                     </div>

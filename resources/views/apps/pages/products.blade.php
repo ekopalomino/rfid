@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Agrinesia | Asset Management
+Asset Management | Asset Database
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,7 +14,7 @@ Agrinesia | Asset Management
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Asset Data 
+                        <i class="fa fa-database"></i>Asset Database 
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -28,7 +28,7 @@ Agrinesia | Asset Management
                                 </ul>
                         </div>
                     @endif
-                    @can('Can Create Product')
+                    @can('Can Create Asset')
                     <div class="col-md-6">
                         <div class="form-group">
                             <a href="{{ route('asset.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Add New
@@ -78,13 +78,11 @@ Agrinesia | Asset Management
                 				<td>{{ $product->Author->name }}</td>
                                 <td>{{date("d F Y H:i",strtotime($product->updated_at)) }}</td>
                 				<td>
-                                    @can('disable')
                                     <a class="btn btn-xs btn-success" href="{{ route('asset.show',$product->id) }}" title="Show Product" ><i class="fa fa-search"></i></a>
-                                    @endcan
-                                    @can('Can Edit Product')
+                                    @can('Can Edit Asset')
                                     <a class="btn btn-xs btn-success" href="{{ route('asset.edit',$product->id) }}" title="Edit Product" ><i class="fa fa-edit"></i></a>
                                     @endcan
-                                    @can('Can Delete Product')
+                                    @can('Can Delete Asset')
                                     {!! Form::open(['method' => 'POST','route' => ['asset.destroy', $product->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Disable Product']) !!}
                                     {!! Form::close() !!}

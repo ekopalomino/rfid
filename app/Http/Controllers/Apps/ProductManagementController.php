@@ -24,10 +24,10 @@ class ProductManagementController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:Can Access Products');
-        $this->middleware('permission:Can Create Product', ['only' => ['create','store']]);
-        $this->middleware('permission:Can Edit Product', ['only' => ['edit','update']]);
-        $this->middleware('permission:Can Delete Product', ['only' => ['destroy']]);
+        $this->middleware('permission:Can Access Asset');
+        $this->middleware('permission:Can Create Asset', ['only' => ['create','store']]);
+        $this->middleware('permission:Can Edit Asset', ['only' => ['edit','update']]);
+        $this->middleware('permission:Can Delete Asset', ['only' => ['destroy']]);
     }
 
     public function categoryIndex()
@@ -221,8 +221,9 @@ class ProductManagementController extends Controller
     public function productShow($id)
     {
         $product = Product::find($id);
+        $data = ProductMovement::where('product_id',$product->id)->get();
         
-        return view('apps.show.products',compact('product'));
+        return view('apps.show.products',compact('product','data'));
     }
 
     public function productEdit($id)
