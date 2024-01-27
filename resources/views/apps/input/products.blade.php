@@ -21,7 +21,7 @@ Agrinesia | New Asset
                 </ul>
             </div>
             @endif
-            {!! Form::open(array('route' => 'product.store','method'=>'POST','class' => 'form-horizontal','files' => 'true')) !!}
+            {!! Form::open(array('route' => 'asset.store','method'=>'POST','class' => 'form-horizontal','files' => 'true')) !!}
                 @csrf
                 <div class="form-body">
                     <div class="row">
@@ -109,7 +109,7 @@ Agrinesia | New Asset
                         </div>
                     </div>
                     <div class="form-actions right">
-                        <a button type="button" class="btn default" href="{{ route('product.index') }}">Cancel</a>
+                        <a button type="button" class="btn default" href="{{ route('asset.index') }}">Cancel</a>
                         <button type="submit" class="btn blue">
                         <i class="fa fa-check"></i> Save</button>
                     </div>

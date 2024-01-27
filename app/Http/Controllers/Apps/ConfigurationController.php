@@ -7,8 +7,12 @@ use iteos\Http\Controllers\Controller;
 use iteos\Models\Warehouse;
 use iteos\Models\Location;
 use iteos\Models\Division;
+use iteos\Exports\BranchExport;
+use iteos\Exports\DivisionExport;
+use iteos\Exports\LocationExport;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use Carbon\Carbon;
 
@@ -97,6 +101,11 @@ class ConfigurationController extends Controller
         return redirect()->route('warehouse.index')->with($notification);
     }
 
+    public function warehouseExport()
+    {
+        return Excel::download(new BranchExport, 'branch.xlsx');
+    }
+
     public function locationIndex()
     {
         $data = Location::orderBy('location_name','asc')->get();
@@ -180,6 +189,11 @@ class ConfigurationController extends Controller
         return redirect()->route('warehouse.index')->with($notification);
     }
 
+    public function locationExport()
+    {
+        return Excel::download(new LocationExport, 'location.xlsx');
+    }
+
     public function ukerIndex()
     {
         $units = Division::orderBy('name','ASC')->get();
@@ -246,5 +260,10 @@ class ConfigurationController extends Controller
         );
         $data->delete();
         return redirect()->route('uker.index')->with($notification);
+    }
+
+    public function ukerExport()
+    {
+        return Excel::download(new DivisionExport, 'department.xlsx');
     }
 }

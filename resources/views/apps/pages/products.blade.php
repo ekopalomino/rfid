@@ -31,7 +31,9 @@ Agrinesia | Asset Management
                     @can('Can Create Product')
                     <div class="col-md-6">
                         <div class="form-group">
-                            <a href="{{ route('product.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Add New
+                            <a href="{{ route('asset.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Add New
+                            </button></a>
+                            <a href="{{ route('asset.page') }}"><button id="sample_editable_2_new" class="btn blue btn-outline sbold"> Import Excel
                             </button></a>
                         </div>
                     </div>
@@ -77,13 +79,13 @@ Agrinesia | Asset Management
                                 <td>{{date("d F Y H:i",strtotime($product->updated_at)) }}</td>
                 				<td>
                                     @can('disable')
-                                    <a class="btn btn-xs btn-success" href="{{ route('product.show',$product->id) }}" title="Show Product" ><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-xs btn-success" href="{{ route('asset.show',$product->id) }}" title="Show Product" ><i class="fa fa-search"></i></a>
                                     @endcan
                                     @can('Can Edit Product')
-                                    <a class="btn btn-xs btn-success" href="{{ route('product.edit',$product->id) }}" title="Edit Product" ><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-xs btn-success" href="{{ route('asset.edit',$product->id) }}" title="Edit Product" ><i class="fa fa-edit"></i></a>
                                     @endcan
                                     @can('Can Delete Product')
-                                    {!! Form::open(['method' => 'POST','route' => ['product.destroy', $product->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
+                                    {!! Form::open(['method' => 'POST','route' => ['asset.destroy', $product->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Disable Product']) !!}
                                     {!! Form::close() !!}
                                     @endcan

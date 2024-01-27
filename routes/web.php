@@ -16,11 +16,8 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
+
 Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
-    Route::get('login/locked','Auth\LoginController@locked')->name('login.locked');
-    Route::post('login/locked','Auth\LoginController@unlock')->name('login.unlock'); 
-});
-Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     
     Route::resource('dashboard','Apps\DashboardController');
     /*-----------------------User Management-----------------------------*/
@@ -51,16 +48,19 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('configuration/branch/edit/{id}','Apps\ConfigurationController@warehouseEdit')->name('warehouse.edit');
     Route::post('configuration/branch/update/{id}','Apps\ConfigurationController@warehouseUpdate')->name('warehouse.update');
     Route::post('configuration/branch/delete/{id}','Apps\ConfigurationController@warehouseDestroy')->name('warehouse.destroy');
+    Route::get('configuration/branch/export','Apps\ConfigurationController@warehouseExport')->name('warehouse.export');
     Route::get('configuration/location','Apps\ConfigurationController@locationIndex')->name('location.index');
     Route::post('configuration/location/create','Apps\ConfigurationController@locationStore')->name('location.store');
     Route::get('configuration/location/edit/{id}','Apps\ConfigurationController@locationEdit')->name('location.edit');
     Route::post('configuration/location/update/{id}','Apps\ConfigurationController@locationUpdate')->name('location.update');
+    Route::get('configuration/location/export','Apps\ConfigurationController@locationExport')->name('location.export');
     Route::get('configuration/department','Apps\ConfigurationController@ukerIndex')->name('uker.index');
     Route::post('configuration/department/create','Apps\ConfigurationController@ukerStore')->name('uker.store');
     Route::get('configuration/department/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('uker.edit');
     Route::get('configuration/department/show/{id}','Apps\ConfigurationController@ukerShow')->name('uker.show');
     Route::post('configuration/department/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('uker.update');
     Route::post('configuration/department/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('uker.destroy');
+    Route::get('configuration/department/export','Apps\ConfigurationController@ukerExport')->name('uker.export');
 
     /*-----------------------End Config Management-----------------------------*/
 
@@ -70,14 +70,17 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth.lock']], function() {
     Route::get('products/categories/edit/{id}','Apps\ProductManagementController@categoryEdit')->name('product-cat.edit');
     Route::post('products/categories/update/{id}','Apps\ProductManagementController@categoryUpdate')->name('product-cat.update');
     Route::post('products/categories/delete/{id}','Apps\ProductManagementController@categoryDestroy')->name('product-cat.destroy');
-    Route::get('products','Apps\ProductManagementController@productIndex')->name('product.index');
-    Route::get('products/create','Apps\ProductManagementController@productCreate')->name('product.create');
-    Route::post('products/store','Apps\ProductManagementController@productStore')->name('product.store');
-    Route::get('products/show/{id}','Apps\ProductManagementController@productShow')->name('product.show');
-    Route::get('products/show/print/{id}','Apps\ProductManagementController@productPdf')->name('product.pdf');
-    Route::get('products/edit/{id}','Apps\ProductManagementController@productEdit')->name('product.edit');
-    Route::post('products/update/{id}','Apps\ProductManagementController@productUpdate')->name('product.update');
-    Route::post('products/delete/{id}','Apps\ProductManagementController@productDestroy')->name('product.destroy');
+    Route::get('asset','Apps\ProductManagementController@productIndex')->name('asset.index');
+    Route::get('asset/create','Apps\ProductManagementController@productCreate')->name('asset.create');
+    Route::post('asset/store','Apps\ProductManagementController@productStore')->name('asset.store');
+    Route::get('asset/import','Apps\ProductManagementController@productImport')->name('asset.page');
+    Route::get('asset/import/template','Apps\ProductManagementController@importTemplate')->name('asset.template');
+    Route::post('asset/import/store','Apps\ProductManagementController@productImportStore')->name('asset.import');
+    Route::get('asset/show/{id}','Apps\ProductManagementController@productShow')->name('asset.show');
+    Route::get('asset/show/print/{id}','Apps\ProductManagementController@productPdf')->name('asset.pdf');
+    Route::get('asset/edit/{id}','Apps\ProductManagementController@productEdit')->name('asset.edit');
+    Route::post('asset/update/{id}','Apps\ProductManagementController@productUpdate')->name('asset.update');
+    Route::post('asset/delete/{id}','Apps\ProductManagementController@productDestroy')->name('asset.destroy');
     Route::get('asset-movement','Apps\ProductManagementController@movementIndex')->name('movement.index');
     Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
     Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');

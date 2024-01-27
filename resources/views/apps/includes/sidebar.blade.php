@@ -66,15 +66,15 @@
             </li>
             @endcan
             @can('Can Access Products')
-            <li class="nav-item {{ set_active(['product-cat.index','product.index','product.create','product.edit','movement.index','product.show','audit.index','audit.process']) }}">
+            <li class="nav-item {{ set_active(['product-cat.index','asset.index','asset.create','asset.edit','movement.index','asset.page','asset.show','audit.index','audit.process']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-social-dropbox"></i>
             		<span class="title">Assets</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                	<li class="nav-item {{ set_active(['product.index','product.create','product.edit','product.show']) }}">
-                		<a href="{{ route('product.index') }}" class="nav-link ">
+                	<li class="nav-item {{ set_active(['asset.index','asset.create','asset.edit','asset.show','asset.page']) }}">
+                		<a href="{{ route('asset.index') }}" class="nav-link ">
                             <span class="title">Asset Data</span>
                         </a>
                     </li>
@@ -91,11 +91,6 @@
                     <li class="nav-item {{ set_active(['audit.index','audit.process']) }}">
                 		<a href="{{ route('audit.index') }}" class="nav-link ">
                             <span class="title">Asset Audit</span>
-                        </a>
-                    </li>
-                    <li class="nav-item ">
-                		<a href="" class="nav-link ">
-                            <span class="title">Audit Data</span>
                         </a>
                     </li>
                 </ul>

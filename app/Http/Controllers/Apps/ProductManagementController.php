@@ -11,10 +11,13 @@ use iteos\Models\Division;
 use iteos\Models\Warehouse;
 use iteos\Models\ProductMovement;
 use iteos\Models\Warranty;
+use iteos\Imports\ProductImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use PDF;
 use File;
 use DB;
+use Storage;
 use Carbon\Carbon;
 
 class ProductManagementController extends Controller
@@ -183,7 +186,36 @@ class ProductManagementController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('product.index')->with($notification);
+        return redirect()->route('asset.index')->with($notification);
+    }
+
+    public function importTemplate()
+    {
+        $file = 'asset.xlsx';
+        return response()->download(storage_path('/app/public/'. $file));
+    }
+
+    public function productImport()
+    {
+        return view('apps.input.assetImport');
+    }
+
+    public function productImportStore(Request $request)
+    {
+        $this->validate($request, [
+            'asset' => 'required|file|mimes:xlsx,xls,XLSX,XLS'
+        ]);
+        $data = new ProductImport();
+        Excel::import($data, $request->file('asset'));
+
+        $log = 'File Successfully Uploaded';
+         \LogActivity::addToLog($log);
+        $notification = array (
+            'message' => 'File Successfully Uploaded',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('asset.index')->with($notification);
     }
 
     public function productShow($id)
@@ -309,7 +341,7 @@ class ProductManagementController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('product.index')->with($notification);
+        return redirect()->route('asset.index')->with($notification);
     }
 
     public function productDestroy($id)
@@ -327,7 +359,7 @@ class ProductManagementController extends Controller
         );
         $data->update($destroy);
         
-        return redirect()->route('product.index')->with($notification);
+        return redirect()->route('asset.index')->with($notification);
     }
 
     public function productList()
