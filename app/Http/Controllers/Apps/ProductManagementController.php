@@ -179,10 +179,10 @@ class ProductManagementController extends Controller
         
         $data = Product::create($input);
         
-        $log = 'Asset '.($data->name).' Successfully Created';
+        $log = 'Asset '.($data->name).' Created';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Asset '.($data->name).' Successfully Created',
+            'message' => 'Asset '.($data->name).' Created',
             'alert-type' => 'success'
         );
 
@@ -335,10 +335,10 @@ class ProductManagementController extends Controller
         
         $data = Product::find($id);
         $data->update($input);
-        $log = 'Produk '.($data->name).' Berhasil Diubah';
+        $log = 'Asset '.($data->name).' Updated';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Produk '.($data->name).' Berhasil Diubah',
+            'message' => 'Asset '.($data->name).' Updated',
             'alert-type' => 'success'
         );
 
@@ -352,10 +352,10 @@ class ProductManagementController extends Controller
             'deleted_at' => Carbon::now()->toDateTimeString(),
             'updated_by' => auth()->user()->id,
         ];
-        $log = 'Produk '.($data->name).' Berhasil Dinonaktifkan';
+        $log = 'Asset '.($data->name).' Deleted';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => 'Produk '.($data->name).' Berhasil Dinonaktifkan',
+            'message' => 'Asset '.($data->name).' Deleted',
             'alert-type' => 'success'
         );
         $data->update($destroy);
