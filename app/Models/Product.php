@@ -62,4 +62,9 @@ class Product extends Model
     {
         return $this->belongsTo(Location::class,'location_id');
     }
+
+    public function Warranties()
+    {
+        return $this->belongsTo(Warranty::class,'warranty_period');
+    }
 }

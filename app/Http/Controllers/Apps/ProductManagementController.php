@@ -12,6 +12,7 @@ use iteos\Models\Warehouse;
 use iteos\Models\ProductMovement;
 use iteos\Models\Warranty;
 use iteos\Imports\ProductImport;
+use iteos\Exports\ProductExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use PDF;
@@ -229,6 +230,11 @@ class ProductManagementController extends Controller
         );
 
         return redirect()->route('asset.index')->with($notification);
+    }
+
+    public function downloadProduct()
+    {
+        return Excel::download( new ProductExport(), 'asset.xlsx') ;
     }
 
     public function importTemplate()

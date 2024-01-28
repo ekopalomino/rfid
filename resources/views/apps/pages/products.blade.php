@@ -34,8 +34,8 @@ Asset Management | Asset Database
                             <a href="{{ route('asset.create') }}"><button id="sample_editable_1_new" class="btn red btn-outline sbold"> Add New
                             </button></a>
                             <a href="{{ route('asset.page') }}"><button id="sample_editable_2_new" class="btn blue btn-outline sbold"> Import Excel
-                            </button></a>
-                            <a href="{{ route('asset.page') }}"><button id="sample_editable_2_new" class="btn green btn-outline sbold"> Download Data
+                            </button></a> 
+                            <a href="{{ route('asset.download') }}"><button id="sample_editable_2_new" class="btn green btn-outline sbold"> Download Data
                             </button></a>
                         </div>
                     </div>

@@ -73,6 +73,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('asset','Apps\ProductManagementController@getProductTable')->name('asset.index');
     Route::get('asset/create','Apps\ProductManagementController@productCreate')->name('asset.create');
     Route::post('asset/store','Apps\ProductManagementController@productStore')->name('asset.store');
+    Route::get('asset/download','Apps\ProductManagementController@downloadProduct')->name('asset.download');
     Route::get('asset/import','Apps\ProductManagementController@productImport')->name('asset.page');
     Route::get('asset/import/template','Apps\ProductManagementController@importTemplate')->name('asset.template');
     Route::post('asset/import/store','Apps\ProductManagementController@productImportStore')->name('asset.import');
