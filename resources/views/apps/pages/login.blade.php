@@ -69,23 +69,10 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn green uppercase">Login</button>
-                    <a href="javascript:;" id="forget-password" class="forget-password" style="color:#ffffff;">Forgot Password?</a>
                 </div>
             </form>
             <!-- END LOGIN FORM -->
-            <!-- BEGIN FORGOT PASSWORD FORM -->
-            <form class="forget-form" action="{{ route('password.email') }}" method="post">
-                @csrf
-                <h3 class="font-green">Forget Password ?</h3>
-                <p> Enter your e-mail address below to reset your password. </p>
-                <div class="form-group">
-                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" /> </div>
-                <div class="form-actions">
-                    <button type="button" id="back-btn" class="btn green btn-outline">Back</button>
-                    <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
-                </div>
-            </form>
-            <!-- END FORGOT PASSWORD FORM -->
+            
         </div>
         <!-- BEGIN CORE PLUGINS -->
         <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
