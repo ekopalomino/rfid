@@ -18,6 +18,7 @@ use PDF;
 use File;
 use DB;
 use Storage;
+use DataTables;
 use Carbon\Carbon;
 
 class ProductManagementController extends Controller
@@ -105,11 +106,52 @@ class ProductManagementController extends Controller
         return redirect()->route('product-cat.index')->with($notification);
     }
 
-    public function productIndex()
+    public function getProductTable(Request $request)
     {
-    	$data = Product::orderBy('name','asc')->get();
+        if ($request->ajax()) {
+            $data = Product::with('Author','Categories','Branches','Departments','Locations')->where('deleted_at',NULL)->orderBy('name','ASC');
 
-    	return view('apps.pages.products',compact('data'));
+            return Datatables::eloquent($data)
+                ->addIndexColumn()
+                ->addColumn('categories',function(Product $product){
+                    return $product->categories->name;
+                })
+                ->addColumn('branches',function(Product $product){
+                    return $product->branches->name;
+                })
+                ->addColumn('departments',function(Product $product){
+                    return $product->departments->name;
+                })
+                ->addColumn('locations',function(Product $product){
+                    return $product->locations->location_name;
+                })
+                ->addColumn('statuses',function($row){
+                    if($row->deleted_at == NULL){
+                        return "Active";
+                    }else{
+                        return "Inactive";
+                    }
+                })
+                ->addColumn('author',function(Product $product){
+                    return $product->author->name;
+                })
+                ->addColumn('created_at',function($row){
+                    $date = date("d F Y H:i", strtotime($row->created_at));
+                    return $date;
+                })
+                ->addColumn('action', function($row){
+                    // Update Button
+                    $updateButton = "<a class='btn btn-xs btn-info updateProduct' href='".route('asset.edit',$row->id)."'' ><i class='fa fa-edit'></i></a>";
+                    // Delete Button
+                    $deleteButton = "<button class='btn btn-xs btn-danger deleteProduct' data-id='".$row->id."'><i class='fa fa-trash'></i></button>";
+
+                    return $updateButton." ".$deleteButton;
+
+                }) 
+                ->make();
+        }
+        return view('apps.pages.products');
+        
     }
 
     public function productCreate()
@@ -345,8 +387,9 @@ class ProductManagementController extends Controller
         return redirect()->route('asset.index')->with($notification);
     }
 
-    public function productDestroy($id)
+    public function productDestroy(Request $request)
     {
+        $id = $request->post('id');
         $data = Product::find($id);
         $destroy = [
             'deleted_at' => Carbon::now()->toDateTimeString(),
@@ -358,9 +401,15 @@ class ProductManagementController extends Controller
             'message' => 'Asset '.($data->name).' Deleted',
             'alert-type' => 'success'
         );
-        $data->update($destroy);
-        
-        return redirect()->route('asset.index')->with($notification);
+        if($data->update($destroy)){
+            $response['success'] = 1;
+            $response['msg'] = 'Delete successfully'; 
+        }else{
+            $response['success'] = 0;
+            $response['msg'] = 'Invalid ID.';
+        }
+
+        return response()->json($response); 
     }
 
     public function productList()

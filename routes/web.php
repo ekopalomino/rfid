@@ -70,7 +70,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('products/categories/edit/{id}','Apps\ProductManagementController@categoryEdit')->name('product-cat.edit');
     Route::post('products/categories/update/{id}','Apps\ProductManagementController@categoryUpdate')->name('product-cat.update');
     Route::post('products/categories/delete/{id}','Apps\ProductManagementController@categoryDestroy')->name('product-cat.destroy');
-    Route::get('asset','Apps\ProductManagementController@productIndex')->name('asset.index');
+    Route::get('asset','Apps\ProductManagementController@getProductTable')->name('asset.index');
     Route::get('asset/create','Apps\ProductManagementController@productCreate')->name('asset.create');
     Route::post('asset/store','Apps\ProductManagementController@productStore')->name('asset.store');
     Route::get('asset/import','Apps\ProductManagementController@productImport')->name('asset.page');
@@ -80,11 +80,12 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('asset/show/print/{id}','Apps\ProductManagementController@productPdf')->name('asset.pdf');
     Route::get('asset/edit/{id}','Apps\ProductManagementController@productEdit')->name('asset.edit');
     Route::post('asset/update/{id}','Apps\ProductManagementController@productUpdate')->name('asset.update');
-    Route::post('asset/delete/{id}','Apps\ProductManagementController@productDestroy')->name('asset.destroy');
+    Route::post('asset/delete','Apps\ProductManagementController@productDestroy')->name('asset.destroy');
     Route::get('asset-movement','Apps\ProductManagementController@movementIndex')->name('movement.index');
     Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
     Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');
     Route::get('asset/audit/','Apps\ProductManagementController@auditIndex')->name('audit.index');
     Route::post('asset/audit/generate','Apps\ProductManagementController@auditGenerate')->name('audit.process');
     /*-----------------------End Product Management--------------------------------*/
+    Route::get('products/table','Apps\ProductManagementController@getProductTable')->name('product.table');
 });

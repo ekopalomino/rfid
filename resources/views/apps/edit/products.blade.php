@@ -21,7 +21,7 @@ Agrinesia | Edit Asset
                 </ul>
             </div>
             @endif
-            {!! Form::model($data, ['method' => 'POST','route' => ['product.update', $data->id],'class' => 'form-horizontal','files' => 'true']) !!}
+            {!! Form::model($data, ['method' => 'POST','route' => ['asset.update', $data->id],'class' => 'form-horizontal','files' => 'true']) !!}
                 @csrf
                 <div class="form-body">
                     <div class="row">
@@ -29,7 +29,7 @@ Agrinesia | Edit Asset
                             <div class="form-group">
                                 <label class="col-md-3 control-label">RFID Code</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('rfid_code', null, array('placeholder' => 'SAP Code','class' => 'form-control','disabled')) !!}
+                                    {!! Form::text('id', null, array('placeholder' => 'SAP Code','class' => 'form-control','disabled')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -145,7 +145,7 @@ Agrinesia | Edit Asset
                         </div>
                     </div>
                     <div class="form-actions right">
-                        <a button type="button" class="btn default" href="{{ route('product.index') }}">Cancel</a>
+                        <a button type="button" class="btn default" href="{{ route('asset.index') }}">Cancel</a>
                         <button type="submit" class="btn blue">
                         <i class="fa fa-check"></i> Update</button>
                     </div>
