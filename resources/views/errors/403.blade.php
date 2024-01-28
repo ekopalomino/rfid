@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Fiber Teknologi Inovasi | Error 403</title>
+	<title>Asset Management | Error 403</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet"> 
@@ -31,9 +31,7 @@
 			<div class="notfound-404">
 				<h1>4<span>0</span>3</h1>
 			</div>
-			<p>Akun anda sudah login di perangkat lain. </p>
-		    <p>Lakukan login ulang pada perangkat ini, agar anda bisa menggunakan akun anda.</p>
-			<a href="{{ route('login') }}">LOGIN</a>
+			<p>Contact Your Administrator.</p>
 		</div>
 	</div>
 
