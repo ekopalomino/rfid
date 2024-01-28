@@ -12,14 +12,14 @@
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="http://fibertekno.iteos.tech/public/storage/avatars/{{Auth::user()->avatar}}" />
+                        <img alt="" class="img-circle" src="{{ url('avatars/'. Auth::user()->avatar ?? '../user.png') }}" />
                         <span class="username username-hide-on-mobile"> Welcome {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}} </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
                             <a href="{{ route('user.profile') }}">
-                                <i class="icon-user"></i> My Profile 
+                                <i class="icon-user"></i> My Account 
                             </a>
                         </li>
                         <li class="divider"> </li>
