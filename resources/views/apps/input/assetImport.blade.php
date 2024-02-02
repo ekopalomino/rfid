@@ -28,7 +28,9 @@ Asset Management | New Asset Import
                         <div class="col-md-6">
                             <div class="m-heading-1 border-red m-bordered">
                                 <h3>How to Import Data</h3>
-                                    <p>Download templates & data from the right side column. Use id number for each data to fill the id field on asset template.</p>
+                                    <p>1. Download templates & all the references data.</p>
+                                    <p>2. Use id field from references data to fill the category_id,branch_id,location_id & department id on asset template.</p>
+                                    <p>3. Import the asset template.</p>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -48,25 +50,25 @@ Asset Management | New Asset Import
                                 <div class="portlet-body form">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Asset</label>
+                                            <label class="col-md-3 control-label">Asset Template</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('asset.template') }}">Download</a>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Branch</label>
+                                            <label class="col-md-3 control-label">Branch Reference</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('warehouse.export') }}">Download</a>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Location</label>
+                                            <label class="col-md-3 control-label">Location Reference</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('location.export') }}">Download</a>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Department</label>
+                                            <label class="col-md-3 control-label">Department Reference</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('uker.export') }}">Download</a>
                                             </div>
