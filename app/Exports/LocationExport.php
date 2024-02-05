@@ -5,8 +5,9 @@ namespace iteos\Exports;
 use iteos\Models\Location;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class LocationExport implements FromCollection, WithHeadings
+class LocationExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

@@ -5,8 +5,9 @@ namespace iteos\Exports;
 use iteos\Models\Warehouse;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class BranchExport implements FromCollection, WithHeadings
+class BranchExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

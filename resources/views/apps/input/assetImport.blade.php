@@ -56,6 +56,12 @@ Asset Management | New Asset Import
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-md-3 control-label">Asset Category Reference</label>
+                                            <div class="col-md-6">
+                                            <a button type="button" class="btn default red" href="{{ route('product-cat.download') }}">Download</a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label">Branch Reference</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('warehouse.export') }}">Download</a>

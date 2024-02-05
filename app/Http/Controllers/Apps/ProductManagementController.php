@@ -13,6 +13,7 @@ use iteos\Models\ProductMovement;
 use iteos\Models\Warranty;
 use iteos\Imports\ProductImport;
 use iteos\Exports\ProductExport;
+use iteos\Exports\CategoryExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Auth;
 use PDF;
@@ -105,6 +106,11 @@ class ProductManagementController extends Controller
         $data->update($destroy);
 
         return redirect()->route('product-cat.index')->with($notification);
+    }
+
+    public function categoryDownload()
+    {
+        return Excel::download(new CategoryExport, 'category.xlsx');
     }
 
     public function getProductTable(Request $request)

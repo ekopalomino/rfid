@@ -6,9 +6,10 @@ use iteos\Models\Product;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Carbon\Carbon;
 
-class ProductExport implements FromCollection, WithHeadings, WithMapping
+class ProductExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

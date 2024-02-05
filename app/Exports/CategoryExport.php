@@ -2,12 +2,12 @@
 
 namespace iteos\Exports;
 
-use iteos\Models\Division;
+use iteos\Models\ProductCategory;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class DivisionExport implements FromCollection, WithHeadings, ShouldAutoSize
+class CategoryExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -16,12 +16,12 @@ class DivisionExport implements FromCollection, WithHeadings, ShouldAutoSize
     {
         return [
             'id',
-            'Department Name',
+            'Category Name',
         ];
     }
 
     public function collection()
     {
-        return Division::where('deleted_at',NULL)->select('id','name')->get();
+        return ProductCategory::where('deleted_at',NULL)->select('id','name')->get();
     }
 }

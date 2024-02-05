@@ -66,6 +66,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
 
     /*-----------------------Product Management--------------------------------*/
     Route::get('products/categories','Apps\ProductManagementController@categoryIndex')->name('product-cat.index');
+    Route::get('products/categories/download','Apps\ProductManagementController@categoryDownload')->name('product-cat.download');
     Route::post('products/categories/create','Apps\ProductManagementController@categoryStore')->name('product-cat.store');
     Route::get('products/categories/edit/{id}','Apps\ProductManagementController@categoryEdit')->name('product-cat.edit');
     Route::post('products/categories/update/{id}','Apps\ProductManagementController@categoryUpdate')->name('product-cat.update');
