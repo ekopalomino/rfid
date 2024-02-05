@@ -33,7 +33,7 @@ Asset Management | Location
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New </a>
+                                    <a class="btn red btn-outline sbold fa fa-pencil" data-toggle="modal" href="#basic"> Create </a>
                                 </td>
                             </tr>
                         </div>
@@ -80,7 +80,6 @@ Asset Management | Location
                                 <th>No</th>
                 				<th>Branch</th>
                                 <th>Location</th>
-                                <th>Details</th>
                                 <th>Created By</th>
                                 <th>Status</th>
                                 <th>Date of Change</th>
@@ -93,7 +92,6 @@ Asset Management | Location
                 				<td>{{ $key+1 }}</td>
                 				<td>{{ $val->Warehouses->name }}</td>
                                 <td>{{ $val->location_name }}</td>
-                                <td>{{ $val->location_detail }}</td>
                                 <td>{{ $val->Author->name }}</td>
                                 <td>
                                     @if(!empty($val->deleted_at))

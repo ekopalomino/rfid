@@ -32,7 +32,7 @@ Asset Management | Role Management
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" href="{{ route('role.create') }}"> Add New </a>
+                                    <a class="btn red btn-outline sbold fa fa-pencil" href="{{ route('role.create') }}"> Create </a>
                                 </td>
                             </tr>
                         </div>

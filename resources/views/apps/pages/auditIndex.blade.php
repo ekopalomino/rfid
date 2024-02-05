@@ -53,7 +53,7 @@ Asset Management | Asset Audit
 				<div class="form-actions left"> 
 					<a button type="button" class="btn default" href="{{ route('audit.index') }}">Reset</a>
 					<button type="submit" class="btn blue">
-						<i class="fa fa-check"></i> Run
+						<i class="fa fa-refresh"></i> Run
 					</button>
 				</div>
 			</div>

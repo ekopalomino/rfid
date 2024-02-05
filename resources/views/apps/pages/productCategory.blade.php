@@ -23,7 +23,7 @@ Asset Management | Asset Category
                         <div class="form-group">
                             <tr>
                                 <td>
-                                    <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> Add New </a>
+                                    <a class="btn red btn-outline sbold fa fa-pencil" data-toggle="modal" href="#basic">Create </a>
                                 </td>
                             </tr>
                         </div>
