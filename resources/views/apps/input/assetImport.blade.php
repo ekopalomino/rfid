@@ -29,7 +29,7 @@ Asset Management | New Asset Import
                             <div class="m-heading-1 border-red m-bordered">
                                 <h3>How to Import Data</h3>
                                     <p>1. Download templates & all the references data.</p>
-                                    <p>2. Use id field from references data to fill the category_id,branch_id,location_id & department id on asset template.</p>
+                                    <p>2. Use id field from references data to fill the category_id,branch_id & location_id on asset template.</p>
                                     <p>3. Import the asset template.</p>
                             </div>
                             <div class="col-md-6">
@@ -65,12 +65,6 @@ Asset Management | New Asset Import
                                             <label class="col-md-3 control-label">Location Reference</label>
                                             <div class="col-md-6">
                                             <a button type="button" class="btn default red" href="{{ route('location.export') }}">Download</a>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Department Reference</label>
-                                            <div class="col-md-6">
-                                            <a button type="button" class="btn default red" href="{{ route('uker.export') }}">Download</a>
                                             </div>
                                         </div>
                                     </div>
