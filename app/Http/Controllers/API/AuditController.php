@@ -5,6 +5,7 @@ namespace iteos\Http\Controllers\API;
 use Illuminate\Http\Request;
 use iteos\Http\Controllers\Controller;
 use iteos\Models\TagDeviceAudit;
+use Ramsey\Uuid\Uuid;
 use Validator;
 use iteos\Http\Controllers\API\BaseController as BaseController;
 use iteos\Http\Resources\AuditResource as AuditResource;
@@ -29,6 +30,7 @@ class AuditController extends BaseController
      */
     public function store(Request $request)
     {
+        $ids = Uuid::uuid4();
         foreach($request->data as $data) {
             
            /*  $audit = TagDeviceAudit::firstOrCreate(
@@ -36,7 +38,7 @@ class AuditController extends BaseController
                 ['audit_branch' => $data('branch'),'audit_location' => $data('location')]
             ); */
             $audit = TagDeviceAudit::firstOrCreate([
-                'push_id' => $data['push_id'],
+                'push_id' => $ids,
                 'sap_code' => $data['sap_code'],
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
