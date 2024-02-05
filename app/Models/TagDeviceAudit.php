@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TagDeviceAudit extends Model
 {
     protected $fillable = [
+        'push_id',
         'sap_code',
         'audit_branch',
         'audit_location'

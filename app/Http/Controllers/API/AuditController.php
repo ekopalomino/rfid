@@ -29,41 +29,20 @@ class AuditController extends BaseController
      */
     public function store(Request $request)
     {
-        /*$ids = $request->product_id;
-        $branch = $request->branch_id;
-        $location = $request->location_id;*/
-
-        /* $input = $request->all();
-        $validator = Validator::make($input, [
-            'product_id' => 'required',
-            'branch_id' => 'required',
-            'location_id' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
-        } */
         foreach($request->data as $data) {
             
+           /*  $audit = TagDeviceAudit::firstOrCreate(
+                ['sap_code' => $data('sap_code'),'push_id' => '1'],
+                ['audit_branch' => $data('branch'),'audit_location' => $data('location')]
+            ); */
             $audit = TagDeviceAudit::firstOrCreate([
+                'push_id' => $data['push_id'],
                 'sap_code' => $data['sap_code'],
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
             ]);
         }
-       /* foreach($ids as $index=>$id) {
-            $audit = TagDeviceAudit::create([
-                'product_id' => $id,
-                'branch_id' => $branch[$index],
-                'location_id' => $location[$index]
-            ]);
-        } */
-        /*$count = count($request->input('product_id'));
-        for ($i=0; $i<$count; $i++){
-            $data[] = array('product_id' => $request->input('product_id')[$i], 'branch_id' => $request->input('branch_id')[$i]);
-        }
-        /*return $data;*/
-   
+       
         return $this->sendResponse(new AuditResource($audit), 'Audit Data Created Successfully');
     }
 
