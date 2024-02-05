@@ -118,7 +118,6 @@ class ConfigurationController extends Controller
     {
         $this->validate($request, [
             'location_name' => 'required|unique:locations,location_name',
-            'location_detail' => 'required',
             'warehouse_id' => 'required'
         ]);
 

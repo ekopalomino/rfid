@@ -63,12 +63,6 @@ Asset Management | Location
                                                     {!! Form::text('location_name', null, array('placeholder' => 'Name Location','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Location Detail</label>
-                                                    {!! Form::textarea('location_detail', null, array('placeholder' => 'Details','class' => 'form-control')) !!}
-                                                </div>
-                                            </div>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">

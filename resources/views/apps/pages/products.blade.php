@@ -43,13 +43,12 @@ Asset Management | Asset Database
                     <table class="table table-striped table-bordered table-hover" id="product">
                 		<thead>
                 			<tr>
-                                <th>Product EPC</th>
+                                <th>Product ID</th>
                                 <th>SAP Code</th>
                                 <th>Image</th>
                 				<th>Name</th>
                                 <th>Category</th>
                                 <th>Branch</th>
-                                <th>Department</th>
                                 <th>Location</th>
                                 <th>Doc User</th>
                 				<th>Doc Date</th>
@@ -89,7 +88,6 @@ Asset Management | Asset Database
                 { data: 'name' },
                 {data: 'categories', name: 'category_id'},
                 {data: 'branches', name: 'branch_id'},
-                {data: 'departments', name: 'department_id'},
                 {data: 'locations', name: 'location_id'},
                 {data: 'author', name: 'created_by'},
                 {data: 'created_at', name: 'created_at'},

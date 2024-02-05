@@ -2,13 +2,10 @@
 
 namespace iteos\Models;
 
-use iteos\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use Uuid;
-
     protected $fillable = [
         'sap_code',
         'name',
@@ -25,8 +22,6 @@ class Product extends Model
         'created_by',
         'updated_by',
     ];
-
-    public $incrementing = false;
 
     public function Author()
     {

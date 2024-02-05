@@ -120,9 +120,6 @@ class ProductManagementController extends Controller
                 ->addColumn('branches',function(Product $product){
                     return $product->branches->name;
                 })
-                ->addColumn('departments',function(Product $product){
-                    return $product->departments->name;
-                })
                 ->addColumn('locations',function(Product $product){
                     return $product->locations->location_name;
                 })
