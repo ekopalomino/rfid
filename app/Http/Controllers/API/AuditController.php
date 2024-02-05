@@ -45,8 +45,8 @@ class AuditController extends BaseController
         } */
         foreach($request->data as $data) {
             
-            $audit = TagDeviceAudit::create([
-                'product_id' => $data['product_id'],
+            $audit = TagDeviceAudit::firstOrCreate([
+                'sap_code' => $data['sap_code'],
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
             ]);

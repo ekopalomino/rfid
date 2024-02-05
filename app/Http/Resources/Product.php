@@ -16,12 +16,11 @@ class Product extends JsonResource
     {
         return [
             'id' => $this->id,
-            'rfid' => $this->rfid_code,
+            'sap_code' => $this->sap_code,
             'name' => $this->name,
             'category' => $this->Categories->name,
             'branch' => $this->Branches->name,
             'location' => $this->Locations->location_name,
-            'department' => $this->Departments->name,
             'created_at' => $this->created_at->format('d/m/Y'),
             'updated_at' => $this->updated_at->format('d/m/Y'),
         ];
