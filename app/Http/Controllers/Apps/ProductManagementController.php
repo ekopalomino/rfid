@@ -231,7 +231,9 @@ class ProductManagementController extends Controller
 
     public function downloadProduct()
     {
-        return Excel::download( new ProductExport(), 'asset.csv') ;
+        return Excel::download( new ProductExport(), 'asset.csv',\Maatwebsite\Excel\Excel::CSV, [
+            'Content-Type' => 'text/csv',
+        ]) ;
     }
 
     public function importTemplate()
