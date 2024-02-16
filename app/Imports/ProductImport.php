@@ -23,6 +23,7 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
             'sap_code' => $row['sap_code'],
             'name' => $row['name'],
             'category_id' => $row['category_id'],
+            'parent_id' => $row['parent_code'],
             'branch_id' => $row['branch_id'],
             'location_id' => $row['location_id'],
             'created_by' => Auth()->user()->id,

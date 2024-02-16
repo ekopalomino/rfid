@@ -30,7 +30,8 @@ Asset Management | New Asset Import
                                 <h3>How to Import Data</h3>
                                     <p>1. Download templates & all the references data.</p>
                                     <p>2. Use id field from references data to fill the category_id,branch_id & location_id on asset template.</p>
-                                    <p>3. Import the asset template.</p>
+                                    <p>3. Input SAP Code to Parent Code field, if your asset part of another asset.
+                                    <p>4. Import the asset template.</p>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">

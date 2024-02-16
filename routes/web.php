@@ -83,11 +83,16 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('asset/edit/{id}','Apps\ProductManagementController@productEdit')->name('asset.edit');
     Route::post('asset/update/{id}','Apps\ProductManagementController@productUpdate')->name('asset.update');
     Route::post('asset/delete','Apps\ProductManagementController@productDestroy')->name('asset.destroy');
-    Route::get('asset-movement','Apps\ProductManagementController@movementIndex')->name('movement.index');
-    Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
-    Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');
-    Route::get('asset/audit/','Apps\ProductManagementController@auditIndex')->name('audit.index');
-    Route::post('asset/audit/generate','Apps\ProductManagementController@auditGenerate')->name('audit.process');
+    
     /*-----------------------End Product Management--------------------------------*/
     Route::get('products/table','Apps\ProductManagementController@getProductTable')->name('product.table');
+
+    /*-----------------------Reports Management--------------------------------*/
+    Route::get('reports/movement','Apps\ReportController@movementIndex')->name('movement.index');
+    Route::post('reports/movement/run','Apps\ReportController@movementProcess')->name('movement.process');
+    Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
+    Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');
+    Route::get('reports/audit/','Apps\ReportController@auditIndex')->name('audit.index');
+    Route::post('reports/audit/generate','Apps\ReportController@auditGenerate')->name('audit.process');
+    /*-----------------------End Reports Management--------------------------------*/
 });

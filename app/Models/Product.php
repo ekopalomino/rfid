@@ -12,12 +12,11 @@ class Product extends Model
         'category_id',
         'branch_id',
         'location_id',
-        'department_id',
+        'parent_id',
         'image',
         'price',
         'specification',
         'purchase_date',
-        'warranty_period',
         'deleted_at',
         'created_by',
         'updated_by',
@@ -33,11 +32,6 @@ class Product extends Model
         return $this->belongsTo(User::class,'updated_by');
     }
 
-    public function Statuses()
-    {
-        return $this->belongsTo(Status::class,'active');
-    }
-
     public function Categories()
     {
         return $this->belongsTo(ProductCategory::class,'category_id');
@@ -48,18 +42,13 @@ class Product extends Model
         return $this->belongsTo(Warehouse::class,'branch_id');
     }
 
-    public function Departments()
-    {
-        return $this->belongsTo(Division::class,'department_id');
-    }
-
     public function Locations()
     {
         return $this->belongsTo(Location::class,'location_id');
     }
 
-    public function Warranties()
+    public function Child()
     {
-        return $this->belongsTo(Warranty::class,'warranty_period');
+        return $this->hasMany(ProductMovement::class);
     }
 }

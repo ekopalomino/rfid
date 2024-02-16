@@ -19,44 +19,18 @@ Asset Management | Asset Movement
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                	<table class="table table-striped table-bordered table-hover" id="sample_2">
+                    <table class="table table-striped table-bordered table-hover" id="movement">
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Tag ID</th>
-                                <th>SAP Code</th>
+                				<th>SAP Code</th>
                                 <th>Asset Name</th>
                                 <th>Branch</th>
                                 <th>Location</th>
                                 <th>Doc Date</th>
-                                <th>Created By</th>
                                 <th></th>
                 			</tr>
                 		</thead>
-                		<tbody>
-                            @foreach($data as $key => $move)
-                			<tr>
-                				<td>{{ $key+1 }}</td>
-                				<td>{{ $move->id }}</td>
-                                <td>{{ $move->sap_code }}</td>
-                                <td>{{ $move->name }}</td>
-                                <td>{{ $move->Branches->name }}</td>
-                                <td>{{ $move->Locations->location_name }}</td>
-                                <td>{{date("d F Y H:i",strtotime($move->updated_at)) }}</td>
-                                <td>
-                                    @if(!empty($move->updated_by))
-                                    {{ $move->Editor->name }}
-                                    @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-xs btn-success" title="Print Movement Card" href="{{ route('movement.print',$move->id) }}"><i class="fa fa-print"></i></a>
-                                    <a class="btn btn-xs btn-info modalLg" href="#" value="{{ action('Apps\ProductManagementController@movementCard',['id'=>$move->id]) }}" 
-                                        title="Movement Card Asset {{$move->name }}" data-toggle="modal" data-target="#modalLg"><i class="fa fa-search"></i>
-                                    </a>
-                                </td>
-                			</tr>
-                            @endforeach 
-                		</tbody>
                 	</table>
                 </div>
             </div>
@@ -72,4 +46,27 @@ Asset Management | Asset Movement
 @endsection
 @section('footer.scripts')
 <script src="{{ asset('assets/pages/scripts/table-datatables-buttons.min.js') }}" type="text/javascript"></script>
+<script>
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); 
+    $(document).ready(function(){
+
+       // Initialize
+       var empTable = $('#movement').DataTable({
+             processing: true,
+             serverSide: true,
+             orderable: true, 
+             searchable: true,
+             ajax: "{{ route('movement.index') }}",
+             columns: [
+                { data: 'id' },
+                { data: 'sap_code' },
+                { data: 'name' },
+                {data: 'branches', name: 'branch_id'},
+                {data: 'locations', name: 'location_id'},
+                {data: 'updated_at', name: 'updated_at'},
+                { data: 'action' },
+             ]
+       });
+    });
+</script>
 @endsection

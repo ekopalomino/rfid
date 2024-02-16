@@ -14,7 +14,7 @@ class ProductMovement extends Model
         'destination_branch'
     ];
 
-    public function Products()
+    public function Parent()
     {
         return $this->belongsTo(Product::class,'product_id');
     }

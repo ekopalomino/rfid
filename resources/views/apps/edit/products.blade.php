@@ -2,6 +2,10 @@
 @section('header.title')
 Agrinesia | Edit Asset
 @endsection
+@section('header.styles')
+<link href="{{ asset('assets/global/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/global/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
 @section('content')
 <div class="page-content">
     <div class="portlet box red ">
@@ -47,7 +51,23 @@ Agrinesia | Edit Asset
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Category *</label>
                                 <div class="col-md-6">
-                                    {!! Form::select('category_id', $categories,old('category_id'), array('class' => 'form-control')) !!}
+                                    <select id="category_id" name="category_id" class="form-control select2">
+								        <option></option>
+								        @foreach($categories as $category)
+                                        <option value="{{$category->id}}" @if($data->category_id === $category->id) selected="selected" @endif>{{ $category->name}}</option>
+								        @endforeach
+							        </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Parent Asset</label>
+                                <div class="col-md-6">
+                                    <select id="parent_id" name="parent_id" class="form-control select2">
+								        <option></option>
+								        @foreach($parents as $parent)
+								        <option value="{{$parent->parent_id}}" @if($data->parent_id === $parent->id) selected="selected" @endif>{{ $parent->name}}</option>
+								        @endforeach
+							        </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -60,12 +80,6 @@ Agrinesia | Edit Asset
                                 <label class="col-md-3 control-label">Purchase Date</label>
                                 <div class="col-md-6">
                                     {!! Form::date('purchase_date', null, array('placeholder' => 'Product Cost Price','class' => 'form-control')) !!} 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Warranty Period</label>
-                                <div class="col-md-6">
-                                    {!! Form::select('warranty_period', $warranties,old('warranty_period'), array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,50 +107,25 @@ Agrinesia | Edit Asset
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Branch *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('branch_id', $branches,old('branch_id'), array('class' => 'form-control','readonly')) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Department *</label>
-                                            <div class="col-md-6">
-                                                {!! Form::select('department_id', $divisions,old('department_id'), array('class' => 'form-control','readonly')) !!}
+                                                <select id="branch_id" name="branch_id" class="form-control select2">
+                                                    <option></option>
+                                                    @foreach($branches as $branch)
+                                                    <option value="{{$branch->id}}" @if($data->branch_id === $branch->id) selected="selected" @endif>{{ $branch->name}}</option>
+                                                    @endforeach
+							                    </select>
+                                                {{ Form::hidden('old_branch_id', $data->branch_id) }}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Location *</label>
                                             <div class="col-md-6">
-                                                {!! Form::select('location_id', $locations,old('location_id'), array('class' => 'form-control','readonly')) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="portlet box green ">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-branch"></i> New Asset Location
-                                    </div>
-                                </div>
-                                <div class="portlet-body form">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Branch</label>
-                                            <div class="col-md-6">
-                                                {!! Form::select('new_branch_id', [null=>'Please Select'] + $branches,[], array('class' => 'form-control')) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Department</label>
-                                            <div class="col-md-6">
-                                                {!! Form::select('new_department_id', [null=>'Please Select'] + $divisions,[], array('class' => 'form-control')) !!}
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label">Location</label>
-                                            <div class="col-md-6">
-                                                {!! Form::select('new_location_id', [null=>'Please Select'] + $locations,[], array('class' => 'form-control')) !!}
+                                                <select id="location_id" name="location_id" class="form-control select2">
+                                                    <option></option>
+                                                    @foreach($locations as $location)
+                                                    <option value="{{$location->id}}" @if($data->location_id === $location->id) selected="selected" @endif>{{ $location->location_name}}</option>
+                                                    @endforeach
+							                    </select>
+                                                {{ Form::hidden('old_location_id', $data->location_id) }}
                                             </div>
                                         </div>
                                     </div>
@@ -154,4 +143,10 @@ Agrinesia | Edit Asset
         </div>
     </div>
 </div>
+@endsection
+@section('footer.plugins')
+<script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+@endsection
+@section('footer.scripts')
+<script src="{{ asset('assets/pages/scripts/components-select2.min.js') }}" type="text/javascript"></script>
 @endsection

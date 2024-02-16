@@ -116,7 +116,7 @@ class ProductManagementController extends Controller
     public function getProductTable(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::with('Author','Categories','Branches','Departments','Locations')->where('deleted_at',NULL)->orderBy('name','ASC');
+            $data = Product::with('Author','Categories','Branches','Locations')->where('deleted_at',NULL);
 
             return Datatables::eloquent($data)
                 ->addIndexColumn()
@@ -160,13 +160,12 @@ class ProductManagementController extends Controller
 
     public function productCreate()
     {
-        $categories = ProductCategory::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
-        $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $warranties = Warranty::pluck('warranty_name','id')->toArray();
+        $categories = ProductCategory::where('deleted_at',NULL)->get();
+        $locations = Location::where('deleted_at',NULL)->get();
+        $branches = Warehouse::where('deleted_at',NULL)->get();
+        $parents = Product::where('deleted_at',NULL)->get();
         
-        return view('apps.input.products',compact('categories','locations','divisions','branches','warranties'));
+        return view('apps.input.products',compact('categories','locations','branches','parents'));
     }
 
     public function productStore(Request $request)
@@ -179,7 +178,6 @@ class ProductManagementController extends Controller
             'image' => 'nullable|file|image',
             'branch_id' => 'required',
             'location_id' => 'required',
-            'department_id' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -197,14 +195,13 @@ class ProductManagementController extends Controller
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
+                'parent_id' => $request->input('parent_id'),
                 'price' => $request->input('price'),
                 'purchase_date' => $request->input('purchase_date'),
                 'image' => $filename,
-                'warranty_period' => $request->input('warranty_period'),
                 'specification' => $request->input('specification'),
                 'branch_id' => $request->input('branch_id'),
                 'location_id' => $request->input('location_id'),
-                'department_id' => $request->input('department_id'),
                 'created_by' => auth()->user()->id,
             ];
         } else {
@@ -212,13 +209,12 @@ class ProductManagementController extends Controller
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
+                'parent_id' => $request->input('parent_id'),
                 'price' => $request->input('price'),
                 'purchase_date' => $request->input('purchase_date'),
-                'warranty_period' => $request->input('warranty_period'),
                 'specification' => $request->input('specification'),
                 'branch_id' => $request->input('branch_id'),
                 'location_id' => $request->input('location_id'),
-                'department_id' => $request->input('department_id'),
                 'created_by' => auth()->user()->id,
             ];
         }
@@ -244,7 +240,7 @@ class ProductManagementController extends Controller
 
     public function importTemplate()
     {
-        $file = 'asset.xlsx';
+        $file = 'assets.xlsx';
         return response()->download(storage_path('/app/public/'. $file));
     }
 
@@ -282,13 +278,12 @@ class ProductManagementController extends Controller
     public function productEdit($id)
     {
         $data = Product::find($id);
-        $categories = ProductCategory::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $locations = Location::where('deleted_at',NULL)->pluck('location_name','id')->toArray();
-        $divisions = Division::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
-        $warranties = Warranty::pluck('warranty_name','id')->toArray();
+        $categories = ProductCategory::where('deleted_at',NULL)->get();
+        $locations = Location::where('deleted_at',NULL)->get();
+        $branches = Warehouse::where('deleted_at',NULL)->get();
+        $parents = Product::where('deleted_at',NULL)->get();
         
-        return view('apps.edit.products',compact('data','categories','locations','divisions','branches','warranties'));
+        return view('apps.edit.products',compact('data','categories','locations','branches','parents'));
     }
 
     public function productUpdate(Request $request,$id)
@@ -296,10 +291,7 @@ class ProductManagementController extends Controller
         $this->validate($request, [
             'sap_code' => 'required',
             'name' => 'required',
-            'category_id' => 'required',
-            'specification' => 'required',
             'image' => 'nullable|file|image',
-            'new_location_id' => 'required'
         ]);
 
         if ($request->hasFile('image')) {
@@ -313,65 +305,102 @@ class ProductManagementController extends Controller
             $uploadSuccess = $request->file('image')
             ->move($destinationPath, $filename);
             
-            if ($request->filled('new_location_id')) {
+            if ($request->input('location_id') != $request->input('old_location_id')) {
                 $input = [ 
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
+                    'parent_id' => $request->input('parent_id'),
                     'price' => $request->input('price'),
                     'purchase_date' => $request->input('purchase_date'),
                     'image' => $filename,
-                    'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'branch_id' => $request->input('new_branch_id'),
-                    'location_id' => $request->input('new_location_id'),
-                    'department_id' => $request->input('new_department_id'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('location_id'),
-                    'origin_branch' => $request->input('branch_id'),
-                    'destination_location' => $request->input('new_location_id'),
-                    'destination_branch' => $request->input('new_branch_id'),
+                    'origin_location' => $request->input('old_location_id'),
+                    'origin_branch' => $request->input('old_branch_id'),
+                    'destination_location' => $request->input('location_id'),
+                    'destination_branch' => $request->input('branch_id'),
                 ]);
-            } else {
-                $input = [ 
-                    'sap_code' => $request->input('sap_code'),
-                    'name' => $request->input('name'),
-                    'category_id' => $request->input('category_id'),
-                    'price' => $request->input('price'),
-                    'purchase_date' => $request->input('purchase_date'),
-                    'image' => $filename,
-                    'warranty_period' => $request->input('warranty_period'),
-                    'specification' => $request->input('specification'),
-                    'updated_by' => auth()->user()->id,
-                ];
-            }
-        } else {
-            if ($request->filled('new_location_id')) {
+            } elseif ($request->input('branch_id') != $request->input('old_branch_id')) {
                 $input = [
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
                     'price' => $request->input('price'),
                     'purchase_date' => $request->input('purchase_date'),
-                    'warranty_period' => $request->input('warranty_period'),
                     'specification' => $request->input('specification'),
-                    'branch_id' => $request->input('new_branch_id'),
-                    'location_id' => $request->input('new_location_id'),
-                    'department_id' => $request->input('new_department_id'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('location_id'),
-                    'origin_branch' => $request->input('branch_id'),
-                    'destination_location' => $request->input('new_location_id'),
-                    'destination_branch' => $request->input('new_branch_id'),
+                    'origin_location' => $request->input('old_location_id'),
+                    'origin_branch' => $request->input('old_branch_id'),
+                    'destination_location' => $request->input('location_id'),
+                    'destination_branch' => $request->input('branch_id'),
                 ]);
+            } else {
+                $input = [
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'specification' => $request->input('specification'),
+                    'updated_by' => auth()->user()->id,
+                ];
+            }
+        } else {
+            if ($request->input('branch_id') != $request->input('old_branch_id')) {
+                $input = [
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
+                    'updated_by' => auth()->user()->id,
+                ];
+
+                $movements = ProductMovement::create([
+                    'product_id' => $id,
+                    'origin_location' => $request->input('old_location_id'),
+                    'origin_branch' => $request->input('old_branch_id'),
+                    'destination_location' => $request->input('location_id'),
+                    'destination_branch' => $request->input('branch_id'),
+                ]);
+            } elseif ($request->input('location_id') != $request->input('old_location_id')) {
+                $input = [ 
+                    'sap_code' => $request->input('sap_code'),
+                    'name' => $request->input('name'),
+                    'category_id' => $request->input('category_id'),
+                    'parent_id' => $request->input('parent_id'),
+                    'price' => $request->input('price'),
+                    'purchase_date' => $request->input('purchase_date'),
+                    'image' => $filename,
+                    'specification' => $request->input('specification'),
+                    'branch_id' => $request->input('branch_id'),
+                    'location_id' => $request->input('location_id'),
+                    'updated_by' => auth()->user()->id,
+                ];
+
+                $movements = ProductMovement::create([
+                    'product_id' => $id,
+                    'origin_location' => $request->input('old_location_id'),
+                    'origin_branch' => $request->input('old_branch_id'),
+                    'destination_location' => $request->input('location_id'),
+                    'destination_branch' => $request->input('branch_id'),
+                ]); 
             } else {
                 $input = [
                     'sap_code' => $request->input('sap_code'),
@@ -430,11 +459,33 @@ class ProductManagementController extends Controller
         return response()->json($assets);
     }
 
-    public function movementIndex()
+    public function movementIndex(Request $request)
     {
-        $data = Product::where('deleted_at'.NULL)->get();
-        
-        return view('apps.pages.productMovement',compact('data'));
+        if($request->ajax()) {
+            $data = Product::with('Branches','Locations')->where('deleted_at'.NULL)->orderBy('id','ASC');
+
+            return DataTables::eloquent($data)
+            ->addIndexColumn()
+                ->addColumn('branches',function(Product $product){
+                    return $product->branches->name;
+                })
+                ->addColumn('locations',function(Product $product){
+                    return $product->locations->location_name;
+                })
+                ->addColumn('updated_at',function($row){
+                    $date = date("d F Y H:i", strtotime($row->updated_at));
+                    return $date;
+                })
+                ->addColumn('action', function($row){
+                    // Update Button
+                    $viewButton = "<a class='btn btn-xs btn-info modalLg' href='#' value='".route('movement.card',$row->id)."' data-toggle='modal' data-target='#modalLg'><i class='fa fa-search'></i></a>";
+                    
+                    return $viewButton;
+
+                }) 
+                ->make();
+        }
+        return view('apps.pages.productMovement');
     }
 
     public function movementCard(Request $request,$id)
@@ -456,70 +507,5 @@ class ProductManagementController extends Controller
         
         $pdf = PDF::loadview('apps.show.stockCardPrint',compact('data','source'));
         return $pdf->download('Movement Card '.$filename->name.'.pdf');
-    }
-
-    public function auditIndex()
-    {
-        $locations = Location::where('deleted_at',NULL)->pluck('location_name','location_name')->toArray();
-        $branches = Warehouse::where('deleted_at',NULL)->pluck('name','name')->toArray(); 
-        return view('apps.pages.auditIndex',compact('locations','branches'));
-    }
-
-    public function auditGenerate(Request $request)
-    {
-        $this->validate($request, [
-            'start_date' => 'required',
-            'end_date' => 'required|after:start_date',
-        ]);
-
-        $branch = $request->input('branch');
-        $location = $request->input('location');
-
-        if($branch == null && $location == null) {
-            
-            $data = Product::with('branches','locations')
-                            ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                            ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
-                            ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                            ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                            ->groupBy('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                            ->get();
-                    
-            return view('apps.show.audit',compact('data'));
-        } elseif ($branch == null) {
-            $data = Product::with('branches','locations')
-                        ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.location',$location)
-                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->groupBy('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->get();
-            
-            return view('apps.show.audit',compact('data'));
-        } elseif ($location == null) {
-            $data = Product::with('branches','locations')
-                        ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.branch',$branch)
-                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->groupBy('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->get();
-            
-            return view('apps.show.audit',compact('data'));
-        } else {
-            $data = Product::with('branches','locations')
-                        ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.branch',$branch)
-                        ->where('tag_device_audits.location',$location)
-                        ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
-                        ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
-                        ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->groupBy('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
-                        ->get();
-            
-            return view('apps.show.audit',compact('data'));
-        }
     }
 }

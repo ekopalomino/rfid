@@ -62,10 +62,9 @@ Asset Management | Asset Database
                     <table class="table table-striped table-bordered table-hover" id="product">
                 		<thead>
                 			<tr>
-                                <th>Product ID</th>
+                                <th>No</th>
                                 <th>SAP Code</th>
-                                <th>Image</th>
-                				<th>Name</th>
+                                <th>Name</th>
                                 <th>Category</th>
                                 <th>Branch</th>
                                 <th>Location</th>
@@ -103,7 +102,6 @@ Asset Management | Asset Database
              columns: [
                 { data: 'id' },
                 { data: 'sap_code' },
-                { data: 'image' },
                 { data: 'name' },
                 {data: 'categories', name: 'category_id'},
                 {data: 'branches', name: 'branch_id'},
