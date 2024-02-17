@@ -28,16 +28,15 @@ class ReportController extends Controller
 
         $start = $request->input('start_date');
         $end = $request->input('end_date');
+        $item = $request->input('asset');
 
         if($start == null && $end == null) {
-            $data = Product::with('branches','locations','child')->where('id',$request->input('asset'))->get();
-
-            dd($data);
+            $data = ProductMovement::where('product_id',$item)->get();  
         }
 
-        return view('apps.reports.movement',compact('data'));
+        return view('apps.reports.movementItem',compact('data'));
     }
-
+    
     public function auditIndex()
     {
         $locations = Location::where('deleted_at',NULL)->get();
@@ -54,7 +53,7 @@ class ReportController extends Controller
 
         $branch = $request->input('branch');
         $location = $request->input('location');
-
+        
         if($branch == null && $location == null) {
             
             $data = Product::with('branches','locations')
@@ -69,7 +68,7 @@ class ReportController extends Controller
         } elseif ($branch == null) {
             $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.location',$location)
+                        ->where('tag_device_audits.audit_location',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
@@ -80,7 +79,7 @@ class ReportController extends Controller
         } elseif ($location == null) {
             $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.branch',$branch)
+                        ->where('tag_device_audits.audit_branch',$branch)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
@@ -91,8 +90,8 @@ class ReportController extends Controller
         } else {
             $data = Product::with('branches','locations')
                         ->join('tag_device_audits','tag_device_audits.sap_code','products.sap_code')
-                        ->where('tag_device_audits.branch',$branch)
-                        ->where('tag_device_audits.location',$location)
+                        ->where('tag_device_audits.audit_branch',$branch)
+                        ->where('tag_device_audits.audit_location',$location)
                         ->where('tag_device_audits.created_at','>=',$request->input('start_date'))
                         ->where('tag_device_audits.created_at','<=',$request->input('end_date'))
                         ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')

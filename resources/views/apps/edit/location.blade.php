@@ -25,10 +25,6 @@
                 		<label class="control-label">Location Name</label>
                 		{!! Form::text('location_name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                 	</div>
-                    <div class="form-group">
-                		<label class="control-label">Location Detail</label>
-                		{!! Form::textarea('location_detail', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-                	</div>
                 </div>
             </div>
             <div class="modal-footer">

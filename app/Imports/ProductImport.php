@@ -3,6 +3,7 @@
 namespace iteos\Imports;
 
 use iteos\Models\Product;
+use iteos\Models\ProductMovement;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -27,6 +28,12 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
             'branch_id' => $row['branch_id'],
             'location_id' => $row['location_id'],
             'created_by' => Auth()->user()->id,
+        ]);
+
+        $movement = ProductMovement::create([
+            'product_id' => $data->id,
+            'origin_branch' => $data->branch_id,
+            'origin_location' => $data->location_id,
         ]);
     }
 

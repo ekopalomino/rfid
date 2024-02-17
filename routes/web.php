@@ -54,12 +54,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('configuration/location/edit/{id}','Apps\ConfigurationController@locationEdit')->name('location.edit');
     Route::post('configuration/location/update/{id}','Apps\ConfigurationController@locationUpdate')->name('location.update');
     Route::get('configuration/location/export','Apps\ConfigurationController@locationExport')->name('location.export');
-    Route::get('configuration/department','Apps\ConfigurationController@ukerIndex')->name('uker.index');
-    Route::post('configuration/department/create','Apps\ConfigurationController@ukerStore')->name('uker.store');
-    Route::get('configuration/department/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('uker.edit');
-    Route::get('configuration/department/show/{id}','Apps\ConfigurationController@ukerShow')->name('uker.show');
-    Route::post('configuration/department/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('uker.update');
-    Route::post('configuration/department/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('uker.destroy');
+    
     Route::get('configuration/department/export','Apps\ConfigurationController@ukerExport')->name('uker.export');
 
     /*-----------------------End Config Management-----------------------------*/
@@ -89,9 +84,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
 
     /*-----------------------Reports Management--------------------------------*/
     Route::get('reports/movement','Apps\ReportController@movementIndex')->name('movement.index');
-    Route::post('reports/movement/run','Apps\ReportController@movementProcess')->name('movement.process');
-    Route::get('asset-movement/card/{id}','Apps\ProductManagementController@movementCard')->name('movement.card');
-    Route::get('asset-movement/print/{id}','Apps\ProductManagementController@movementPrint')->name('movement.print');
+    Route::post('reports/movement/item','Apps\ReportController@movementProcess')->name('movement.item');
     Route::get('reports/audit/','Apps\ReportController@auditIndex')->name('audit.index');
     Route::post('reports/audit/generate','Apps\ReportController@auditGenerate')->name('audit.process');
     /*-----------------------End Reports Management--------------------------------*/

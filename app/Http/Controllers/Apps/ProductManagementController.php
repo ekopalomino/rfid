@@ -322,10 +322,8 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('old_location_id'),
-                    'origin_branch' => $request->input('old_branch_id'),
-                    'destination_location' => $request->input('location_id'),
-                    'destination_branch' => $request->input('branch_id'),
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
                 ]);
             } elseif ($request->input('branch_id') != $request->input('old_branch_id')) {
                 $input = [
@@ -342,10 +340,9 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('old_location_id'),
-                    'origin_branch' => $request->input('old_branch_id'),
-                    'destination_location' => $request->input('location_id'),
-                    'destination_branch' => $request->input('branch_id'),
+                    'product_id' => $id,
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
                 ]);
             } else {
                 $input = [
@@ -374,10 +371,9 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('old_location_id'),
-                    'origin_branch' => $request->input('old_branch_id'),
-                    'destination_location' => $request->input('location_id'),
-                    'destination_branch' => $request->input('branch_id'),
+                    'product_id' => $id,
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
                 ]);
             } elseif ($request->input('location_id') != $request->input('old_location_id')) {
                 $input = [ 
@@ -396,10 +392,9 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'origin_location' => $request->input('old_location_id'),
-                    'origin_branch' => $request->input('old_branch_id'),
-                    'destination_location' => $request->input('location_id'),
-                    'destination_branch' => $request->input('branch_id'),
+                    'product_id' => $id,
+                    'origin_location' => $request->input('location_id'),
+                    'origin_branch' => $request->input('branch_id'),
                 ]); 
             } else {
                 $input = [

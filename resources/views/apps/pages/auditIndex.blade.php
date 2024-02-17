@@ -11,7 +11,7 @@ Asset Management | Asset Audit
 	<div class="portlet box red ">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-database"></i> Audit Report Query
+				<i class="fa fa-database"></i> Asset Audit Report Query
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -44,18 +44,18 @@ Asset Management | Asset Audit
                     <div class="col-md-3">
                         <div class="form-group">
 						    <label class="control-label">Audit Branch</label>
-							<select id="branch" name="asset" class="form-control select2">
+							<select id="branch" name="branch" class="form-control select2">
 								<option></option>
 								@foreach($branches as $branch)
 								<option value="{{ $branch->name }}">{{ $branch->name}}</option>
 								@endforeach
 							</select>
-						</div>
+						</div> 
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
 						    <label class="control-label">Audit Location</label>
-							<select id="location" name="asset" class="form-control select2">
+							<select id="location" name="location" class="form-control select2">
 								<option></option>
 								@foreach($locations as $location)
 								<option value="{{ $location->location_name }}">{{ $location->location_name}}</option>

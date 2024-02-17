@@ -19,12 +19,12 @@ class ProductMovement extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
 
-    public function OriginLocations()
+    public function Locations()
     {
         return $this->belongsTo(Location::class,'origin_location');
     }
 
-    public function OriginBranch()
+    public function Branches()
     {
         return $this->belongsTo(Warehouse::class,'origin_branch');
     }

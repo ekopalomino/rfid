@@ -1,6 +1,6 @@
 @extends('apps.layouts.main')
 @section('header.title')
-Asset Management | Audit Report
+Asset Management | Asset Movement 
 @endsection
 @section('header.styles')
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -11,10 +11,10 @@ Asset Management | Audit Report
 <div class="page-content">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="portlet box green">
+            <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-database"></i>Audit Report
+                        <i class="fa fa-database"></i>Asset Movement  
                     </div>
                     <div class="tools"> </div>
                 </div>
@@ -23,34 +23,22 @@ Asset Management | Audit Report
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Tag ID</th>
-                				<th>Name</th>
-                				<th>DB Branch</th>
-                                <th>DB Location</th>
-                                <th>Audit Branch</th>
-                                <th>Audit Location</th>
-                				<th>Result</th>
-                			</tr>
+                				<th>SAP Code</th>
+                                <th>Asset Name</th>
+                                <th>Branch</th>
+                                <th>Location</th>
+                                <th>Update At</th>
+                            </tr>
                 		</thead>
-                		<tbody>
+                        <tbody>
                             @foreach($data as $key => $val)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $val->sap_code }}</td>
-                				<td>{{ $val->name }}</td>
+                				<td>{{ $val->Parent->sap_code }}</td>
+                                <td>{{ $val->Parent->name }}</td>
                                 <td>{{ $val->Branches->name }}</td>
-                                <td>{{ $val->Locations->location_name}}</td>
-                                <td>{{ $val->audit_branch}}</td>
-                                <td>{{ $val->audit_location}}</td>
-                                <td>
-                                    @if($val->Branches->name == $val->audit_branch && $val->Locations->location_name == $val->audit_location)
-                                    <label class="label label-sm label-success">Asset Match</label>
-                                    @elseif($val->Branches->name == $val->audit_branch && $val->Locations->location_name != $val->audit_location)
-                                    <label class="label label-sm label-danger">Asset Move Location In Same Branch</label>
-                                    @elseif($val->Branches->name != $val->audit_branch && $val->Locations->location_name != $val->audit_location)
-                                    <label class="label label-sm label-danger">Asset Move Branch & Location</label>
-                                    @endif
-                                </td>
+                                <td>{{ $val->Locations->location_name }}</td>
+                				<td>{{date("d F Y H:i",strtotime($val->updated_at)) }}</td>
                 			</tr>
                             @endforeach
                 		</tbody>

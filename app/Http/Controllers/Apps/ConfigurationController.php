@@ -109,7 +109,7 @@ class ConfigurationController extends Controller
     public function locationIndex()
     {
         $data = Location::orderBy('location_name','asc')->get();
-        $warehouses = Warehouse::orderBy('name','asc')->pluck('name','id')->toArray();
+        $warehouses = Warehouse::where('deleted_at',NULL)->get();
 
         return view('apps.pages.location',compact('data','warehouses')); 
     }
@@ -141,7 +141,7 @@ class ConfigurationController extends Controller
     public function locationEdit($id)
     {
         $data = Location::find($id);
-        $warehouses = Warehouse::orderBy('name','asc')->pluck('name','id')->toArray();
+        $warehouses = Warehouse::where('deleted_at',NULL)->pluck('name','id')->toArray();
 
         return view('apps.edit.location',compact('data','warehouses'))->renderSections()['content'];
     }
@@ -149,7 +149,6 @@ class ConfigurationController extends Controller
     {
         $this->validate($request, [
             'location_name' => 'required',
-            'location_detail' => 'required',
             'warehouse_id' => 'required'
         ]);
 

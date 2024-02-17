@@ -11,7 +11,7 @@ Asset Management | Asset Movement
 	<div class="portlet box red ">
 		<div class="portlet-title">
 			<div class="caption">
-				<i class="fa fa-database"></i> Movement Report Query
+				<i class="fa fa-database"></i> Asset Movement Report Query
 			</div>
 		</div>
 		<div class="portlet-body form">
@@ -25,9 +25,9 @@ Asset Management | Asset Movement
 				</ul>
 			</div>
 			@endif
-			{!! Form::open(array('route' => 'movement.process','method'=>'POST', 'class' => 'horizontal-form')) !!}
+			{!! Form::open(array('route' => 'movement.item','method'=>'POST', 'class' => 'horizontal-form')) !!}
 			@csrf
-			<div class="form-body">
+			<div class="form-body"> 
 				<div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
@@ -54,7 +54,7 @@ Asset Management | Asset Movement
 					</div>
 				</div>
 				<div class="form-actions left"> 
-					<a button type="button" class="btn default" href="{{ route('audit.index') }}">Reset</a>
+					<a button type="button" class="btn default" href="{{ route('movement.index') }}">Reset</a>
 					<button type="submit" class="btn blue">
 						<i class="fa fa-play"></i> Run
 					</button>

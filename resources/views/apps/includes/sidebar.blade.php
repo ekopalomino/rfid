@@ -26,11 +26,6 @@
                             <span class="title">Location</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ set_active(['uker.index']) }}">
-                        <a href="{{ route('uker.index') }}" class="nav-link">
-                            <span class="title">Department</span>
-                        </a>
-                    </li>
                     <li class="nav-item {{ set_active(['warehouse.index']) }}">
                         <a href="{{ route('warehouse.index') }}" class="nav-link">
                             <span class="title">Branch</span>
@@ -86,14 +81,14 @@
                 </ul>
             </li>
             @endcan
-            <li class="nav-item {{ set_active(['movement.index','audit.index','audit.process']) }}">
+            <li class="nav-item {{ set_active(['movement.index','movement.item','audit.index','audit.process']) }}">
             	<a href="javascript:;" class="nav-link nav-toggle">
             		<i class="icon-bar-chart"></i>
             		<span class="title">Reports</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                	<li class="nav-item {{ set_active(['movement.index']) }}">
+                	<li class="nav-item {{ set_active(['movement.index','movement.item']) }}">
                 		<a href="{{ route('movement.index') }}" class="nav-link ">
                             <span class="title">Asset Movement</span>
                         </a>
