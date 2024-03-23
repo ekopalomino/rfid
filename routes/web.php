@@ -59,7 +59,7 @@ Route::group(['prefix' => 'apps', 'middleware' => ['auth']], function() {
     Route::get('configuration/department/edit/{id}','Apps\ConfigurationController@ukerEdit')->name('dept.edit');
     Route::post('configuration/department/update/{id}','Apps\ConfigurationController@ukerUpdate')->name('dept.update');
     Route::post('configuration/department/delete/{id}','Apps\ConfigurationController@ukerDestroy')->name('dept.destroy');
-    Route::get('configuration/department/export','Apps\ConfigurationController@ukerExport')->name('uker.export');
+    Route::get('configuration/department/export','Apps\ConfigurationController@ukerExport')->name('dept.export');
 
     /*-----------------------End Config Management-----------------------------*/
 

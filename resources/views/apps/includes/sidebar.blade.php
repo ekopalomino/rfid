@@ -93,11 +93,13 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
+                    @can('Can Create Report')
                 	<li class="nav-item {{ set_active(['movement.index','movement.item']) }}">
                 		<a href="{{ route('movement.index') }}" class="nav-link ">
                             <span class="title">Asset Movement</span>
                         </a>
                     </li>
+                    @endcan
                     @can('Can Run Audit')
                     <li class="nav-item {{ set_active(['audit.index','audit.process']) }}">
                 		<a href="{{ route('audit.index') }}" class="nav-link ">

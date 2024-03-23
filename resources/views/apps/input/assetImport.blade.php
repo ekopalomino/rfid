@@ -74,6 +74,12 @@ Asset Management | New Asset Import
                                             <a button type="button" class="btn default red" href="{{ route('location.export') }}">Download</a>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Department Reference</label>
+                                            <div class="col-md-6">
+                                            <a button type="button" class="btn default red" href="{{ route('dept.export') }}">Download</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -23,17 +23,25 @@ class ReportController extends Controller
 
     public function movementProcess(Request $request)
     {
-        $this->validate($request, [
-            'asset' => 'required',
-        ]);
-
+        
         $start = $request->input('start_date');
         $end = $request->input('end_date');
         $item = $request->input('asset');
 
         if($start == null && $end == null) {
             $data = ProductMovement::where('product_id',$item)->get();  
-        } 
+        }elseif($item == null) {
+            $data = ProductMovement::with('parent','locations','branches')
+                                    ->where('created_at','>=',$start)
+                                    ->where('created_at','<=',$end)
+                                    ->get();
+        }else{
+            $data = ProductMovement::with('parent','locations','branches')
+                                    ->where('product_id',$item)
+                                    ->where('created_at','>=',$start)
+                                    ->where('created_at','<=',$end)
+                                    ->get();
+        }
 
         return view('apps.reports.movementItem',compact('data'));
     }

@@ -18,7 +18,6 @@ class DashboardController extends Controller
     {
         $totalAsset = Product::where('deleted_at',NULL)->count();
         $totalBundle = DB::table('products')->where('deleted_at',NULL)->count(DB::raw('DISTINCT parent_id'));
-        $totalNonBundle = Product::where('parent_id',NULL)->where('deleted_at',NULL)->count();
         $totalDeleteAsset = Product::whereNotNull('deleted_at')->count();
 
         $branches = DB::table('products')
@@ -43,6 +42,6 @@ class DashboardController extends Controller
             $category[++$key] = [$value->Category,(int)$value->Count];
         }
         
-        return view('apps.pages.dashboard',compact('totalAsset','totalBundle','totalNonBundle','totalDeleteAsset'))->with('branches',json_encode($branch))->with('categories',json_encode($category));
+        return view('apps.pages.dashboard',compact('totalAsset','totalBundle','totalDeleteAsset'))->with('branches',json_encode($branch))->with('categories',json_encode($category));
     }
 }

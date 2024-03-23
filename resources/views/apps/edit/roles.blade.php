@@ -188,7 +188,7 @@ Asset Management | Edit Role
                                         </tr>
                                         <tr>
                                             <td>4</td>
-                                            <td>Audit</td>
+                                            <td>Reports</td>
                                             <td>
                                                 <label class="mt-checkbox mt-checkbox-outline">
                                                     <input type="checkbox" value="56" name="permission[]" 
@@ -201,6 +201,15 @@ Asset Management | Edit Role
                                                 </label>
                                             </td>
                                             <td>
+                                             <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input type="checkbox" value="49" name="permission[]" 
+                                                    @foreach($roles as $rolePermissions)
+                                                        @if($rolePermissions->permission_id == '49')checked
+                                                        @endif
+                                                    @endforeach
+                                                    />
+                                                    <span></span>
+                                                </label>
                                             </td>
                                             <td>
                                             </td>

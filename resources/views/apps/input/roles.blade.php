@@ -128,7 +128,7 @@ Asset Management | Create Role
 										</tr>
 										<tr>
 											<td>4</td>
-											<td>Audit</td>
+											<td>Reports</td>
 											<td>
 												<label class="mt-checkbox mt-checkbox-outline">
 													<input type="checkbox" value="56" name="permission[]" />
@@ -136,6 +136,10 @@ Asset Management | Create Role
 												</label>
 											</td>
 											<td>
+												<label class="mt-checkbox mt-checkbox-outline">
+													<input type="checkbox" value="49" name="permission[]" />
+													<span></span>
+												</label>
 											</td>
 											<td>
 											</td>
