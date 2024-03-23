@@ -16,12 +16,13 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
     */
     public function collection()
     {
-        return Product::with('categories','branches','locations','author',)->where('deleted_at',NULL)->select('sap_code','name','category_id','branch_id',
+        return Product::with('categories','branches','locations','author',)->where('deleted_at',NULL)->select('asset_id','sap_code','name','category_id','branch_id',
         'location_id','price','specification','purchase_date','updated_at','created_by')->get();
     }
 
     public function map($product) : array {
         return [
+            $product->asset_id,
             $product->sap_code,
             $product->name,
             $product->categories->name,
@@ -40,6 +41,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
     public function headings(): array
     {
         return [
+            'Asset ID',
             'SAP Code',
             'Name',
             'Category',

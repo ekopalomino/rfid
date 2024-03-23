@@ -34,8 +34,8 @@ Asset Management | Asset Movement
                             @foreach($data as $key => $val)
                 			<tr>
                 				<td>{{ $key+1 }}</td>
-                				<td>{{ $val->Parent->sap_code }}</td>
-                                <td>{{ $val->Parent->name }}</td>
+                				<td>{{ $val->sap_code }}</td>
+                                <td>{{ $val->name }}</td>
                                 <td>{{ $val->Branches->name }}</td>
                                 <td>{{ $val->Locations->location_name }}</td>
                 				<td>{{date("d F Y H:i",strtotime($val->updated_at)) }}</td>

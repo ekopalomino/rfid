@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
+        'asset_id',
         'sap_code',
         'name',
         'category_id',
         'branch_id',
         'location_id',
+        'department_id',
         'parent_id',
         'image',
         'price',
@@ -45,6 +47,11 @@ class Product extends Model
     public function Locations()
     {
         return $this->belongsTo(Location::class,'location_id');
+    }
+
+    public function Divisions()
+    {
+        return $this->belongsTo(Division::class,'department_id');
     }
 
     public function Child()

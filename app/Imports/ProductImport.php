@@ -21,12 +21,14 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
     public function model(array $row)
     {
         $data = Product::firstOrCreate([
+            'asset_id' => bin2hex($row['sap_code']),
             'sap_code' => $row['sap_code'],
             'name' => $row['name'],
             'category_id' => $row['category_id'],
             'parent_id' => $row['parent_code'],
             'branch_id' => $row['branch_id'],
             'location_id' => $row['location_id'],
+            'department_id' => $row['department_id'],
             'created_by' => Auth()->user()->id,
         ]);
 
@@ -34,6 +36,7 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
             'product_id' => $data->id,
             'origin_branch' => $data->branch_id,
             'origin_location' => $data->location_id,
+            'origin_department' => $data->department_id,
         ]);
     }
 

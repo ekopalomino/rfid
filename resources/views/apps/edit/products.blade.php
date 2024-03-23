@@ -31,9 +31,9 @@ Agrinesia | Edit Asset
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-md-3 control-label">RFID Code</label>
+                                <label class="col-md-3 control-label">Asset ID</label>
                                 <div class="col-md-6">
-                                    {!! Form::text('id', null, array('placeholder' => 'SAP Code','class' => 'form-control','disabled')) !!}
+                                    {!! Form::text('asset_id', null, array('placeholder' => 'Asset ID','class' => 'form-control','disabled')) !!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -126,6 +126,18 @@ Agrinesia | Edit Asset
                                                     @endforeach
 							                    </select>
                                                 {{ Form::hidden('old_location_id', $data->location_id) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Department *</label>
+                                            <div class="col-md-6">
+                                                <select id="department_id" name="department_id" class="form-control select2">
+                                                    <option></option>
+                                                    @foreach($departments as $dept)
+                                                    <option value="{{$dept->id}}" @if($data->department_id === $dept->id) selected="selected" @endif>{{ $dept->name}}</option>
+                                                    @endforeach
+							                    </select>
+                                                {{ Form::hidden('old_dept_id', $data->department_id) }}
                                             </div>
                                         </div>
                                     </div>

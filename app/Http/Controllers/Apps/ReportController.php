@@ -10,6 +10,7 @@ use iteos\Models\Location;
 use iteos\Models\Warehouse;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use DB;
 
 class ReportController extends Controller
 {
@@ -32,7 +33,7 @@ class ReportController extends Controller
 
         if($start == null && $end == null) {
             $data = ProductMovement::where('product_id',$item)->get();  
-        }
+        } 
 
         return view('apps.reports.movementItem',compact('data'));
     }

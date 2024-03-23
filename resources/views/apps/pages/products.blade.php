@@ -63,11 +63,13 @@ Asset Management | Asset Database
                 		<thead>
                 			<tr>
                                 <th>No</th>
+                                <th>Asset ID</th>
                                 <th>SAP Code</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Branch</th>
                                 <th>Location</th>
+                                <th>Department</th>
                                 <th>Doc User</th>
                 				<th>Doc Date</th>
                 				<th></th>
@@ -101,11 +103,13 @@ Asset Management | Asset Database
              ajax: "{{ route('product.table') }}",
              columns: [
                 { data: 'id' },
+                { data: 'asset_id' },
                 { data: 'sap_code' },
                 { data: 'name' },
                 {data: 'categories', name: 'category_id'},
                 {data: 'branches', name: 'branch_id'},
                 {data: 'locations', name: 'location_id'},
+                {data: 'divisions', name: 'department_id'},
                 {data: 'author', name: 'created_by'},
                 {data: 'created_at', name: 'created_at'},
                 { data: 'action' },

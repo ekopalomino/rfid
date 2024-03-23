@@ -10,8 +10,10 @@ class ProductMovement extends Model
         'product_id',
         'origin_location',
         'origin_branch',
+        'origin_department',
         'destination_location',
-        'destination_branch'
+        'destination_branch',
+        'destination_dept',
     ];
 
     public function Parent()
@@ -29,6 +31,11 @@ class ProductMovement extends Model
         return $this->belongsTo(Warehouse::class,'origin_branch');
     }
 
+    public function Departments()
+    {
+        return $this->belongsTo(Division::class,'origin_department');
+    }
+
     public function DestLocations()
     {
         return $this->belongsTo(Location::class,'destination_location');
@@ -37,5 +44,10 @@ class ProductMovement extends Model
     public function DestBranch()
     {
         return $this->belongsTo(Warehouse::class,'destination_branch');
+    }
+
+    public function DestDept()
+    {
+        return $this->belongsTo(Division::class,'destination_dept');
     }
 }

@@ -208,7 +208,7 @@ class ConfigurationController extends Controller
             'name' => $request->input('name'),
             'created_by' => auth()->user()->id,
         ];
-
+        
         $data = Division::create($input);
         $log = 'Department '.($data->name).' Created';
          \LogActivity::addToLog($log);
@@ -217,7 +217,7 @@ class ConfigurationController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('uker.index')->with($notification);  
+        return redirect()->route('dept.index')->with($notification);  
     }
 
     public function ukerEdit($id)
@@ -244,7 +244,7 @@ class ConfigurationController extends Controller
         );
         $data->update($input);
 
-        return redirect()->route('uker.index')->with($notification);
+        return redirect()->route('dept.index')->with($notification);
     }
 
     public function ukerDestroy($id)
@@ -261,7 +261,7 @@ class ConfigurationController extends Controller
             'alert-type' => 'success'
         );
         $data->update($destroy);
-        return redirect()->route('uker.index')->with($notification);
+        return redirect()->route('dept.index')->with($notification);
     }
 
     public function ukerExport()

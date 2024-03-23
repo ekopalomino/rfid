@@ -116,7 +116,7 @@ class ProductManagementController extends Controller
     public function getProductTable(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::with('Author','Categories','Branches','Locations')->where('deleted_at',NULL);
+            $data = Product::with('Author','Categories','Branches','Locations','Divisions')->where('deleted_at',NULL);
 
             return Datatables::eloquent($data)
                 ->addIndexColumn()
@@ -128,6 +128,9 @@ class ProductManagementController extends Controller
                 })
                 ->addColumn('locations',function(Product $product){
                     return $product->locations->location_name;
+                })
+                ->addColumn('divisions',function(Product $product){
+                    return $product->divisions->name;
                 })
                 ->addColumn('statuses',function($row){
                     if($row->deleted_at == NULL){
@@ -155,7 +158,6 @@ class ProductManagementController extends Controller
                 ->make();
         }
         return view('apps.pages.products');
-        
     }
 
     public function productCreate()
@@ -164,8 +166,9 @@ class ProductManagementController extends Controller
         $locations = Location::where('deleted_at',NULL)->get();
         $branches = Warehouse::where('deleted_at',NULL)->get();
         $parents = Product::where('deleted_at',NULL)->get();
+        $departments = Division::where('deleted_at'.NULL)->get();
         
-        return view('apps.input.products',compact('categories','locations','branches','parents'));
+        return view('apps.input.products',compact('categories','locations','branches','parents','departments'));
     }
 
     public function productStore(Request $request)
@@ -191,7 +194,8 @@ class ProductManagementController extends Controller
             $uploadSuccess = $request->file('image')
             ->move($destinationPath, $filename);
 
-            $input = [ 
+            $input = [
+                'asset_id' => bin2hex($request->input('sap_code')), 
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
@@ -202,10 +206,12 @@ class ProductManagementController extends Controller
                 'specification' => $request->input('specification'),
                 'branch_id' => $request->input('branch_id'),
                 'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('dept_id'),
                 'created_by' => auth()->user()->id,
             ];
         } else {
             $input = [
+                'asset_id' => bin2hex($request->input('sap_code')),
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
@@ -215,6 +221,7 @@ class ProductManagementController extends Controller
                 'specification' => $request->input('specification'),
                 'branch_id' => $request->input('branch_id'),
                 'location_id' => $request->input('location_id'),
+                'department_id' => $request->input('dept_id'),
                 'created_by' => auth()->user()->id,
             ];
         }
@@ -233,9 +240,7 @@ class ProductManagementController extends Controller
 
     public function downloadProduct()
     {
-        return Excel::download( new ProductExport(), 'asset.csv',\Maatwebsite\Excel\Excel::CSV, [
-            'Content-Type' => 'text/csv',
-        ]) ;
+        return Excel::download( new ProductExport(), 'asset.xls') ;
     }
 
     public function importTemplate()
@@ -280,10 +285,11 @@ class ProductManagementController extends Controller
         $data = Product::find($id);
         $categories = ProductCategory::where('deleted_at',NULL)->get();
         $locations = Location::where('deleted_at',NULL)->get();
+        $departments = Division::where('deleted_at',NULL)->get();
         $branches = Warehouse::where('deleted_at',NULL)->get();
         $parents = Product::where('deleted_at',NULL)->get();
         
-        return view('apps.edit.products',compact('data','categories','locations','branches','parents'));
+        return view('apps.edit.products',compact('data','categories','locations','branches','departments','parents'));
     }
 
     public function productUpdate(Request $request,$id)
@@ -306,14 +312,14 @@ class ProductManagementController extends Controller
             ->move($destinationPath, $filename);
             
             if ($request->input('location_id') != $request->input('old_location_id')) {
-                $input = [ 
+                $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')), 
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
                     'parent_id' => $request->input('parent_id'),
                     'price' => $request->input('price'),
                     'purchase_date' => $request->input('purchase_date'),
-                    'image' => $filename,
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
                     'location_id' => $request->input('location_id'),
@@ -324,9 +330,11 @@ class ProductManagementController extends Controller
                     'product_id' => $id,
                     'origin_location' => $request->input('location_id'),
                     'origin_branch' => $request->input('branch_id'),
+                    'origin_department' => $request->input('department_id'),
                 ]);
             } elseif ($request->input('branch_id') != $request->input('old_branch_id')) {
                 $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -340,12 +348,13 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'product_id' => $id,
                     'origin_location' => $request->input('location_id'),
                     'origin_branch' => $request->input('branch_id'),
+                    'origin_department' => $request->input('department_id'),
                 ]);
             } else {
                 $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -358,6 +367,7 @@ class ProductManagementController extends Controller
         } else {
             if ($request->input('branch_id') != $request->input('old_branch_id')) {
                 $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
@@ -371,19 +381,19 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'product_id' => $id,
                     'origin_location' => $request->input('location_id'),
                     'origin_branch' => $request->input('branch_id'),
+                    'origin_department' => $request->input('department_id'),
                 ]);
             } elseif ($request->input('location_id') != $request->input('old_location_id')) {
-                $input = [ 
+                $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')), 
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),
                     'parent_id' => $request->input('parent_id'),
                     'price' => $request->input('price'),
                     'purchase_date' => $request->input('purchase_date'),
-                    'image' => $filename,
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
                     'location_id' => $request->input('location_id'),
@@ -392,12 +402,13 @@ class ProductManagementController extends Controller
 
                 $movements = ProductMovement::create([
                     'product_id' => $id,
-                    'product_id' => $id,
                     'origin_location' => $request->input('location_id'),
                     'origin_branch' => $request->input('branch_id'),
+                    'origin_department' => $request->input('department_id'),
                 ]); 
             } else {
                 $input = [
+                    'asset_id' => bin2hex($request->input('sap_code')),
                     'sap_code' => $request->input('sap_code'),
                     'name' => $request->input('name'),
                     'category_id' => $request->input('category_id'),

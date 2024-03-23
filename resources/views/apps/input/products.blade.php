@@ -120,6 +120,17 @@ Agrinesia | New Asset
 							                    </select>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Department *</label>
+                                            <div class="col-md-6">
+                                                <select id="dept_id" name="dept_id" class="form-control select2">
+                                                    <option></option>
+                                                    @foreach($departments as $dept)
+                                                    <option value="{{ $dept->id }}">{{ $dept->name}}</option>
+                                                    @endforeach
+							                    </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

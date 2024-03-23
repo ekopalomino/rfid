@@ -43,7 +43,7 @@ Asset Management | Department
                         <div class="modal fade" id="basic" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    {!! Form::open(array('route' => 'uker.store','method'=>'POST')) !!}
+                                    {!! Form::open(array('route' => 'dept.store','method'=>'POST')) !!}
                                     @csrf
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -98,7 +98,7 @@ Asset Management | Department
                                     <a class="btn btn-xs btn-success modalMd" href="#" value="{{ action('Apps\ConfigurationController@ukerEdit',['id'=>$wc->id]) }}" title="Edit Data" data-toggle="modal" data-target="#modalMd"><i class="fa fa-edit"></i></a>
                                     @endcan
                                     @can('Can Delete Data')
-                                    {!! Form::open(['method' => 'POST','route' => ['uker.destroy', $wc->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
+                                    {!! Form::open(['method' => 'POST','route' => ['dept.destroy', $wc->id],'style'=>'display:inline','onsubmit' => 'return ConfirmDelete()']) !!}
                                     {!! Form::button('<i class="fa fa-trash"></i>',['type'=>'submit','class' => 'btn btn-xs btn-danger','title'=>'Delete Data']) !!}
                                     {!! Form::close() !!}
                                     @endcan
