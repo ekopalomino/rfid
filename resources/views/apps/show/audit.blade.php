@@ -23,7 +23,7 @@ Asset Management | Audit Report
                 		<thead>
                 			<tr>
                                 <th>No</th>
-                				<th>Tag ID</th>
+                				<th>SAP Code</th>
                 				<th>Name</th>
                 				<th>DB Branch</th>
                                 <th>DB Location</th>
