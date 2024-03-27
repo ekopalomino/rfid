@@ -22,7 +22,7 @@ class AuditController extends BaseController
                 ['audit_branch' => $data('branch'),'audit_location' => $data('location')]
             ); */
             $validator = Validator::make($data, [
-                'sap_code' => 'required',
+                'product_id' => 'required',
                 'branch' => 'required',
                 'location' => 'required'
             ]);
@@ -33,7 +33,7 @@ class AuditController extends BaseController
 
             $audit = TagDeviceAudit::firstOrCreate([
                 'push_id' => $ids,
-                'sap_code' => $data['sap_code'],
+                'sap_code' => $data['product_id'],
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
             ]);
