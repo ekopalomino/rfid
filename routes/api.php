@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'API\RegisterController@register');
 Route::post('login', 'API\RegisterController@login');
 
-Route::middleware('auth:api')->group( function () {
+Route::middleware('auth:api','log.route')->group( function () {
     Route::get('asset','API\AssetController@index');
     Route::get('asset/branch','API\AssetController@getBranch');
     Route::get('asset/location','API\AssetController@getLocation');
