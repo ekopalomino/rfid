@@ -13,13 +13,19 @@
     @endif 
 	<div class="row">
 		<div class="col-md-12">
-			{!! Form::model($data, ['method' => 'POST','route' => ['uker.update', $data->id]]) !!}
+			{!! Form::model($data, ['method' => 'POST','route' => ['dept.update', $data->id]]) !!}
             @csrf
             <div class="row">
             	<div class="col-md-12">
                 	<div class="form-group">
                 		<label class="control-label">Department Name</label>
                 		{!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                	</div>
+                </div>
+                <div class="col-md-12">
+                	<div class="form-group">
+                		<label class="control-label">Department Prefix</label>
+                		{!! Form::text('prefix', null, array('placeholder' => 'Prefix','class' => 'form-control')) !!}
                 	</div>
                 </div>
             </div>

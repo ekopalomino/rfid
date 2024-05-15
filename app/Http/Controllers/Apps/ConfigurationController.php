@@ -202,10 +202,12 @@ class ConfigurationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:divisions,name',
+            'prefix' => 'required|unique:divisions,prefix',
         ]);
 
         $input = [
             'name' => $request->input('name'),
+            'prefix' => $request->input('prefix'),
             'created_by' => auth()->user()->id,
         ];
         

@@ -17,11 +17,12 @@ class DivisionExport implements FromCollection, WithHeadings, ShouldAutoSize
         return [
             'id',
             'Department Name',
+            'Prefix'
         ];
     }
 
     public function collection()
     {
-        return Division::where('deleted_at',NULL)->select('id','name')->get();
+        return Division::where('deleted_at',NULL)->select('id','name','prefix')->get();
     }
 }

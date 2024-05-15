@@ -8,6 +8,7 @@ class Division extends Model
 {
     protected $fillable = [
         'name',
+        'prefix',
         'created_by',
         'updated_by',
         'deleted_at'

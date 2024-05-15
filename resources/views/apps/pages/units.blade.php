@@ -57,6 +57,12 @@ Asset Management | Department
                                                     {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Department Prefix</label>
+                                                    {!! Form::text('prefix', null, array('placeholder' => 'Prefix','class' => 'form-control')) !!}
+                                                </div>
+                                            </div>
                                         </div>  
                                     </div>
                                     <div class="modal-footer">
@@ -73,6 +79,7 @@ Asset Management | Department
                 			<tr>
                                 <th>No</th>
                 				<th>Department</th>
+                                <th>Prefix</th>
                                 <th>Created By</th>
                                 <th>Status</th>
                 				<th>Date of Change</th>
@@ -84,6 +91,7 @@ Asset Management | Department
                 			<tr>
                 				<td>{{ $key+1 }}</td>
                 				<td>{{ $wc->name }}</td>
+                                <td>{{ $wc->prefix }}</td>
                                 <td>{{ $wc->Author->name}}</td>
                                 <td>
                                     @if(!empty($wc->deleted_at))
