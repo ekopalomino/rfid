@@ -31,11 +31,11 @@ Asset Management | Asset Movement
 				<div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
-						    <label class="control-label">Asset Name</label>
+						    <label class="control-label">SAP Code</label>
 							<select id="asset" name="asset" class="form-control select2">
 								<option></option>
 								@foreach($products as $product)
-								<option value="{{ $product->id }}">{{ $product->name}}</option>
+								<option value="{{ $product->id }}">{{ $product->sap_code}} - {{$product->name}}</option>
 								@endforeach
 							</select>
 						</div>
