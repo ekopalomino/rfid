@@ -30,10 +30,11 @@ class AuditController extends BaseController
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors());       
             }
+            
 
             $audit = TagDeviceAudit::firstOrCreate([
                 'push_id' => $ids,
-                'sap_code' => $data['product_id'],
+                'sap_code' => rtrim($data['product_id'],"00"),
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
             ]);
