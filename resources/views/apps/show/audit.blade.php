@@ -45,10 +45,8 @@ Asset Management | Audit Report
                                 <td>
                                     @if($val->Branches->name == $val->audit_branch && $val->Locations->location_name == $val->audit_location)
                                     <label class="label label-sm label-success">Asset Match</label>
-                                    @elseif($val->Branches->name == $val->audit_branch && $val->Locations->location_name != $val->audit_location)
-                                    <label class="label label-sm label-danger">Asset Move Location In Same Branch</label>
-                                    @elseif($val->Branches->name != $val->audit_branch && $val->Locations->location_name != $val->audit_location)
-                                    <label class="label label-sm label-danger">Asset Move Branch & Location</label>
+                                    @else
+                                    <label class="label label-sm label-danger">Invalid Asset Movement</label>
                                     @endif
                                 </td>
                 			</tr>
