@@ -46,7 +46,7 @@ class Product extends Model
 
     public function Locations()
     {
-        return $this->belongsTo(Location::class,'location_id','sap_id');
+        return $this->belongsTo(Location::class,'sap_id','location_id');
     }
 
     public function Divisions()
