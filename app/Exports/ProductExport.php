@@ -27,7 +27,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
             $product->name,
             $product->categories->name,
             $product->branches->name,
-            $product->locations->sap_id,
+            $product->locations->location_name,
             $product->price,
             $product->specification,
             Carbon::parse($product->purchase_date)->toFormattedDateString(),
