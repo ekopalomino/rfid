@@ -30,4 +30,9 @@ class Location extends Model
     {
         return $this->belongsTo(User::class,'updated_by');
     }
+
+    public function Products()
+    {
+        return $this->hasMany(Product::class,'sap_id','location_id');
+    }
 }
