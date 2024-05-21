@@ -261,11 +261,11 @@ class ProductManagementController extends Controller
         ]);
         $data = new ProductImport();
         Excel::import($data, $request->file('asset'));
-        $rows = $import->getRowCount();
-        $log = ''.($data).' Successfully Uploaded';
+        $rows = $data->getRowCount();
+        $log = ''.($rows).' Successfully Uploaded';
          \LogActivity::addToLog($log);
         $notification = array (
-            'message' => ''.($data).' Successfully Uploaded',
+            'message' => ''.($rows).' Successfully Uploaded',
             'alert-type' => 'success'
         );
 
