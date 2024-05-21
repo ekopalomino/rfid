@@ -46,7 +46,7 @@ class Product extends Model
 
     public function Locations()
     {
-        return $this->hasOne(Location::class,'sap_id','location_id');
+        return $this->hasOne(Location::class,'sap_id');
     }
 
     public function Divisions()
