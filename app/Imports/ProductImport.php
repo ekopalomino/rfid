@@ -53,7 +53,7 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
 
     public function limit(): int
     {
-        return 1000; 
+        return 500; 
     }
 
 }
