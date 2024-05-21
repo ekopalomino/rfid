@@ -10,9 +10,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithLimit;
 
-class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, WithLimit
+
+class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
 {
     /**
     * @param array $row
@@ -55,11 +55,7 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
         return 500;
     }
 
-    public function limit(): int
-    {
-        return 500; 
-    }
-
+    
     public function getRowCount(): int
     {
         return $this->rows;
