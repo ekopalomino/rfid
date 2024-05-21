@@ -108,7 +108,7 @@ Asset Management | Asset Database
                 { data: 'name' },
                 {data: 'categories', name: 'category_id'},
                 {data: 'branches', name: 'branch_id'},
-                {data: 'locations', name: 'sap_id'},
+                {data: 'locations', name: 'location_id'},
                 {data: 'divisions', name: 'department_id'},
                 {data: 'author', name: 'created_by'},
                 {data: 'created_at', name: 'created_at'},
