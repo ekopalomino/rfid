@@ -15,13 +15,13 @@ class LocationExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function headings(): array
     {
         return [
-            'id',
+            'sap_id',
             'Location Name',
         ];
     }
 
     public function collection()
     {
-        return Location::where('deleted_at',NULL)->select('id','location_name')->get();
+        return Location::where('deleted_at',NULL)->select('sap_id','location_name')->get();
     }
 }

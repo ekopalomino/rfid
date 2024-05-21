@@ -17,6 +17,10 @@
             @csrf
             <div class="row">
             	<div class="col-md-12">
+                    <div class="form-group">
+                		<label class="control-label">SAP ID</label>
+                		{!! Form::number('sap_id', null, array('placeholder' => 'SAP ID','class' => 'form-control')) !!}
+                	</div>
                 	<div class="form-group">
                 		<label class="control-label">Branch Name</label>
                 		{!! Form::select('warehouse_id', $warehouses,old('warehouse_id'), array('class' => 'form-control')) !!}

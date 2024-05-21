@@ -28,7 +28,7 @@ class ConfigurationController extends Controller
 
     public function warehouseIndex()
     {
-        $data = Warehouse::orderBy('name','asc')->get();
+        $data = Warehouse::orderBy('id','asc')->get();
 
         return view('apps.pages.warehouse',compact('data'));
     }
@@ -108,7 +108,7 @@ class ConfigurationController extends Controller
 
     public function locationIndex()
     {
-        $data = Location::orderBy('location_name','asc')->get();
+        $data = Location::orderBy('id','asc')->get();
         $warehouses = Warehouse::where('deleted_at',NULL)->get();
 
         return view('apps.pages.location',compact('data','warehouses')); 
@@ -117,11 +117,13 @@ class ConfigurationController extends Controller
     public function locationStore(Request $request)
     {
         $this->validate($request, [
+            'sap_code' => 'required|unique:locations,sap_id',
             'location_name' => 'required|unique:locations,location_name',
             'warehouse_id' => 'required'
         ]);
 
         $input = [
+            'sap_id' => $request->input('sap_id'),
             'location_name' => $request->input('location_name'),
             'warehouse_id' => $request->input('warehouse_id'),
             'location_detail' => $request->input('location_detail'),
@@ -148,11 +150,13 @@ class ConfigurationController extends Controller
     public function locationUpdate(Request $request,$id)
     {
         $this->validate($request, [
+            'sap_id' => 'required',
             'location_name' => 'required',
             'warehouse_id' => 'required'
         ]);
 
         $input = [
+            'sap_id' => $request->input('sap_id'),
             'location_name' => $request->input('location_name'),
             'warehouse_id' => $request->input('warehouse_id'),
             'location_detail' => $request->input('location_detail'),
@@ -194,7 +198,7 @@ class ConfigurationController extends Controller
 
     public function ukerIndex()
     {
-        $units = Division::orderBy('name','ASC')->get();
+        $units = Division::orderBy('id','ASC')->get();
         return view('apps.pages.units',compact('units'));
     }
 

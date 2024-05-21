@@ -50,6 +50,12 @@ Asset Management | Location
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
+                                        <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">SAP ID</label>
+                                                    {!! Form::number('sap_id', null, array('placeholder' => 'SAP ID','class' => 'form-control')) !!}
+                                                </div>
+                                            </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="control-label">Branch Name</label>
@@ -82,6 +88,7 @@ Asset Management | Location
                 		<thead>
                 			<tr>
                                 <th>No</th>
+                                <th>SAP ID</th>
                 				<th>Branch</th>
                                 <th>Location</th>
                                 <th>Created By</th>
@@ -91,9 +98,10 @@ Asset Management | Location
                 			</tr>
                 		</thead>
                 		<tbody>
-                            @foreach($data as $key => $val)
+                            @foreach($data as $key => $val) 
                 			<tr>
                 				<td>{{ $key+1 }}</td>
+                                <td>{{ $val->sap_id }}</td>
                 				<td>{{ $val->Warehouses->name }}</td>
                                 <td>{{ $val->location_name }}</td>
                                 <td>{{ $val->Author->name }}</td>
@@ -127,6 +135,10 @@ Asset Management | Location
 @endsection
 @section('footer.plugins')
 <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/scripts/datatable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
 @endsection
 @section('footer.scripts')
 <script src="{{ asset('assets/pages/scripts/components-select2.min.js') }}" type="text/javascript"></script>

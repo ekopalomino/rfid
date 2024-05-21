@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     protected $fillable = [
+        'sap_id',
         'warehouse_id',
         'location_name',
         'location_detail',
