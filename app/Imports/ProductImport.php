@@ -56,4 +56,9 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
         return 500; 
     }
 
+    public function getRowCount(): int
+    {
+        return $this->rows;
+    }
+
 }
