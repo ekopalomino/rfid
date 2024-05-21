@@ -117,7 +117,7 @@ class ConfigurationController extends Controller
     public function locationStore(Request $request)
     {
         $this->validate($request, [
-            'sap_code' => 'required|unique:locations,sap_id',
+            'sap_id' => 'required|unique:locations,sap_id',
             'location_name' => 'required|unique:locations,location_name',
             'warehouse_id' => 'required'
         ]);
