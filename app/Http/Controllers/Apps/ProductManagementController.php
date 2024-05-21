@@ -35,7 +35,7 @@ class ProductManagementController extends Controller
 
     public function categoryIndex()
     {
-        $data = ProductCategory::orderBy('name','asc')->get();
+        $data = ProductCategory::orderBy('id','asc')->get();
 
         return view('apps.pages.productCategory',compact('data'));
     }
