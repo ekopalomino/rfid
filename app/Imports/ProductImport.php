@@ -19,6 +19,9 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+
+    private $rows = 0;
+    
     public function model(array $row)
     {
         $data = Product::firstOrCreate([
