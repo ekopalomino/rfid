@@ -7,9 +7,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 
-class ProductExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
+class ProductExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, ShouldQueue
 {
     /**
     * @return \Illuminate\Support\Collection
