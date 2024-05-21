@@ -33,6 +33,6 @@ class Location extends Model
 
     public function Products()
     {
-        return $this->hasMany(Product::class,'sap_id','location_id');
+        return $this->hasMany(Product::class,'location_id','sap_id');
     }
 }
