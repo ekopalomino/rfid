@@ -260,7 +260,7 @@ class ProductManagementController extends Controller
             'asset' => 'required|file|mimes:xlsx,xls,XLSX,XLS'
         ]);
         $data = new ProductImport();
-        Excel::import($data, $request->file('asset'));
+        Excel::queueImport($data, $request->file('asset'));
 
         $log = 'File Successfully Uploaded';
          \LogActivity::addToLog($log);

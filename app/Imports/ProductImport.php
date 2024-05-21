@@ -8,10 +8,10 @@ use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts
+class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, ShouldQueue
 {
     /**
     * @param array $row
@@ -41,11 +41,6 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
     }
 
     public function chunkSize(): int
-    {
-        return 50;
-    }
-
-    public function batchSize(): int
     {
         return 50;
     }
