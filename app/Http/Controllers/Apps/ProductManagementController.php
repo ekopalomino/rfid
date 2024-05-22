@@ -163,7 +163,7 @@ class ProductManagementController extends Controller
     public function productCreate()
     {
         $categories = ProductCategory::where('deleted_at',NULL)->get();
-        $locations = Location::where('deleted_at',NULL)->get();
+        $locations = Location::where('deleted_at',NULL)->where('sap_id','!=','1')->where('sap_id','!=','2')->where('sap_id','!=','3')->get();
         $branches = Warehouse::where('deleted_at',NULL)->get();
         $parents = Product::where('deleted_at',NULL)->get();
         $departments = Division::where('deleted_at'.NULL)->get();
