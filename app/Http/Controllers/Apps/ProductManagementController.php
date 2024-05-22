@@ -222,7 +222,7 @@ class ProductManagementController extends Controller
                 'specification' => $request->input('specification'),
                 'branch_id' => $request->input('branch_id'),
                 'location_id' => $request->input('location_id'),
-                'department_id' => $request->input('dept_id'),
+                'department_id' => $request->input('department_id'),
                 'created_by' => auth()->user()->id,
             ];
         }
@@ -323,6 +323,7 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
+                    'department_id' => $request->input('department_id'),
                     'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
@@ -343,6 +344,7 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
+                    'department_id' => $request->input('department_id'),
                     'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
@@ -376,6 +378,7 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
+                    'department_id' => $request->input('department_id'),
                     'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
@@ -397,6 +400,7 @@ class ProductManagementController extends Controller
                     'purchase_date' => $request->input('purchase_date'),
                     'specification' => $request->input('specification'),
                     'branch_id' => $request->input('branch_id'),
+                    'department_id' => $request->input('department_id'),
                     'location_id' => $request->input('location_id'),
                     'updated_by' => auth()->user()->id,
                 ];
