@@ -108,7 +108,7 @@ class ConfigurationController extends Controller
 
     public function locationIndex()
     {
-        $data = Location::where('sap_id','!=','1')->where('sap_id','2')->where('sap_id','3')->orderBy('id','asc')->get();
+        $data = Location::where('sap_id','!=','1')->where('sap_id','!=','2')->where('sap_id','!=','3')->orderBy('id','asc')->get();
         $warehouses = Warehouse::where('deleted_at',NULL)->get();
 
         return view('apps.pages.location',compact('data','warehouses')); 
