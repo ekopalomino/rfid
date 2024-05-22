@@ -26,8 +26,8 @@ class ProductImport implements ToModel, WithHeadingRow, WithChunkReading, WithBa
     {
         ++$this->rows;
         $data = Product::firstOrCreate([
-            'asset_id' => bin2hex($row['sap_code']),
             'sap_code' => $row['sap_code'],
+            'asset_id' => bin2hex($row['sap_code']),
             'name' => $row['name'],
             'category_id' => $row['category_id'],
             'parent_id' => $row['parent_code'],
