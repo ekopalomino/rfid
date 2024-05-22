@@ -129,7 +129,7 @@ class AssetController extends BaseController
 
     public function getLocation()
     {
-        $data = Location::where('deleted_at',NULL)->select('location_name')->get();
+        $data = Location::where('deleted_at',NULL)->select('location_name')->orderBy('sap_id','asc')->get();
 
         return $data;
     }
