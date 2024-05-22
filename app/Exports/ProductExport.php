@@ -17,7 +17,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
     */
     public function collection()
     {
-        return Product::with('categories','branches','locations','author',)->where('deleted_at',NULL)->select('asset_id','sap_code','name','category_id','branch_id',
+        return Product::with('categories','branches','divisions','locations','author',)->where('deleted_at',NULL)->select('asset_id','sap_code','name','category_id','branch_id','department_id',
         'location_id','price','specification','purchase_date','updated_at','created_by')->get();
     }
 
@@ -28,6 +28,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
             $product->name,
             $product->categories->name,
             $product->branches->name,
+            $product->divisions->name,
             $product->locations->location_name,
             $product->price,
             $product->specification,
@@ -47,6 +48,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
             'Name',
             'Category',
             'Branch',
+            'Department',
             'Location',
             'Price',
             'Specification',
