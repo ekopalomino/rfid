@@ -180,6 +180,7 @@ class ProductManagementController extends Controller
             'specification' => 'required',
             'image' => 'nullable|file|image',
             'branch_id' => 'required',
+            'department_id' => 'required',
             'location_id' => 'required',
         ]);
 

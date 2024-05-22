@@ -122,7 +122,7 @@ Agrinesia | Edit Asset
                                                 <select id="location_id" name="location_id" class="form-control select2">
                                                     <option></option>
                                                     @foreach($locations as $location)
-                                                    <option value="{{$location->id}}" @if($data->location_id === $location->id) selected="selected" @endif>{{ $location->location_name}}</option>
+                                                    <option value="{{$location->sap_id}}" @if($data->location_id === $location->sap_id) selected="selected" @endif>{{ $location->location_name}}</option>
                                                     @endforeach
 							                    </select>
                                                 {{ Form::hidden('old_location_id', $data->location_id) }}

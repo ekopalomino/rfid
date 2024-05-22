@@ -115,7 +115,7 @@ Agrinesia | New Asset
                                                 <select id="location_id" name="location_id" class="form-control select2">
                                                     <option></option>
                                                     @foreach($locations as $location)
-                                                    <option value="{{ $location->id }}">{{ $location->location_name}}</option>
+                                                    <option value="{{ $location->sap_id }}">{{ $location->location_name}}</option>
                                                     @endforeach
 							                    </select>
                                             </div>
