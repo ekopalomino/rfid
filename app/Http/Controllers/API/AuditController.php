@@ -34,7 +34,8 @@ class AuditController extends BaseController
 
             $audit = TagDeviceAudit::firstOrCreate([
                 'push_id' => $ids,
-                'sap_code' => rtrim($data['product_id'],"00"),
+                /*'sap_code' => rtrim($data['product_id'],"00"),*/
+                'sap_code' => $data['product_id'],
                 'audit_branch' => $data['branch'],
                 'audit_location' => $data['location']
             ]);
