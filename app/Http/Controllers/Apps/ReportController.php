@@ -72,7 +72,7 @@ class ReportController extends Controller
                             ->select('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
                             ->groupBy('products.sap_code','products.name','products.branch_id','products.location_id','tag_device_audits.audit_branch','tag_device_audits.audit_location')
                             ->get();
-                    
+                    dd($data);
             return view('apps.show.audit',compact('data'));
         } elseif ($branch == null) {
             $data = Product::with('branches','locations')

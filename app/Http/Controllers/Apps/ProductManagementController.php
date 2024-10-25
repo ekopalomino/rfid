@@ -184,6 +184,15 @@ class ProductManagementController extends Controller
             'location_id' => 'required',
         ]);
 
+        $convertion = bin2hex($request->input('sap_code'));
+        $checksum = strlen($convertion);
+        if ($checksum < 16) {
+            $convertion = str_pad($convertion, 16, '0');
+        }
+
+        // Return or use the padded string as needed
+        //return $convertion;
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $file_name = $file->getClientOriginalName();
@@ -196,7 +205,7 @@ class ProductManagementController extends Controller
             ->move($destinationPath, $filename);
 
             $input = [
-                'asset_id' => bin2hex($request->input('sap_code')), 
+                'asset_id' => $convertion, 
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
@@ -212,7 +221,7 @@ class ProductManagementController extends Controller
             ];
         } else {
             $input = [
-                'asset_id' => bin2hex($request->input('sap_code')),
+                'asset_id' => $convertion,
                 'sap_code' => $request->input('sap_code'),
                 'name' => $request->input('name'),
                 'category_id' => $request->input('category_id'),
