@@ -8,9 +8,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Carbon\Carbon;
 
-class ProductExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, ShouldQueue
+class ProductExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, ShouldQueue, WithColumnFormatting
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -23,7 +25,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
 
     public function map($product) : array {
         return [
-            $product->asset_id,
+            "'".$product->asset_id,
             $product->sap_code,
             $product->name,
             $product->categories->name,
@@ -55,6 +57,13 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
             'Purchase Date',
             'Last Update',
             'Created By'
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_NUMBER // Set column A to text format
         ];
     }
 
