@@ -63,7 +63,7 @@ class ProductExport implements FromCollection, WithHeadings, WithMapping, Should
     public function columnFormats(): array
     {
         return [
-            'A' => NumberFormat::FORMAT_NUMBER // Set column A to text format
+            'A' => NumberFormat::FORMAT_TEXT // Set column A to text format
         ];
     }
 
