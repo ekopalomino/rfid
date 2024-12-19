@@ -188,6 +188,8 @@ class ProductManagementController extends Controller
         $checksum = strlen($convertion);
         if ($checksum < 16) {
             $convertion = str_pad($convertion, 16, '0');
+        } elseif ($checksum == 18) {
+            $convertion = str_pad($convertion, 20, '0');
         }
 
         // Return or use the padded string as needed
